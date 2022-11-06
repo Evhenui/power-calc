@@ -5,7 +5,8 @@
     <Menu />
     <main class="site-main">
       <!-- <Nuxt /> -->
-      <Checkout />
+      <!-- <Checkout /> -->
+      <power-calculator></power-calculator>
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -21,7 +22,7 @@ import SvgSprite from "@shared/components/svg/SvgSprite.vue";
 import Menu from "@components/common/header/menu/Menu.vue";
 import PopUpCart from "@components/popup/PopUpCart.vue";
 import Checkout from "@components/checkout/Checkout.vue";
-
+import PowerCalculator from "@components/calculator/PowerCalculator.vue"
 @Component({
   components: {
     PopUpCart,
@@ -31,6 +32,7 @@ import Checkout from "@components/checkout/Checkout.vue";
     Header,
     Home,
     Checkout,
+    PowerCalculator
   },
 })
 export default class IndexPageComponent extends Vue {
