@@ -38,6 +38,7 @@ export default class PowerCalcHeaderComponent extends Vue {}
 
         @include bigMobile {
             @include fontUnify(16, 22, 400);
+            
         }
 
     }

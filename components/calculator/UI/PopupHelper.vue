@@ -55,6 +55,7 @@ export default class PopupHelperComponent extends Vue {
     @include bigMobile {
         &.active {
             display: flex;
+
         }
     }
     &__wrapper {
@@ -67,39 +68,48 @@ export default class PopupHelperComponent extends Vue {
         width: 100%;
 
         border-radius: 8px;
+
     }
     
     &__header {
         @include flex-container(row, flex-end, null);
 
         margin-bottom: 9px;
+
     }
 
     &__close-button {
         font-size: 0;
+
     }   
 
     &__main {
         padding: 0 6px;
         @include flex-container(column, center, center);
         row-gap: 28px;
+
     }
 
     &__image-wrapper {
         font-size: 0;
+
     }
 
     &__description {
         letter-spacing: 0.02em;
         @include fontUnify(16, 22, 400);
         color: #2B2B2B;
+
     }
+
 }
 .modal-helper-transiton-enter-active, .modal-helper-transiton-leave-active {
   transition: opacity .3s;
+
 }
 .modal-helper-transiton-enter, .modal-helper-transiton-leave-to {
   opacity: 0;
+  
 }
 </style>
   

@@ -25,6 +25,7 @@ export default class TitleSectionComponent extends Vue {}
 
             @include bigMobile {
                 @include fontUnify(16, 19, 700);
+                
             }
         }
 }

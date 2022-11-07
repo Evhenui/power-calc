@@ -34,6 +34,7 @@ export default class PowerCalcRecommendationComponent extends Vue {}
 
       @include bigMobile {
         @include fontUnify(16, 19, 500);
+        
       }
 
     }
@@ -46,6 +47,7 @@ export default class PowerCalcRecommendationComponent extends Vue {}
         @include bigMobile {
           gap: 16px 15px;
           margin-bottom: 24px;
+
         }
 
     }

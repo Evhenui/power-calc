@@ -36,6 +36,7 @@ export default class InputCheckboxComponent extends Vue {
             position: absolute;
             z-index: -1;
             opacity: 0;
+
         }
 
         &__label {
@@ -66,6 +67,7 @@ export default class InputCheckboxComponent extends Vue {
             border-radius: 50%;
 
             margin-right: 16px;
+
         }
 
         &::after {
@@ -83,26 +85,32 @@ export default class InputCheckboxComponent extends Vue {
             border-radius: 50%;
 
             background-color: white;
+
         }
 
         }
 
         &__custom-checkbox:not(:disabled):not(:checked) + &__label:hover::before {
             border-color: $color-main-dark;
+
         }
 
         &__custom-checkbox:checked + &__label::before {
             border-color:$color-main;
             background-color: $color-main;
+
         }
 
         &__custom-checkbox:checked + &__label::after {
             height: 8px;
+
         }
 
         &__custom-checkbox:disabled + &__label::before {
             background-color: #e9ecef;
+
         }
+        
     }
 </style>
   

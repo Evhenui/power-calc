@@ -5,8 +5,8 @@
             class="calc-input__wrapper"
         >
             <input class="calc-input__data-input" 
-                type="text" 
-                :maxlength="maxSize"
+                :type="typeInput" 
+                :maxLength="maxSize"
                 :id="inputId"
                 :disabled="isDisable"
                 :value="value" 
@@ -40,13 +40,22 @@ export default class InputPowerComponent extends Vue {
     @Prop({required: true}) inputId: string;
     @Prop({required: false}) isDisable: boolean;
     @Prop({required: false}) errorState: boolean;
-    @Prop({required: false}) maxSize: string;
+    @Prop({required: false}) maxSize: number;
+    @Prop({required: true}) typeInput: string;
     @Prop({required: true}) value: [Number, String];
 
     cl: boolean = false;
     
     updateName(event: Event):void {
-        this.$emit("input", (event.target as HTMLInputElement).value);
+        let maxValue : string;
+
+        if((event.target as HTMLInputElement).value.length > + this.maxSize) {
+            maxValue = (event.target as HTMLInputElement).value = (event.target as HTMLInputElement).value.slice(0, + this.maxSize)
+        } else {
+            maxValue = (event.target as HTMLInputElement).value;
+        }
+
+        this.$emit("input", maxValue);
     }
 }
 </script>
@@ -58,22 +67,27 @@ export default class InputPowerComponent extends Vue {
 
         @include bigMobile {
             max-width: 343px;
+
         }
 
         &__wrapper {
             position: relative;
+
         }
 
         &__wrapper.error &__data-input {
             border-color: #EB1717;
+
         }
 
         &__wrapper.error &__units {
             border-color: #EB1717;
+
         }
 
         &__wrapper.error &__input-error {
             opacity: 1;
+
         }
 
         &__data-input {
@@ -97,10 +111,12 @@ export default class InputPowerComponent extends Vue {
                 -webkit-appearance: none;
 
                 margin: 0;
+
             }
 
             &:focus {
                 border-color: #8A8A8A;
+
             }
 
             &:disabled {
@@ -108,6 +124,7 @@ export default class InputPowerComponent extends Vue {
 
                 color: #B4B6B8;
                 cursor: auto;
+
             }
 
         }
@@ -121,12 +138,14 @@ export default class InputPowerComponent extends Vue {
             padding-top: 8px;
 
             opacity: 0;
+
         }
 
         &__error-text {
             letter-spacing: 0.02em;
             @include fontUnify(12, 16, 400);
             color: #EB1717;
+
         }
 
         &__units {
@@ -150,14 +169,18 @@ export default class InputPowerComponent extends Vue {
 
             &.active {
                 border-color: #8A8A8A;
+
             }
 
             &.disabled {
                 border-color: #F3F3F3;
 
                 color: #8A8A8A;
+
             }
+
         }
+        
     }
 </style>
   

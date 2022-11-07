@@ -33,9 +33,9 @@ export default class PowerCalcMainComponent extends Vue {}
 
       &:last-child {
         border-bottom: none;
+
       }
 		}
 }
-
 </style>
   

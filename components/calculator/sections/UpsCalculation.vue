@@ -76,6 +76,7 @@
                     <div>
                         <h3 class="calc-section__subtitle">Суммарная мощность приборов, подключаемые к ИБП:</h3>
                         <input-power 
+                            typeInput="number"
                             maxSize="6" 
                             inputId="w" 
                             v-model.number="calculationUPS.instrumentPower"
@@ -87,12 +88,14 @@
                         <h3 class="calc-section__subtitle">Необходимая мощность ИБП:</h3>
                         <div class="calc-section__general-wrapper">
                             <input-power 
+                                typeInput="text"
                                 maxSize="6"
                                 inputId="w" 
                                 v-model.number="calculationUPS.powerUPSW"
                             >W
                             </input-power>
                             <input-power 
+                                typeInput="text"
                                 maxSize="6" 
                                 inputId="va" 
                                 v-model.number="calculationUPS.powerUPSVA"
@@ -164,6 +167,7 @@ export default class UpsCalculationComponent extends Vue {
 
         &__body {
             margin-bottom: 48px;
+
         }
 
         &__form {
@@ -174,17 +178,20 @@ export default class UpsCalculationComponent extends Vue {
                 flex-direction: column;
                 gap: 49px;
                 margin-bottom: 48px;
+
             }
         }
 
         &__select {
             @include flex-container(column, null, null);
             gap: 24px;
+
         }
 
         &__checkbox {
             @include flex-container(row, null, center);
             gap: 16px;
+
         }
 
         &__inputs {
@@ -196,9 +203,11 @@ export default class UpsCalculationComponent extends Vue {
 
             @media (max-width: 1250px) {
                 max-width: 343px;
+
             }
             @include bigMobile {
                 row-gap: 32px;
+
             }
         }
 
@@ -211,9 +220,11 @@ export default class UpsCalculationComponent extends Vue {
 
             @media (max-width: 1250px) {
                 max-width: 330px;
+
             }
             @include bigMobile {
                 @include fontUnify(16, 22, 400);
+
             } 
         }
         
@@ -221,6 +232,7 @@ export default class UpsCalculationComponent extends Vue {
             @include flex-container(row, null, left);
             gap: 24px;
             flex-wrap: wrap;
+            
         }
 }
 </style>

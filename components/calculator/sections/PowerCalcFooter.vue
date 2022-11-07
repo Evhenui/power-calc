@@ -19,6 +19,7 @@ export default class PowerCalcFooterComponent extends Vue {}
 
     padding: 32px;
     margin-bottom: 136px;
+    
 }
 </style>
   

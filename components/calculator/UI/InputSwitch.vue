@@ -39,10 +39,12 @@ export default class InputSwitchComponent extends Vue {
 
             width: 56px;
             height: 32px;
+
         }
         
         &__wrapper &__input {
             display:none;
+
         }
         
         &__slider {
@@ -71,24 +73,30 @@ export default class InputSwitchComponent extends Vue {
                 border-radius: 50%;
 
                 transition: all .2s ease-in-out;
+
             }
         }
         
         &__input:checked + &__slider{
             background-color: $color-main;
+
         }
 
         &__input:checked + &__slider:active{
             background-color: $color-main-dark;
+
         }
 
         &__input + &__slider:active{
             background-color: $color-main-dark;
+
         }
         
         &__input:checked + &__slider:before {
             transform: translateX(24px);
+
         }
+        
 }
 </style>
   

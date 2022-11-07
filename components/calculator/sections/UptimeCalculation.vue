@@ -18,6 +18,7 @@
 
                   <input-power 
                     :errorState = "stateInput.load"
+                    typeInput="number"
                     maxSize="6" 
                     inputId="w" 
                     v-model.number="calculationUPSRuntime.load"
@@ -36,6 +37,7 @@
 
                   <input-power 
                     :errorState = "stateInput.inverterEfficiency"
+                    typeInput="number"
                     maxSize="6" 
                     :isDisable="!stateSwitch.switchBackupTime" 
                     inputId="persent" 
@@ -50,6 +52,7 @@
 
                   <input-power 
                     :errorState = "stateInput.ratedBatteryVoltage"
+                    typeInput="number"
                     maxSize="6" 
                     inputId="v" 
                     v-model.number="calculationUPSRuntime.ratedBatteryVoltage">V
@@ -63,6 +66,7 @@
 
                   <input-power 
                     :errorState = "stateInput.batteryCapacity"
+                    typeInput="number"
                     maxSize="6" 
                     inputId="ah" 
                     v-model.number="calculationUPSRuntime.batteryCapacity">Ah
@@ -75,7 +79,11 @@
 
             <div class="calc-section__data-input-section">
               <h3 class="calc-section__subtitle source-power result">Время работы ИБП:</h3>
-              <input-power  inputId="time" v-model.number="calculationUPSRuntimeResult">часов</input-power>
+              <input-power 
+                typeInput="text"
+                inputId="time"
+                v-model.number="calculationUPSRuntimeResult"
+                >часов</input-power>
             </div>
           </form>
 
@@ -176,6 +184,7 @@ export default class PowerCalculatorComponent extends Vue {
 
     @include bigMobile {
       margin-bottom: 48px;
+
     }
 
   }
@@ -185,6 +194,7 @@ export default class PowerCalculatorComponent extends Vue {
 
     @include bigMobile {
       margin-bottom: 48px;
+
     }
 
   }
@@ -192,6 +202,7 @@ export default class PowerCalculatorComponent extends Vue {
   &__checkbox {
     @include flex-container(row, null, center);
     column-gap: 16px;
+
   }
 
   &__data-input-section {
@@ -200,6 +211,7 @@ export default class PowerCalculatorComponent extends Vue {
 
     @include bigMobile {
       max-width: 343px;
+
     }
   }
 
@@ -213,15 +225,18 @@ export default class PowerCalculatorComponent extends Vue {
 
       @media (max-width: 1250px) {
         max-width: 330px;
+
       }
 
       @include bigMobile {
         @include fontUnify(16, 22, 400);
+
       }
 
     }
     &.result {
       margin-bottom: 24px;
+
     }
 
   }
@@ -233,6 +248,7 @@ export default class PowerCalculatorComponent extends Vue {
     
     &.switch {
       margin-bottom: 22px;
+
     }
 
   }
@@ -248,6 +264,7 @@ export default class PowerCalculatorComponent extends Vue {
     @include bigMobile {
       flex-direction: column;
       gap: 32px;
+      
     }
 
   }

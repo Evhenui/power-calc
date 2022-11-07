@@ -1,7 +1,9 @@
 <template>
      <div class="calc">
         <div class="calc__wrapper">
-            <power-calc-header>С помощью данного калькулятора можно ориентировочно рассчитать необходимую ёмкость аккумулятора для источника бесперебойного питания.</power-calc-header>
+            <power-calc-header>
+              С помощью данного калькулятора можно ориентировочно рассчитать необходимую ёмкость аккумулятора для источника бесперебойного питания.
+            </power-calc-header>
             <power-calc-main/>
             <power-calc-footer/>
         </div>
@@ -27,11 +29,11 @@ export default class PowerCalculatorComponent extends Vue {}
 <style lang="scss" scoped>
 .calc {
   &__wrapper {
-    
     @extend %width-main;
-    @extend %padding-wrp;
 
+    @extend %padding-wrp;
     margin: 0 auto;
+    
   }
  
 }

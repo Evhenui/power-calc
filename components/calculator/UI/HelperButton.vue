@@ -80,6 +80,7 @@ export default class HelperButtonComponent extends Vue {
 
         @include bigMobile {
             display: none;
+            
         }
     }
 

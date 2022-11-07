@@ -37,20 +37,25 @@ export default class ButtonOrangeComponent extends Vue {
 
         &:hover {
           background-color: #FF5B00;
+
         }
 
         &:active {
           background-color: #AC450B;
+
         }
 
         &:disabled {
           background-color: #8A8A8A;
+
         }
 
         @include bigMobile {
           max-width: 343px;
           width: 100%;
+
         }
+        
   }
 </style>
   

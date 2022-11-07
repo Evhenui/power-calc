@@ -38,7 +38,9 @@ export default class ButtonCatalogComponent extends Vue {}
         @include fontUnify(20, 28, 400);
         letter-spacing: 0.02em;
         color: #2B2B2B;
+
       }
+      
   } 
 </style>
   

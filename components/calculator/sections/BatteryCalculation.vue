@@ -4,70 +4,75 @@
             <section class="calc-section__body">
                 <form class="calc-section__form-without-checkboxes" action="">
                     <section class="calc-section__inputs-wrapper">
-                    <section class="calc-section__inputs-enter">
-                        <div class="calc-section__data-input-section">
-                        <div class="calc-section__input-help">
-                            <h3 class="calc-section__subtitle source-power">Мощность ИБП:</h3>
-                            <helper-button>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</helper-button>
-                        </div>
+                      <section class="calc-section__inputs-enter">
+                          <div class="calc-section__data-input-section">
+                            <div class="calc-section__input-help">
+                                <h3 class="calc-section__subtitle source-power">Мощность ИБП:</h3>
+                                <helper-button>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</helper-button>
+                            </div>
 
-                        <input-power 
-                            :errorState = "stateInput.powerUPS"
-                            maxSize="6" 
-                            inputId="w" 
-                            v-model.number="calculationBattery.powerUPS"
-                        >W</input-power>
-                        </div>
+                              <input-power 
+                                  :errorState = "stateInput.powerUPS"
+                                  typeInput="number"
+                                  maxSize="6" 
+                                  inputId="w" 
+                                  v-model.number="calculationBattery.powerUPS"
+                              >W</input-power>
+                          </div>
 
-                        <div class="calc-section__data-input-section">
-                        <div class="calc-section__input-help switch">
-                            <h3 class="calc-section__subtitle source-power">КПД инвертора:</h3>
-                            <helper-button>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</helper-button>
-                            <input-switch v-model="stateSwitch.switchBatteryCapacity" />
-                        </div>
+                          <div class="calc-section__data-input-section">
+                            <div class="calc-section__input-help switch">
+                                <h3 class="calc-section__subtitle source-power">КПД инвертора:</h3>
+                                <helper-button>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</helper-button>
+                                <input-switch v-model="stateSwitch.switchBatteryCapacity" />
+                            </div>
 
-                        <input-power 
-                            :errorState = "stateInput.inverterEfficiency"
-                            maxSize="6" 
-                            inputId="w" 
-                            :isDisable="!stateSwitch.switchBatteryCapacity" 
-                            v-model.number="calculationBattery.inverterEfficiency">W</input-power>
-                        </div>
+                            <input-power 
+                                :errorState = "stateInput.inverterEfficiency"
+                                typeInput="number"
+                                maxSize="6" 
+                                inputId="w" 
+                                :isDisable="!stateSwitch.switchBatteryCapacity" 
+                                v-model.number="calculationBattery.inverterEfficiency">W</input-power>
+                          </div>
 
-                        <div class="calc-section__data-input-section">
-                        <div class="calc-section__input-help">
-                            <h3 class="calc-section__subtitle source-power">Время работы:</h3>
-                        </div>
+                          <div class="calc-section__data-input-section">
+                            <div class="calc-section__input-help">
+                                <h3 class="calc-section__subtitle source-power">Время работы:</h3>
+                            </div>
 
-                        <input-power 
-                            :errorState = "stateInput.time"
-                            maxSize="5" 
-                            inputId="time" 
-                            v-model.number="calculationBattery.time">часов</input-power>
-                        </div>
+                            <input-power 
+                                :errorState = "stateInput.time"
+                                typeInput="number"
+                                maxSize="5" 
+                                inputId="time" 
+                                v-model.number="calculationBattery.time">часов</input-power>
+                          </div>
 
-                        <div class="calc-section__data-input-section">
-                        <div class="calc-section__input-help">
-                            <h3 class="calc-section__subtitle source-power">Номинальное напряжение АКБ:</h3>
-                        </div>
+                          <div class="calc-section__data-input-section">
+                            <div class="calc-section__input-help">
+                                <h3 class="calc-section__subtitle source-power">Номинальное напряжение АКБ:</h3>
+                            </div>
 
-                        <input-power 
-                            :errorState = "stateInput.ratedBatteryVoltage"
-                            maxSize="6" 
-                            inputId="v" 
-                            v-model.number="calculationBattery.ratedBatteryVoltage">V</input-power>
-                        </div>
-                    </section>
+                            <input-power 
+                                :errorState = "stateInput.ratedBatteryVoltage"
+                                typeInput="number"
+                                maxSize="6" 
+                                inputId="v" 
+                                v-model.number="calculationBattery.ratedBatteryVoltage">V</input-power>
+                          </div>
+                      </section>
 
-                    <button-orange @getResult="getResultCalculationBattery" />
+                      <button-orange @getResult="getResultCalculationBattery" />
                     </section>
 
                     <div class="calc-section__data-input-section">
-                    <h3 class="calc-section__subtitle source-power result">Минимальная ёмкость АКБ:</h3>
-                    <input-power 
-                      inputId="ah" 
-                      v-model.number="calculationBatteryResult"  
-                    >Ah</input-power>
+                      <h3 class="calc-section__subtitle source-power result">Минимальная ёмкость АКБ:</h3>
+                      <input-power 
+                        typeInput="text"
+                        inputId="ah" 
+                        v-model.number="calculationBatteryResult"  
+                      >Ah</input-power>
                     </div>
                 </form>
                 <power-calc-recommendation>Рекомендуемые ИБП:</power-calc-recommendation>
@@ -152,6 +157,7 @@ export default class BatteryCalculationComponent extends Vue {
 
   &__body {
     margin-bottom: 48px;
+
   }
 
   &__inputs-wrapper {
@@ -161,6 +167,7 @@ export default class BatteryCalculationComponent extends Vue {
 
     @include bigMobile {
       margin-bottom: 48px;
+
     }
 
   }
@@ -170,6 +177,7 @@ export default class BatteryCalculationComponent extends Vue {
 
     @include bigMobile {
       margin-bottom: 48px;
+
     }
 
   }
@@ -177,6 +185,7 @@ export default class BatteryCalculationComponent extends Vue {
   &__checkbox {
     @include flex-container(row, null, center);
     column-gap: 16px;
+
   }
 
   &__data-input-section {
@@ -185,6 +194,7 @@ export default class BatteryCalculationComponent extends Vue {
 
     @include bigMobile {
       max-width: 343px;
+
     }
   }
 
@@ -198,15 +208,18 @@ export default class BatteryCalculationComponent extends Vue {
 
       @media (max-width: 1250px) {
         max-width: 330px;
+
       }
 
       @include bigMobile {
         @include fontUnify(16, 22, 400);
+
       }
 
     }
     &.result {
       margin-bottom: 24px;
+
     }
 
   }
@@ -218,6 +231,7 @@ export default class BatteryCalculationComponent extends Vue {
     
     &.switch {
       margin-bottom: 22px;
+
     }
 
   }
@@ -233,6 +247,7 @@ export default class BatteryCalculationComponent extends Vue {
     @include bigMobile {
       flex-direction: column;
       gap: 32px;
+      
     }
 
   }
