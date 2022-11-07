@@ -16,7 +16,10 @@
             </div>
         </div>
         <div class="mobile" >
-             <popup-helper :class="{'active': showModal}" v-if="showModal" @close="showModal = false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</popup-helper>
+             <popup-helper 
+                :class="{active: showModal}" 
+                v-if="showModal" @close="showModal = false"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</popup-helper>
         </div>
     </div>
 </template>
@@ -31,13 +34,17 @@ import PopupHelper from "@components/calculator/UI/PopupHelper.vue";
     }
 })
 export default class HelperButtonComponent extends Vue {
+
     showModal: boolean = false;
 
     showModalHelper():void{
-        window.innerWidth > 960? this.showModal = false : this.showModal = true;
-        if(this.showModal === true) {
+        const innerWidthMobile: number = 1024;
+
+        window.innerWidth > innerWidthMobile? this.showModal = false : this.showModal = true;
+
+        if(this.showModal) {
             document.documentElement.style.overflow = 'hidden';
-        }
+        } 
     }
 }
 </script>
@@ -53,16 +60,16 @@ export default class HelperButtonComponent extends Vue {
    flex: 0 0 auto;
    
     &:hover &__main-wrapper {
+        
         opacity: 1;
-
         visibility: visible;
     }
 
     &__main-wrapper {
+
+        @include setAbs( -20px, 23px, auto, auto );
         position: absolute;
         z-index: 1;
-        top: -20px;
-        left: 23px;
 
         opacity: 0;
         visibility: hidden;
@@ -70,6 +77,10 @@ export default class HelperButtonComponent extends Vue {
         transition: all .2s ease-in-out; 
 
         @include flex-container(row, null, center);
+
+        @include bigMobile {
+            display: none;
+        }
     }
 
     &__description-wrapper {
@@ -81,14 +92,14 @@ export default class HelperButtonComponent extends Vue {
 
         width: 267px;
 
-        @media (max-width: 960px) {
-        display: none;
-        }
     }
+    
     &__description {
-        @include font(12, 16, 400);
+        @include fontUnify(12, 16, 400);
         color: #2B2B2B;
+
     }
+
 }
 </style>
   

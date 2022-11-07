@@ -1,9 +1,9 @@
 <template>
-    <section class="calc-recommendation">
-        <h3 class="calc-recommendation__title">
+    <section class="recommendation">
+        <h3 class="recommendation__title">
             <slot>lorem</slot>
             </h3>
-        <section class="calc-recommendation__items">
+        <section class="recommendation__items">
         </section>
         <button-catalog/>
     </section>
@@ -12,6 +12,7 @@
 <script lang="ts">
 import {Component, Vue} from "~/tools/version-types";
 import ButtonCatalog from "../UI/ButtonCatalog.vue";
+
 @Component({
   components: {
     ButtonCatalog
@@ -20,28 +21,34 @@ import ButtonCatalog from "../UI/ButtonCatalog.vue";
 export default class PowerCalcRecommendationComponent extends Vue {}
 </script>
 
-<style lang="scss">
-.calc-recommendation {
+<style lang="scss" scoped>
+.recommendation {
     text-align: center;
+
     &__title {
-      @include font($font-size: 20, $line-height: 30, $weight: 600);
+      @include fontUnify(20, 30, 600);
       text-transform: uppercase;
       color: $color-main;
+
       margin-bottom: 24px;
-      letter-spacing: 0.01em;
-      @media (max-width: 960px) {
-        @include font($font-size: 16, $line-height: 19, $weight: 500);
+
+      @include bigMobile {
+        @include fontUnify(16, 19, 500);
       }
+
     }
     &__items {
-        @include flex-container($direction: row, $spacing: null, $alignment: left);
+        @include flex-container(row, null, left);
         flex-wrap: wrap;
-        gap: 31.25px;
+        gap: 31px;
         margin-bottom: 14px;
-        @media (max-width: 960px) {
-            gap: 16px 15px;
-            margin-bottom: 24px;
+
+        @include bigMobile {
+          gap: 16px 15px;
+          margin-bottom: 24px;
         }
+
     }
+    
 }
 </style>

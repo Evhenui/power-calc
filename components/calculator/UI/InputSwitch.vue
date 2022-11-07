@@ -1,12 +1,12 @@
 <template>
-    <div class="calc-switch">
-        <label class="calc-switch__wrapper">
+    <div class="switch">
+        <label class="switch__wrapper">
             <input 
                 :checked="value" 
                 @change="updateSwitchState"
-                class="calc-switch__input" 
+                class="switch__input" 
                 type="checkbox">
-            <span class="calc-switch__slider"></span>
+            <span class="switch__slider"></span>
         </label>
     </div>
 </template>
@@ -15,20 +15,19 @@
 import {Component, Vue} from "~/tools/version-types";
 import { Prop } from "vue-property-decorator";
 
-@Component({
-
-})
+@Component({})
 export default class InputSwitchComponent extends Vue {
+
     @Prop({required: true}) value: boolean;
 
-    updateSwitchState(event: Event) {
+    updateSwitchState(event: Event):void {
         this.$emit("input", (event.target as HTMLInputElement).checked);
     }
 }
 </script>
   
 <style lang="scss" scoped>
-.calc-switch {
+.switch {
     font-size: 0;
 
         &__wrapper {
@@ -47,11 +46,8 @@ export default class InputSwitchComponent extends Vue {
         }
         
         &__slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+
+            @include absoluteGrow(absolute, 0);
 
             background-color: $color-bg-grey-lighter;
 
@@ -65,8 +61,7 @@ export default class InputSwitchComponent extends Vue {
                 content: "";
 
                 position: absolute;
-                left: 2px;
-                bottom: 2px;
+                @include setAbs(auto, 2px, auto, 2px);
 
                 width: 28px;
                 height: 28px;

@@ -1,8 +1,12 @@
 <template>
     <div class="calc-input">
-        <div :class="{'error':errorState}" class="calc-input__wrapper">
+        <div 
+            :class="{error : errorState}" 
+            class="calc-input__wrapper"
+        >
             <input class="calc-input__data-input" 
-                :type="typeInput" 
+                type="text" 
+                :maxlength="maxSize"
                 :id="inputId"
                 :disabled="isDisable"
                 :value="value" 
@@ -11,9 +15,11 @@
                 @blur="cl = false"
             >
             <span 
-                :class="{'active':cl, 'disabled':isDisable}" 
+                :class="{
+                        active:cl,
+                        disabled:isDisable
+                    }" 
                 class="calc-input__units"
-            
             >
                 <slot>Lorem</slot>
             </span>
@@ -28,17 +34,16 @@
 import {Component, Vue} from "~/tools/version-types";
 import { Prop } from "vue-property-decorator";
 
-@Component({
-
-})
+@Component({})
 export default class InputPowerComponent extends Vue {
-    cl: boolean = false;
-
+    
     @Prop({required: true}) inputId: string;
-    @Prop({required: true, default: false}) isDisable: boolean;
-    @Prop({required: true}) typeInput: string;
+    @Prop({required: false}) isDisable: boolean;
+    @Prop({required: false}) errorState: boolean;
+    @Prop({required: false}) maxSize: string;
     @Prop({required: true}) value: [Number, String];
-    @Prop({required: true, default: false}) errorState: boolean;
+
+    cl: boolean = false;
     
     updateName(event: Event):void {
         this.$emit("input", (event.target as HTMLInputElement).value);
@@ -51,7 +56,7 @@ export default class InputPowerComponent extends Vue {
         max-width: 327px;
         width: 100%;
 
-        @media (max-width: 960px) {
+        @include bigMobile {
             max-width: 343px;
         }
 
@@ -72,7 +77,7 @@ export default class InputPowerComponent extends Vue {
         }
 
         &__data-input {
-            @include font(16, 16, 400);
+            @include fontUnify(16, 16, 400);
             color: #2B2B2B;
 
             background-color: white;
@@ -111,8 +116,7 @@ export default class InputPowerComponent extends Vue {
             transition: all .1s ease-in-out;
 
             position: absolute;
-            bottom: -21px;
-            left: 0;
+            @include setAbs( auto, 0, auto, -21px );
 
             padding-top: 8px;
 
@@ -121,7 +125,7 @@ export default class InputPowerComponent extends Vue {
 
         &__error-text {
             letter-spacing: 0.02em;
-            @include font(12, 16, 400);
+            @include fontUnify(12, 16, 400);
             color: #EB1717;
         }
 
@@ -129,8 +133,7 @@ export default class InputPowerComponent extends Vue {
             transition: all .1s ease-in-out;
 
             position: absolute;
-            top: 0;
-            right: 0;
+            @include setAbs( 0, auto, 0, auto );
 
             @include flex-container(row, center, center);
 
@@ -142,7 +145,7 @@ export default class InputPowerComponent extends Vue {
             border: 1px solid #BDBDBD;
             border-radius: 8px;
 
-            @include font(16, 16, 400);
+            @include fontUnify(16, 16, 400);
             color: #2B2B2B;
 
             &.active {

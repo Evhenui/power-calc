@@ -12,8 +12,7 @@
 import {Component, Vue} from "~/tools/version-types";
 
 @Component({})
-export default class PowerCalcHeaderComponent extends Vue {
-}
+export default class PowerCalcHeaderComponent extends Vue {}
 </script>
   
 <style lang="scss" scoped>
@@ -27,7 +26,7 @@ export default class PowerCalcHeaderComponent extends Vue {
     border-radius: 16px;
 
     &__main-description {
-        @include font(20, 24, 600);
+        @include fontUnify(20, 24, 600);
         text-align: center;
         letter-spacing: 0.02em;
         color: var(--color-ink-base);
@@ -37,8 +36,8 @@ export default class PowerCalcHeaderComponent extends Vue {
 
         margin: 0 auto;
 
-        @media (max-width: 960px) {
-            @include font(16, 22, 400);
+        @include bigMobile {
+            @include fontUnify(16, 22, 400);
         }
 
     }

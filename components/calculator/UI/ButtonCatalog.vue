@@ -35,7 +35,7 @@ export default class ButtonCatalogComponent extends Vue {}
     border-radius: 36px;
 
       &__name {
-        @include font(20, 28, 400);
+        @include fontUnify(20, 28, 400);
         letter-spacing: 0.02em;
         color: #2B2B2B;
       }

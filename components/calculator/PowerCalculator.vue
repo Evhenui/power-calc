@@ -13,6 +13,7 @@ import {Component, Vue} from "~/tools/version-types";
 import PowerCalcHeader from "@/components/calculator/sections/PowerCalcHeader.vue"
 import PowerCalcMain from "@/components/calculator/sections/PowerCalcMain.vue"
 import PowerCalcFooter from "@/components/calculator/sections/PowerCalcFooter.vue"
+
 @Component({
     components: {
         PowerCalcHeader,
@@ -20,25 +21,19 @@ import PowerCalcFooter from "@/components/calculator/sections/PowerCalcFooter.vu
         PowerCalcMain
     }
 })
-export default class PowerCalculatorComponent extends Vue {
-
-}
+export default class PowerCalculatorComponent extends Vue {}
 </script>
   
 <style lang="scss" scoped>
 .calc {
   &__wrapper {
-    @include width-pad-main();
+    
+    @extend %width-main;
+    @extend %padding-wrp;
 
     margin: 0 auto;
-    padding: 0 32px 0 32px;
-
-    @media (max-width: 960px) {
-      padding: 0 16px 0 16px;
-    }
-
   }
-  
+ 
 }
 </style>
   

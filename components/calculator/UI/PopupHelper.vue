@@ -37,7 +37,7 @@ import {Component, Vue} from "~/tools/version-types";
 export default class PopupHelperComponent extends Vue {
 
     closeModal():void {
-        this.$emit('close')
+        this.$emit('close');
         document.documentElement.style.overflow = 'auto';
     }
 }
@@ -47,16 +47,12 @@ export default class PopupHelperComponent extends Vue {
 .modal-helper {
     display: none;
 
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: fixed;
+    @include absoluteGrow(fixed, 0);
     z-index: 2;
 
-    background: rgb(0, 0, 0, 0.5);
+    background-color: rgb(0, 0, 0, 0.5);
 
-    @media (max-width: 960px) {
+    @include bigMobile {
         &.active {
             display: flex;
         }
@@ -95,7 +91,7 @@ export default class PopupHelperComponent extends Vue {
 
     &__description {
         letter-spacing: 0.02em;
-        @include font(16, 22, 400);
+        @include fontUnify(16, 22, 400);
         color: #2B2B2B;
     }
 }
