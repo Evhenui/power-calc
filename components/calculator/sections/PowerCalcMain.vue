@@ -1,23 +1,23 @@
 <template>
   <section class="calc-body">
-    <ups-calculation class="calc-body__section"/>
-    <battery-calculation class="calc-body__section"/>
-    <uptime-calculation class="calc-body__section"/>
+    <UpsCalculation class="calc-body__section" />
+    <BatteryCalculation class="calc-body__section" />
+    <UptimeCalculation class="calc-body__section" />
   </section>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "~/tools/version-types";
-import UpsCalculation from '@/components/calculator/sections/UpsCalculation.vue';
-import BatteryCalculation from '@/components/calculator/sections/BatteryCalculation.vue';
-import UptimeCalculation from '@/components/calculator/sections/UptimeCalculation.vue';
+import { Component, Vue } from "~/tools/version-types";
+import UpsCalculation from "@/components/calculator/sections/UpsCalculation.vue";
+import BatteryCalculation from "@/components/calculator/sections/BatteryCalculation.vue";
+import UptimeCalculation from "@/components/calculator/sections/UptimeCalculation.vue";
 
 @Component({
   components: {
     UpsCalculation,
     BatteryCalculation,
     UptimeCalculation,
-  }
+  },
 })
 export default class PowerCalcMainComponent extends Vue {}
 </script>
@@ -26,16 +26,15 @@ export default class PowerCalcMainComponent extends Vue {}
 .calc-body {
   margin-bottom: 48px;
 
-		&__section {
-      border-bottom: 1px solid #8a8a8a;
+  &__section {
+    border-bottom: 1px solid #8a8a8a;
 
-      padding-top: 48px;
+    padding-top: 48px;
 
-      &:last-child {
-        border-bottom: none;
-
-      }
-		}
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 }
 </style>
   

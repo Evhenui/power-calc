@@ -1,8 +1,8 @@
 <template>
     <div class="comparison">
        <div class="comparison__wrapper">
-         <header-navigation/>
-         <characteristics-header/>
+         <HeaderNavigation/>
+         <CharacteristicsHeader/>
        </div>
    </div>
 </template>

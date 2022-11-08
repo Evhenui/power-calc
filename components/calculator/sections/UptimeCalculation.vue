@@ -1,6 +1,6 @@
 <template>
   <section class="calc-section">
-        <title-section>Расчет времени автономной работы ИБП</title-section>
+        <TitleSection>Расчет времени автономной работы ИБП</TitleSection>
 
         <section class="calc-section__body">
           <form class="calc-section__form-without-checkboxes" action="">
@@ -9,40 +9,40 @@
                 <div class="calc-section__data-input-section">
                   <div class="calc-section__input-help">
                     <h3 class="calc-section__subtitle source-power">Нагрузка, W:</h3>
-                    <helper-button
+                    <HelperButton
                       >Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.
-                    </helper-button>
+                    </HelperButton>
                   </div>
 
-                  <input-power 
+                  <InputPower 
                     :errorState = "stateInput.load"
                     typeInput="number"
                     maxSize="6" 
                     inputId="w" 
                     v-model.number="calculationUPSRuntime.load"
-                  >W</input-power>
+                  >W</InputPower>
                 </div>
 
                 <div class="calc-section__data-input-section">
                   <div class="calc-section__input-help switch">
                     <h3 class="calc-section__subtitle source-power">КПД инвертора:</h3>
-                    <helper-button>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    <HelperButton>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.
-                    </helper-button>
-                    <input-switch v-model="stateSwitch.switchBackupTime" />
+                    </HelperButton>
+                    <InputSwitch v-model="stateSwitch.switchBackupTime" />
                   </div>
 
-                  <input-power 
+                  <InputPower 
                     :errorState = "stateInput.inverterEfficiency"
                     typeInput="number"
                     maxSize="6" 
                     :isDisable="!stateSwitch.switchBackupTime" 
                     inputId="persent" 
                     v-model.number="calculationUPSRuntime.inverterEfficiency">%
-                    </input-power>
+                    </InputPower>
                 </div>
 
                 <div class="calc-section__data-input-section">
@@ -50,13 +50,13 @@
                     <h3 class="calc-section__subtitle source-power">Номинальное напряжение АКБ:</h3>
                   </div>
 
-                  <input-power 
+                  <InputPower 
                     :errorState = "stateInput.ratedBatteryVoltage"
                     typeInput="number"
                     maxSize="6" 
                     inputId="v" 
                     v-model.number="calculationUPSRuntime.ratedBatteryVoltage">V
-                  </input-power>
+                  </InputPower>
                 </div>
 
                 <div class="calc-section__data-input-section">
@@ -64,30 +64,30 @@
                     <h3 class="calc-section__subtitle source-power">Ёмкость АКБ:</h3>
                   </div>
 
-                  <input-power 
+                  <InputPower 
                     :errorState = "stateInput.batteryCapacity"
                     typeInput="number"
                     maxSize="6" 
                     inputId="ah" 
                     v-model.number="calculationUPSRuntime.batteryCapacity">Ah
-                  </input-power>
+                  </InputPower>
                 </div>
               </section>
 
-              <button-orange @getResult="getResultCalculationUPS" />
+              <ButtonOrange @getResult="getResultCalculationUPS">Рассчитать</ButtonOrange>
             </section>
 
             <div class="calc-section__data-input-section">
               <h3 class="calc-section__subtitle source-power result">Время работы ИБП:</h3>
-              <input-power 
+              <InputPower 
                 typeInput="text"
                 inputId="time"
                 v-model.number="calculationUPSRuntimeResult"
-                >часов</input-power>
+                >часов</InputPower>
             </div>
           </form>
 
-          <power-calc-recommendation>Рекомендуемые АКБ:</power-calc-recommendation>
+          <PowerCalcRecommendation>Рекомендуемые АКБ:</PowerCalcRecommendation>
         </section>
       </section>
 </template>
@@ -118,7 +118,6 @@ export default class PowerCalculatorComponent extends Vue {
 
   calculationUPSRuntimeResult: string =  '';
 
-
   calculationUPSRuntime = {
     load: '',
     inverterEfficiency: 0.8,
@@ -136,9 +135,12 @@ export default class PowerCalculatorComponent extends Vue {
     batteryCapacity: false,
   };
 
-  getResultCalculationUPS():void {
+  getResultCalculationUPS() {
     let watch:number;
     let resultState:boolean = false;
+    let integer:Number;
+    let fraction:Number;
+    let sum:Number;
 
     for (const key in this.calculationUPSRuntime) {
       if(this.calculationUPSRuntime[key] === '') {
@@ -159,11 +161,6 @@ export default class PowerCalculatorComponent extends Vue {
     if(watch <= 1) {
       this.calculationUPSRuntimeResult = `${Math.ceil(+ watch * 60)}min`;
     } else if (watch > 1) {
-
-      let integer:Number;
-      let fraction:Number;
-      let sum:Number;
-
       integer = Math.floor(Number(watch));
       fraction = + (+ watch - + integer).toFixed(2);
       sum = (+ fraction * 60);

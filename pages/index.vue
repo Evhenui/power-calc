@@ -6,8 +6,8 @@
     <main class="site-main">
       <!-- <Nuxt /> -->
       <!-- <Checkout /> -->
-     <!--  <power-calculator></power-calculator> -->
-     <comparison/>
+      <!-- <PowerCalculator/> -->
+     <Comparison/>
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->

@@ -5,12 +5,12 @@
       @click="isActive = !isActive"
    >
       <span class="nav-item__title">
-         <slot name="name">lorem</slot>
+         <slot name="name"></slot>
       </span>
       <div class="nav-item__amount-selected">
          <div class="nav-item__number-wrapper">
             <span class="nav-item__number-selected">
-               <slot name="amount">1</slot>
+               <slot name="amount"></slot>
             </span>
          </div>
          <svg class="nav-item__delete" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,6 +33,7 @@ import {Component, Vue} from "~/tools/version-types";
    }
 })
 export default class SelectedNavigationItemComponent extends Vue {
+
    isActive:boolean = false;
 }
 </script>

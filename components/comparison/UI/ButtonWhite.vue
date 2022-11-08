@@ -15,7 +15,7 @@
          </svg>
       </div>
       <span class="button__name">
-         <slot>lorem</slot>
+         <slot></slot>
       </span>
    </button>
 </template>

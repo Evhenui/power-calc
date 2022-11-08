@@ -2,7 +2,7 @@
    <section class="selecet">
       <input class="selecet__input" type="radio" name="new-post" id="new-post"> 
       <label class="selecet__label" for="new-post">
-         <slot>lorem</slot>
+         <slot></slot>
       </label>
    </section>
 </template>
@@ -10,12 +10,7 @@
 <script lang="ts">
 import {Component, Vue} from "~/tools/version-types";
 
-
-@Component({
-   components: {
-
-   }
-})
+@Component({})
 export default class InputRadioComponent extends Vue {}
 </script>
  
