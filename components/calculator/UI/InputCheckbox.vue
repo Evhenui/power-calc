@@ -97,6 +97,7 @@ export default class InputCheckboxComponent extends Vue {
 
         &__custom-checkbox:checked + &__label::before {
             border-color:$color-main;
+            
             background-color: $color-main;
 
         }
