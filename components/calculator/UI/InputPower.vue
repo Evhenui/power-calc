@@ -9,12 +9,12 @@
         :disabled="isDisable"
         :value="value"
         @input="updateName"
-        @focus="cl = true"
-        @blur="cl = false"
+        @focus="stateActive = true"
+        @blur="stateActive = false"
       />
       <span
         :class="{
-          active: cl,
+          active: stateActive,
           disabled: isDisable,
         }"
         class="calc-input__units"
@@ -42,7 +42,7 @@ export default class InputPowerComponent extends Vue {
   @Prop({ required: true }) typeInput: string;
   @Prop({ required: true }) value: [Number, String];
 
-  cl: boolean = false;
+  stateActive: boolean = false;
 
   updateName(event) {
     let maxValue: string;
@@ -67,6 +67,10 @@ export default class InputPowerComponent extends Vue {
     max-width: 343px;
   }
 
+  @include mobile {
+    max-width: 100%;
+  }
+
   &__wrapper {
     position: relative;
   }
@@ -84,18 +88,18 @@ export default class InputPowerComponent extends Vue {
   }
 
   &__data-input {
+    width: 100%;
+    height: 48px;
+
     @include fontUnify(16, 16, 400);
     color: #2b2b2b;
-
-    background-color: white;
 
     border: 1px solid #bdbdbd;
     border-radius: 8px;
 
-    width: 100%;
-    height: 48px;
-
     padding: 16px;
+
+    background-color: white;
 
     transition: all 0.1s ease-in-out;
 
@@ -111,49 +115,49 @@ export default class InputPowerComponent extends Vue {
     }
 
     &:disabled {
+      color: #b4b6b8;
+
       border-color: #e9e9e9;
 
-      color: #b4b6b8;
       cursor: auto;
     }
   }
 
   &__input-error {
-    transition: all 0.1s ease-in-out;
-
     position: absolute;
     @include setAbs(auto, 0, auto, -21px);
 
     padding-top: 8px;
 
     opacity: 0;
+
+    transition: all 0.1s ease-in-out;
   }
 
   &__error-text {
-    letter-spacing: 0.02em;
     @include fontUnify(12, 16, 400);
+    letter-spacing: 0.02em;
     color: #eb1717;
   }
 
   &__units {
-    transition: all 0.1s ease-in-out;
+    width: 87px;
+    height: 100%;
 
     position: absolute;
     @include setAbs(0, auto, 0, auto);
 
     @include flex-container(row, center, center);
 
-    width: 87px;
-    height: 100%;
-
-    background-color: #f3f3f3;
+    @include fontUnify(16, 16, 400);
+    color: #2b2b2b;
 
     border: 1px solid #bdbdbd;
     border-radius: 8px;
 
-    @include fontUnify(16, 16, 400);
-    color: #2b2b2b;
+    background-color: #f3f3f3;
 
+    transition: all 0.1s ease-in-out;
     &.active {
       border-color: #8a8a8a;
     }

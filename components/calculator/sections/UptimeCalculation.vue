@@ -173,17 +173,15 @@ export default class PowerCalculatorComponent extends Vue {
 
 <style lang="scss" scoped>
 .calc-section {
-
   &__inputs-wrapper {
     @include flex-container(column, flex-start, null);
     gap: 56px;
+
     margin-bottom: 56px;
 
     @include bigMobile {
       margin-bottom: 48px;
-
     }
-
   }
 
   &__form-without-checkboxes {
@@ -191,15 +189,12 @@ export default class PowerCalculatorComponent extends Vue {
 
     @include bigMobile {
       margin-bottom: 48px;
-
     }
-
   }
 
   &__checkbox {
     @include flex-container(row, null, center);
-    column-gap: 16px;
-
+    gap: 16px;
   }
 
   &__data-input-section {
@@ -207,14 +202,13 @@ export default class PowerCalculatorComponent extends Vue {
     width: 100%;
 
     @include bigMobile {
-      max-width: 343px;
-
+      max-width: 100%;
     }
   }
 
   &__subtitle {
-    letter-spacing: 0.02em;
     @include fontUnify(20, 28, 400);
+    letter-spacing: 0.02em;
     color: #2b2b2b;
 
     &.source-power {
@@ -222,49 +216,44 @@ export default class PowerCalculatorComponent extends Vue {
 
       @media (max-width: 1250px) {
         max-width: 330px;
-
       }
 
       @include bigMobile {
         @include fontUnify(16, 22, 400);
-
       }
-
     }
     &.result {
       margin-bottom: 24px;
-
     }
-
   }
 
   &__input-help {
     @include flex-container(row, null, center);
     gap: 16px;
+
     margin-bottom: 24px;
-    
+  
     &.switch {
       margin-bottom: 22px;
-
     }
-
   }
 
   &__inputs-enter {
+    max-width: 1380px;
+    width: 100%;
+
     @include flex-container(row, null, baseline);
     gap: 24px;
     flex-wrap: wrap;
 
-    max-width: 1380px;
-    width: 100%;
-
     @include bigMobile {
       flex-direction: column;
       gap: 32px;
-      
     }
 
+    @include mobile {
+      max-width: 100%;
+    }
   }
-
 }
 </style>

@@ -33,56 +33,61 @@ export default class InputCheckboxComponent extends Vue {
 <style lang="scss" scoped>
 .checkbox {
   &__custom-checkbox {
+    width: 0;
+    height: 0;
+    
     position: absolute;
     z-index: -1;
+
     opacity: 0;
+    visibility: hidden;
   }
 
   &__label {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-    @include fontUnify(16, 24, 400);
-
     display: inline-flex;
-
-    align-items: center;
-    user-select: none;
 
     position: relative;
 
+    align-items: center;
+
+    @include fontUnify(16, 24, 400);
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    
+    user-select: none;
     &::before {
       content: "";
-
-      transition: all 0.1s ease-in-out;
-      display: inline-block;
 
       width: 24px;
       height: 24px;
 
-      flex-shrink: 0;
-      flex-grow: 0;
+      display: inline-block;
 
       border: 1px solid $color-border-grey-light;
       border-radius: 50%;
 
       margin-right: 16px;
+      flex-shrink: 0;
+      flex-grow: 0;
+
+      transition: all 0.1s ease-in-out;
     }
 
     &::after {
       content: "";
-      transition: all 0.1s ease-in-out;
-
-      position: absolute;
-      @include setAbs(50%, 8px, auto, auto);
-
-      transform: translateY(-50%);
 
       width: 8px;
       height: 0;
 
+      position: absolute;
+      @include setAbs(50%, 8px, auto, auto);
+
       border-radius: 50%;
 
       background-color: white;
+
+      transition: all 0.1s ease-in-out;
+      transform: translateY(-50%);
     }
   }
 

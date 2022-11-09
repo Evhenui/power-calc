@@ -188,8 +188,9 @@ export default class BatteryCalculationComponent extends Vue {
   }
 
   &__inputs-wrapper {
-    @include flex-container(column, flex-start, null);
+    @include flex-container(column, flex-start);
     gap: 56px;
+
     margin-bottom: 56px;
 
     @include bigMobile {
@@ -215,13 +216,13 @@ export default class BatteryCalculationComponent extends Vue {
     width: 100%;
 
     @include bigMobile {
-      max-width: 343px;
+      max-width: 100%;
     }
   }
 
   &__subtitle {
-    letter-spacing: 0.02em;
     @include fontUnify(20, 28, 400);
+    letter-spacing: 0.02em;
     color: #2b2b2b;
 
     &.source-power {
@@ -243,6 +244,7 @@ export default class BatteryCalculationComponent extends Vue {
   &__input-help {
     @include flex-container(row, null, center);
     gap: 16px;
+
     margin-bottom: 24px;
 
     &.switch {
@@ -251,12 +253,12 @@ export default class BatteryCalculationComponent extends Vue {
   }
 
   &__inputs-enter {
+    max-width: 1380px;
+    width: 100%;
+
     @include flex-container(row, null, baseline);
     gap: 24px;
     flex-wrap: wrap;
-
-    max-width: 1380px;
-    width: 100%;
 
     @include bigMobile {
       flex-direction: column;

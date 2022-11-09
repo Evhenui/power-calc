@@ -12,14 +12,13 @@ export default class PowerCalcFooterComponent extends Vue {}
   
 <style lang="scss" scoped>
 .about-selected {
+    border-radius: 12px;
+
     background-color: white;
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
 
-    border-radius: 12px;
-
     padding: 32px;
     margin-bottom: 136px;
-    
 }
 </style>
   

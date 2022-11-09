@@ -43,6 +43,7 @@ export enum projectIcons {
 	'footerTelegramIcon' = 1,
 	'footerVisaIcon' = 1,
 	'footerYoutubeIcon' = 1,
+	'info-empty-orange' = 1,
 	'info-empty' = 1,
 	'instagram' = 1,
 	'instaIcon' = 1,

@@ -17,19 +17,19 @@ export default class ButtonOrangeComponent extends Vue {
   
 <style lang="scss" scoped>
 .button-orange {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-color: var(--color-primary-base);
-
-  transition: all 0.1s ease-in-out;
   width: max-content;
 
   @include fontUnify(18, 24, 400);
   color: white;
 
-  padding: 8px 23px;
-
   border-radius: 6px;
 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background-color: var(--color-primary-base);
+
+  padding: 8px 23px;
+
+  transition: all 0.1s ease-in-out;
   &:hover {
     background-color: #ff5b00;
   }
@@ -45,6 +45,10 @@ export default class ButtonOrangeComponent extends Vue {
   @include bigMobile {
     max-width: 343px;
     width: 100%;
+  }
+
+  @include mobile {
+    max-width: 100%;
   }
 }
 </style>

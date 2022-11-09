@@ -35,10 +35,12 @@ export default class PowerCalcRecommendationComponent extends Vue {}
       @include fontUnify(16, 19, 500);
     }
   }
+
   &__items {
     @include flex-container(row, null, left);
     flex-wrap: wrap;
     gap: 31px;
+    
     margin-bottom: 14px;
 
     @include bigMobile {

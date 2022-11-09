@@ -29,11 +29,12 @@ export default class PowerCalculatorComponent extends Vue {}
   
 <style lang="scss" scoped>
 .calc {
+  @include flex-container(column, center, center);
+
+  @extend %padding-wrp;
+
   &__wrapper {
     @extend %width-main;
-
-    @extend %padding-wrp;
-    margin: 0 auto;
   }
 }
 </style>

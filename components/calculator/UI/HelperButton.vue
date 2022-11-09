@@ -56,13 +56,13 @@ export default class HelperButtonComponent extends Vue {
   showModalHelper() {
     const innerWidthMobile: number = 1024;
 
-    window.innerWidth > innerWidthMobile
-      ? (this.showModal = false)
-      : (this.showModal = true);
-
-    if (this.showModal) {
+    if(window.innerWidth > innerWidthMobile) {
+      this.showModal = false;
+    } else {
+      this.showModal = true;
       document.documentElement.style.overflow = "hidden";
     }
+
   }
 }
 </script>
@@ -71,42 +71,41 @@ export default class HelperButtonComponent extends Vue {
 .button-help {
   position: relative;
 
-  cursor: pointer;
-
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   flex: 0 0 auto;
 
+  cursor: pointer;
   &:hover &__main-wrapper {
     opacity: 1;
     visibility: visible;
   }
 
   &__main-wrapper {
-    @include setAbs(-20px, 23px, auto, auto);
+    @include flex-container(row, null, center);
+
     position: absolute;
+    @include setAbs(-20px, 23px, auto, auto);
     z-index: 1;
 
     opacity: 0;
     visibility: hidden;
 
     transition: all 0.2s ease-in-out;
-
-    @include flex-container(row, null, center);
-
     @include bigMobile {
       display: none;
     }
   }
 
   &__description-wrapper {
-    background-color: #f3f3f3;
+    width: 267px;
 
     border-radius: 8px;
 
+    background-color: #f3f3f3;
+
     padding: 8px;
 
-    width: 267px;
   }
 
   &__description {

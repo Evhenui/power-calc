@@ -32,14 +32,14 @@ export default class InputSwitchComponent extends Vue {
   font-size: 0;
 
   &__wrapper {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 56px;
+    height: 32px;
 
     position: relative;
 
     display: inline-block;
 
-    width: 56px;
-    height: 32px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   &__wrapper &__input {
@@ -49,9 +49,9 @@ export default class InputSwitchComponent extends Vue {
   &__slider {
     @include absoluteGrow(absolute, 0);
 
-    background-color: $color-bg-grey-lighter;
-
     border-radius: 32px;
+
+    background-color: $color-bg-grey-lighter;
 
     transition: all 0.2s ease-in-out;
 
@@ -60,15 +60,15 @@ export default class InputSwitchComponent extends Vue {
     &::before {
       content: "";
 
-      position: absolute;
-      @include setAbs(auto, 2px, auto, 2px);
-
       width: 28px;
       height: 28px;
 
-      background-color: white;
+      position: absolute;
+      @include setAbs(auto, 2px, auto, 2px);
 
       border-radius: 50%;
+
+      background-color: white;
 
       transition: all 0.2s ease-in-out;
     }

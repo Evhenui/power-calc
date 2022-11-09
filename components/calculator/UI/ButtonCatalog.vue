@@ -51,19 +51,19 @@ export default class ButtonCatalogComponent extends Vue {}
   
 <style lang="scss" scoped>
 .button-catalog {
+  width: max-content;
+
+  @include flex-container(row, center, center);
+  gap: 16px;
+
+  border-radius: 36px;
+
   box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: white;
 
-  @include flex-container(row, center, center);
-  gap: 16px;
   margin: 0 auto;
   padding: 10px 57px;
-
-  width: max-content;
-
-  border-radius: 36px;
-
   &__name {
     @include fontUnify(20, 28, 400);
     letter-spacing: 0.02em;

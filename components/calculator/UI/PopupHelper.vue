@@ -8,21 +8,7 @@
               class="modal-helper__close-button"
               @click.stop.prevent="closeModal"
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"
-                  stroke="black"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+            <SvgIcon class="modal-helper__close-icon" :icon="icons['cross']" />
             </button>
           </header>
           <main class="modal-helper__main">
@@ -69,8 +55,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import SvgIcon from "~/_shared/components/svg/SvgIcon.vue";
 
-@Component({})
+@Component({
+  components: {
+    SvgIcon
+  },
+})
 export default class PopupHelperComponent extends Vue {
   
   closeModal() {
@@ -94,30 +85,35 @@ export default class PopupHelperComponent extends Vue {
       display: flex;
     }
   }
+
   &__wrapper {
-    margin: auto;
-    padding: 12px 10px 39px 10px;
-
-    background-color: white;
-
     max-width: 343px;
     width: 100%;
 
+    margin: auto;
+    padding: 12px 16px 32px 16px;
+
     border-radius: 8px;
+
+    background-color: white;
   }
 
   &__header {
-    @include flex-container(row, flex-end, null);
+    @include flex-container(row, flex-end);
 
-    margin-bottom: 9px;
+    margin-bottom: 8px;
   }
 
   &__close-button {
     font-size: 0;
   }
 
+  &__close-icon {
+    width: 12px;
+    height: 12px;
+  }
+
   &__main {
-    padding: 0 6px;
     @include flex-container(column, center, center);
     row-gap: 28px;
   }
@@ -127,8 +123,8 @@ export default class PopupHelperComponent extends Vue {
   }
 
   &__description {
-    letter-spacing: 0.02em;
     @include fontUnify(16, 22, 400);
+    letter-spacing: 0.02em;
     color: #2b2b2b;
   }
 }
@@ -136,6 +132,7 @@ export default class PopupHelperComponent extends Vue {
 .modal-helper-transiton-leave-active {
   transition: opacity 0.3s;
 }
+
 .modal-helper-transiton-enter,
 .modal-helper-transiton-leave-to {
   opacity: 0;

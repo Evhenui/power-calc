@@ -184,18 +184,20 @@ export default class UpsCalculationComponent extends Vue {
   }
 
   &__form {
-    @include flex-container(row, space-between, null);
+    @include flex-container(row, space-between);
+
     margin-bottom: 56px;
 
     @include bigMobile {
       flex-direction: column;
       gap: 49px;
+
       margin-bottom: 48px;
     }
   }
 
   &__select {
-    @include flex-container(column, null, null);
+    @include flex-container(column, null);
     gap: 24px;
   }
 
@@ -205,23 +207,28 @@ export default class UpsCalculationComponent extends Vue {
   }
 
   &__inputs {
-    @include flex-container(column, null, left);
-    gap: 56px;
-
     max-width: 678px;
     width: 100%;
+
+    @include flex-container(column, null, left);
+    gap: 56px;
 
     @media (max-width: 1250px) {
       max-width: 343px;
     }
+
     @include bigMobile {
-      row-gap: 32px;
+      gap: 32px;
+    }
+
+    @include mobile {
+      max-width: 100%;
     }
   }
 
   &__subtitle {
-    letter-spacing: 0.02em;
     @include fontUnify(20, 28, 400);
+    letter-spacing: 0.02em;
     color: #2b2b2b;
 
     margin-bottom: 24px;
