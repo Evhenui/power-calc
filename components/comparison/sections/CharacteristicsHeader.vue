@@ -37,7 +37,7 @@ export default class CharacteristicsHeaderComponent extends Vue {}
   &__items {
     @include flex-container(row, left, center);
 
-    overflow: auto;
+    overflow: hidden;
 
     &::-webkit-scrollbar {
       height: 8px;

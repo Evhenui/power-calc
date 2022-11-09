@@ -1,7 +1,13 @@
 <template>
    <section class="selecet">
-      <input class="selecet__input" type="radio" name="new-post" id="new-post"> 
-      <label class="selecet__label" for="new-post">
+      <input 
+         class="selecet__input" 
+         type="radio" 
+         name="select-input" 
+         :id="nameInput"
+         :value="valueInput"
+      > 
+      <label class="selecet__label" :for="nameInput">
          <slot></slot>
       </label>
    </section>
@@ -9,9 +15,14 @@
 
 <script lang="ts">
 import {Component, Vue} from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 
 @Component({})
-export default class InputRadioComponent extends Vue {}
+export default class InputRadioComponent extends Vue {
+
+   @Prop({required: true}) nameInput: string;
+   @Prop({required: true}) valueInput: string;
+}
 </script>
  
 <style lang="scss" scoped>

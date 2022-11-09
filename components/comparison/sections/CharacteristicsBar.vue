@@ -3,8 +3,8 @@
     <div class="menu-bar__wrapper">
       <h3 class="menu-bar__title">Характеристики:</h3>
       <section class="menu-bar__inputs">
-        <InputRadio>Все</InputRadio>
-        <InputRadio>Только отличия</InputRadio>
+        <InputRadio nameInput="all" valueInput="all">Все</InputRadio>
+        <InputRadio nameInput="only-difference" valueInput="only-difference">Только отличия</InputRadio>
       </section>
       <section class="menu-bar__buttons">
         <ButtonWhite>Добавить товар</ButtonWhite>
@@ -55,7 +55,10 @@ export default class CharacteristicsBarComponent extends Vue {
   }
 
   &__inputs {
+    @include flex-container(column, flex-start, flex-start);
     flex: 1 1 auto;
+    
+    gap: 16px;
   }
 
   &__buttons {
