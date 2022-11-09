@@ -40,25 +40,24 @@ export default class SelectedNavigationItemComponent extends Vue {
  
 <style lang="scss" scoped>
 .nav-item {
-
    width: max-content;
 
-   padding: 8px;
    @include flex-container(row, left, center);
    gap: 8px;
 
-   cursor: pointer;
-
-   transition: all .1s ease-in-out;
-
    border: 1px solid #D7D7D7;
-   background-color: #D7D7D7;
    border-radius: 8px;
+
+   background-color: #D7D7D7;
+
+   padding: 8px;
+
+   cursor: pointer;
+   transition: all .1s ease-in-out;
 
    &.active {
      border-color: $color-main;
      background-color: rgba(243, 108, 33, 0.1);
-
    }
 
    &.active &__title {
@@ -72,17 +71,14 @@ export default class SelectedNavigationItemComponent extends Vue {
    &.active &__number-wrapper {
       outline: none;
       background-color: $color-main;
-
    }
 
    &.delete &__delete {
       display: block;
-
    }
 
    &.delete &__number-wrapper {
       display: none;
-
    }
 
    &__title {
@@ -91,34 +87,29 @@ export default class SelectedNavigationItemComponent extends Vue {
       color: #2B2B2B;
 
       transition: all .1s ease-in-out;
-
    }
 
    &__number-wrapper {
       width: 24px;
       height: 24px;
 
+      @include flex-container(row, center, center);
+
       border-radius: 50%;
       outline: 1px solid #393D38;
 
       transition: all .1s ease-in-out;
-
-      @include flex-container(row, center, center);
-
    }
 
    &__number-selected {
       @include fontUnify(12, 16, 400);
       letter-spacing: 0.02em;
       color: #393D38;
-
    }
 
    &__delete {
       display: none;
-
    }
-   
 }
 
 </style>

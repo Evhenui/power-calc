@@ -38,19 +38,20 @@ export default class ButtonWhiteComponent extends Vue {
 
    @include flex-container(row, left, center);
    gap: 10px;
-   padding: 8px 31px;
 
    border: 1px solid $color-main;
    border-radius: 6px;
 
    background-color: white;
 
+   padding: 8px 31px;
+
    transition: all .1s ease-in-out;
 
    &:hover {
-      background-color: #FF5B00;
-
       border-color: #FF5B00;
+
+      background-color: #FF5B00;
 
       .button__name {
          color: white;
@@ -63,9 +64,9 @@ export default class ButtonWhiteComponent extends Vue {
    }
 
    &:active {
-      background-color: #AC450B;
-      
       border-color: #AC450B;
+
+      background-color: #AC450B;
 
       .button__name {
          color: white;
@@ -78,10 +79,10 @@ export default class ButtonWhiteComponent extends Vue {
    }
 
    &:disabled {
+      border-color: #8A8A8A;
+
       background-color: #8A8A8A;
 
-      border-color: #8A8A8A;
-      
       cursor: auto;
 
       .button__name {
@@ -91,7 +92,6 @@ export default class ButtonWhiteComponent extends Vue {
       .button__image-state {
          stroke: white;
       }
-
    }
 
    &.del {
@@ -104,7 +104,6 @@ export default class ButtonWhiteComponent extends Vue {
 
    &.del &__image-plus {
       display: none;
-
    }
 
       &__image {
@@ -120,7 +119,6 @@ export default class ButtonWhiteComponent extends Vue {
 
       &__image-basket {
          display: none;
-
       }
 
       &__name {
@@ -130,7 +128,6 @@ export default class ButtonWhiteComponent extends Vue {
 
          transition: all .1s ease-in-out;
       }
-
 }
 
 </style>

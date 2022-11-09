@@ -29,7 +29,6 @@ export default class ComparisonComponent extends Vue {}
 
    @extend %padding-wrp;
    margin: 0 auto;
-   
  }
 }
 </style>

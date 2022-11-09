@@ -16,30 +16,26 @@ export default class InputRadioComponent extends Vue {}
  
 <style lang="scss" scoped>
 .selecet {
-
    &__input {
       position: absolute;
-
       z-index: -1;
 
       opacity: 0;
-   
    }
 
    &__label {
+      display: inline-flex;
+
+      position: relative;
+
       @include flex-container(row, left, center);
       gap: 16px;
 
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
       @include fontUnify(16, 24, 400);
 
-      display: inline-flex;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-      align-items: center;
       user-select: none;
-
-      position: relative;
 
       &::before {
          content: '';
@@ -56,50 +52,42 @@ export default class InputRadioComponent extends Vue {}
          border-radius: 50%;
 
          transition: all .1s ease-in-out;
-
       }
 
       &::after {
          content: '';
 
-         transition: all .1s ease-in-out;
+         width: 8px;
+         height: 0;
          
          position: absolute;
          @include setAbs( 50%, 8px, auto, auto );
-
-         transform: translateY(-50%);
-
-         width: 8px;
-         height: 0;
 
          border-radius: 50%;
 
          background-color: white;
 
+         transition: all .1s ease-in-out;
+         transform: translateY(-50%);
         }
-
    }
 
    &__input:not(:disabled):not(:checked) + &__label:hover::before {
       border-color: $color-main-dark;
-      
    }
  
    &__input:checked + &__label::before {
       border-color: var(--color-primary-base);
       background-color: var(--color-primary-base);
-      
    }
 
    &__input:checked + &__label::after {
       height: 8px;
-
    }
 
    &__input:disabled + &__label::before {
       background-color: #e9ecef;
    }
-
 }
 
 </style>

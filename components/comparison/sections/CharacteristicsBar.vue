@@ -32,15 +32,18 @@ export default class CharacteristicsBarComponent extends Vue {
  
 <style lang="scss" scoped>
 .menu-bar {
+  border-right: 1px solid #e9e9e9;
+
   &__wrapper {
     max-width: 274px;
     width: 100%;
+    height: 100%;
+
+    @include flex-container(column, null);
 
     padding: 16px;
 
     background-color: white;
-
-    border: 1px solid #e9e9e9;
   }
 
   &__title {
@@ -52,6 +55,7 @@ export default class CharacteristicsBarComponent extends Vue {
   }
 
   &__inputs {
+    flex: 1 1 auto;
   }
 
   &__buttons {
