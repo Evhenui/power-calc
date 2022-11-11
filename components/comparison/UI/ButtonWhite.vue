@@ -41,12 +41,19 @@ export default class ButtonWhiteComponent extends Vue {
 
    border: 1px solid $color-main;
    border-radius: 6px;
-
+   
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
    background-color: white;
 
    padding: 8px 31px;
 
    transition: all .1s ease-in-out;
+
+   @media (max-width: 860px) {
+      width: 100%;
+
+      @include flex-container(row, center);
+   }
 
    &:hover {
       border-color: #FF5B00;
@@ -127,6 +134,10 @@ export default class ButtonWhiteComponent extends Vue {
          color: $color-main;
 
          transition: all .1s ease-in-out;
+
+         @media (max-width: 860px) {
+            display: none;
+         }
       }
 }
 

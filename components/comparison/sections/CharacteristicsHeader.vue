@@ -4,7 +4,9 @@
       <CharacteristicsBar :heightCard="sizeCard" ref="navigation" class="characteristics-header__bar" />
     </div>
     <section class="characteristics-header__items">
-      <CardProduct v-for="(item, index) in 10" :key="index" ref="some" class="characteristics-header__item" />
+      <div class="characteristics-header__items-wrapper">
+        <CardProduct v-for="(item, index) in 10" :key="index" ref="some" class="characteristics-header__item" />
+      </div>
     </section>
   </section>
 </template>
@@ -30,15 +32,20 @@ export default class CharacteristicsHeaderComponent extends Vue {
     navigation: CharacteristicsBar
   };
 
-  sizeCard: number = 0;
+  sizeCard: string = '';
   
   getSizeCard() {
-    const cardSize = this.$refs.some[0].$el.offsetHeight;
-    this.sizeCard = cardSize;
+    const cardProductElevent: any = this.$refs.some[0].$el;
+    const cardSize: number = cardProductElevent.offsetHeight;
+    if(window.innerWidth > 860) {
+      this.sizeCard = `${cardSize}px`;
+    } else {
+      this.sizeCard = 'auto';
+    }
   }
 
   mounted() {
-    this.getSizeCard();
+    window.addEventListener('resize', this.getSizeCard)
   }
 }
 </script>
@@ -49,7 +56,15 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
   margin-bottom: 16px;
 
+  @media (max-width: 860px) {
+    @include flex-container(column, left);
+  }
+
   &__items {
+    overflow: hidden;
+  }
+
+  &__items-wrapper {
     @include flex-container(row, left, center);
 
     padding-bottom: 16px;

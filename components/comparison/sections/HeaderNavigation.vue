@@ -16,6 +16,7 @@
             </SelectedNavigationItem>
           </li>
         </ul>
+        <Dropdown class="header-nav__dropdown"></Dropdown>
       </nav>
     </div>
   </section>
@@ -24,10 +25,12 @@
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
 import SelectedNavigationItem from "../UI/SelectedNavigationItem.vue";
+import Dropdown from "../UI/Dropdown.vue"
 
 @Component({
   components: {
     SelectedNavigationItem,
+    Dropdown
   },
 })
 export default class HeaderNavigationComponent extends Vue {
@@ -45,6 +48,7 @@ export default class HeaderNavigationComponent extends Vue {
 <style lang="scss" scoped>
 .header-nav {
   margin-bottom: 24px;
+
   &__wrapper {
   }
 
@@ -53,17 +57,26 @@ export default class HeaderNavigationComponent extends Vue {
     color: #2b2b2b;
 
     margin-bottom: 32px;
-  }
 
-  &__navbar {
+    @media (max-width: 860px) {
+      @include fontUnify(24, 29, 700);
 
+      margin-bottom: 16px;
+    }
   }
 
   &__subtitle {
     @include fontUnify(20, 28, 400);
     letter-spacing: 0.02em;
     color: #2b2b2b;
+
     margin-bottom: 16px;
+
+    @media (max-width: 860px) {
+      @include fontUnify(16, 22, 400);
+
+      margin-bottom: 8px;
+    }
   }
 
   &__list {
@@ -72,6 +85,10 @@ export default class HeaderNavigationComponent extends Vue {
     padding-bottom: 16px;
 
     overflow-y: auto;
+
+    @media (max-width: 860px) {
+      display: none;
+    }
     
     &::-webkit-scrollbar {
       height: 8px;
@@ -82,6 +99,15 @@ export default class HeaderNavigationComponent extends Vue {
     &::-webkit-scrollbar-thumb:horizontal {
       background-color: #393d38;
       border-radius: 100px;
+    }
+  }
+
+  &__dropdown {
+    display: none;
+
+    @media (max-width: 860px) {
+      display: inline-block;
+      width: 100%;
     }
   }
 }
