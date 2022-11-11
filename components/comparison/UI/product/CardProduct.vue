@@ -1,5 +1,6 @@
 <template>
   <section 
+      ref="cardProduct"
       class="card-product"
       :class="{active: scrollState}"
    >
@@ -44,8 +45,14 @@ import ButtonOrange from "@components/comparison/UI/ButtonOrange.vue";
   },
 })
 export default class CardProductComponent extends Vue {
+   $refs: {
+    cardProduct: HTMLElement;
+  };
 
    scrollState:boolean = false;
+
+   mounted() {
+   }
 }
 </script>
  

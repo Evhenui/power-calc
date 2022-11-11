@@ -1,6 +1,9 @@
 <template>
   <section class="menu-bar">
-    <div class="menu-bar__wrapper">
+    <div 
+      class="menu-bar__wrapper"
+      :style="{height: `${heightCard}px`}"
+    >
       <h3 class="menu-bar__title">Характеристики:</h3>
       <section class="menu-bar__inputs">
         <InputRadio nameInput="all" valueInput="all">Все</InputRadio>
@@ -16,6 +19,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 import ButtonWhite from "../UI/ButtonWhite.vue";
 import InputRadio from "../UI/InputRadio.vue";
 
@@ -26,24 +30,31 @@ import InputRadio from "../UI/InputRadio.vue";
   },
 })
 export default class CharacteristicsBarComponent extends Vue {
+  @Prop({required: false}) heightCard: number;
+
   buttonClear: boolean = true;
+
+  mounted() {
+   
+  }
 }
 </script>
  
 <style lang="scss" scoped>
 .menu-bar {
-  border-right: 1px solid #e9e9e9;
 
   &__wrapper {
+    --height: auto;
+
     max-width: 274px;
     width: 100%;
-    height: 100%;
+    height: var(--height);
 
-    @include flex-container(column, null);
-
-    padding: 16px;
+    border: 1px solid #e9e9e9;
 
     background-color: white;
+
+    padding: 16px;
   }
 
   &__title {
@@ -56,7 +67,6 @@ export default class CharacteristicsBarComponent extends Vue {
 
   &__inputs {
     @include flex-container(column, flex-start, flex-start);
-    flex: 1 1 auto;
     
     gap: 16px;
   }
