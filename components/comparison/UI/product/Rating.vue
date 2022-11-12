@@ -1,5 +1,5 @@
 <template>
-  <section class="rating">
+  <section class="rating" :class="{active: state}">
     <section class="rating__points">
       <svg
         width="14"
@@ -70,9 +70,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 
 @Component({})
-export default class RatingComponent extends Vue {}
+export default class RatingComponent extends Vue {
+  @Prop({ required: false }) state: boolean;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +87,13 @@ export default class RatingComponent extends Vue {}
     padding: 0 18px 8px 18px;
     margin-bottom: 8px;
 
+    &.active {
+      border: none;
+
+      padding: 0;
+      margin: 0;
+    }
+
     &__points {
         display: flex;
 
@@ -93,6 +103,9 @@ export default class RatingComponent extends Vue {}
     }
 
     &__reviews {
+      @media(max-width: 860px) {
+        display: none;
+      }
     }
 
     &__review {

@@ -1,5 +1,8 @@
 <template>
-  <section class="availability" :class="status">
+  <section 
+    class="availability"
+    :class="[status, {active:state}]"
+    >
     <span class="availability__name in-stock">В наличии</span>
     <span class="availability__name pre-order">Предзаказ</span>
     <span class="availability__name not-available">Нет в наличии</span>
@@ -15,11 +18,15 @@ import { Prop } from "vue-property-decorator";
 
 export default class AvailabilityComponent extends Vue {
   @Prop({ required: true }) status: string;
+  @Prop({ required: false }) state: boolean;
 }
 </script>
  
 <style lang="scss" scoped>
 .availability {
+  &.active {
+    display: none;
+  }
   &.in-stock &__name.in-stock {
     display: block;
 

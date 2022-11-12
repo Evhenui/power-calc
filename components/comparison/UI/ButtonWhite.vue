@@ -1,7 +1,7 @@
 <template>
    <button 
       class="button"
-      :class='{del: buttonType}'
+      :class='[{del: buttonType}, {active: state}]'
    >
       <div class="button__image">
          <svg class="button__image-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ import { Prop } from "vue-property-decorator";
 export default class ButtonWhiteComponent extends Vue {
 
    @Prop({required: false}) buttonType: boolean;
-
+   @Prop({required: false}) state: boolean;
 }
 </script>
  
@@ -49,10 +49,14 @@ export default class ButtonWhiteComponent extends Vue {
 
    transition: all .1s ease-in-out;
 
-   @media (max-width: 860px) {
+   &.active {
       width: 100%;
 
       @include flex-container(row, center);
+
+      .button__name {
+         display: none;
+      }
    }
 
    &:hover {
@@ -134,10 +138,6 @@ export default class ButtonWhiteComponent extends Vue {
          color: $color-main;
 
          transition: all .1s ease-in-out;
-
-         @media (max-width: 860px) {
-            display: none;
-         }
       }
 }
 

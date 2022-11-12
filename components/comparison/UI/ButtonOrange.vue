@@ -1,7 +1,7 @@
 <template>
    <button 
       class="button-orange"
-      :class="{active}"
+      :class="{active: stateButton}"
    >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
          <path d="M19.5 22C20.3284 22 21 21.3284 21 20.5C21 19.6716 20.3284 19 19.5 19C18.6716 19 18 19.6716 18 20.5C18 21.3284 18.6716 22 19.5 22Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -25,8 +25,7 @@ import { Prop } from "vue-property-decorator";
    }
 })
 export default class ButtonOrangeComponent extends Vue {
-
-   @Prop({required: false}) active: string;
+   @Prop({required: false}) stateButton: boolean;
 }
 </script>
  
@@ -39,6 +38,7 @@ export default class ButtonOrangeComponent extends Vue {
 
    border-radius: 6px;
    background-color: $color-main;
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
    padding: 8px 32px;
 

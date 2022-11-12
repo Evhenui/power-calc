@@ -1,12 +1,20 @@
 <template>
-  <nav class="card-navigation">
-    <Availability :status="statusProduct.ends" />
-    <NavigationButtons />
+  <nav 
+    class="card-navigation"
+    :class="{active: state}"
+  >
+    <Availability 
+      :status="statusProduct.ends" 
+      :state="state"
+      class="card-navigation__availability"
+    />
+    <NavigationButtons :state="state" />
   </nav>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 import Availability from "./Availability.vue";
 import NavigationButtons from "./NavigationButtons.vue";
 
@@ -17,6 +25,7 @@ import NavigationButtons from "./NavigationButtons.vue";
   },
 })
 export default class NavigationComponent extends Vue {
+  @Prop({required: false}) state: boolean;
 
   statusProduct = {
     inStock: "in-stock",
@@ -33,6 +42,15 @@ export default class NavigationComponent extends Vue {
 
    padding: 0 8px;
    margin-bottom: 8px;
+
+   &.active {
+      justify-content: flex-end;
+      margin: 0;
+
+      .card-navigation__availability {
+        display: none;
+      }
+   }
 }
 </style>
  

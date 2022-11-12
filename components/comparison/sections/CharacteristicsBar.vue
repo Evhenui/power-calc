@@ -6,14 +6,14 @@
     >
       <div class="menu-bar__section-wrapper">
         <h3 class="menu-bar__title">Характеристики:</h3>
-        <section class="menu-bar__inputs">
-          <InputRadio nameInput="all" valueInput="all">Все</InputRadio>
-          <InputRadio nameInput="only-difference" valueInput="only-difference">Только отличия</InputRadio>
-        </section>
+        <div class="menu-bar__inputs">
+          <InputSwitch v-model="switchState" />
+          <span class="menu-bar__switch-title">Только отличия</span>
+        </div>
       </div>
       <section class="menu-bar__buttons">
-        <ButtonWhite>Добавить товар</ButtonWhite>
-        <ButtonWhite :buttonType="buttonClear">Очистить список</ButtonWhite>
+        <ButtonWhite :state="state">Добавить товар</ButtonWhite>
+        <ButtonWhite :buttonType="buttonClear" :state="state">Очистить список</ButtonWhite>
       </section>
     </div>
   </section>
@@ -24,21 +24,34 @@ import { Component, Vue } from "~/tools/version-types";
 import { Prop } from "vue-property-decorator";
 import ButtonWhite from "../UI/ButtonWhite.vue";
 import InputRadio from "../UI/InputRadio.vue";
+import InputSwitch from "@components/calculator/UI/InputSwitch.vue";
 
 @Component({
   components: {
     ButtonWhite,
     InputRadio,
+    InputSwitch
   },
 })
 export default class CharacteristicsBarComponent extends Vue {
   @Prop({required: false}) heightCard: number;
 
   buttonClear: boolean = true;
+  switchState: boolean = false;
+  state: boolean = false;
+  sizeMobileWindow: number = 860;
+
+  changeSize(size:number) {
+    this.state = window.innerWidth <= size ? true : false;
+  }
 
   mounted() {
-   
+    this.changeSize(this.sizeMobileWindow);
+    window.addEventListener('resize', () => {
+      this.changeSize(this.sizeMobileWindow)
+    });
   }
+
 }
 </script>
  
@@ -64,6 +77,9 @@ export default class CharacteristicsBarComponent extends Vue {
       max-width: 100%;
       height: auto;
 
+      border: none;
+      border-radius: 8px;
+
       gap: 24px;
     }
   }
@@ -77,15 +93,22 @@ export default class CharacteristicsBarComponent extends Vue {
     @include fontUnify(16, 22, 600);
     letter-spacing: 0.02em;
     color: #2b2b2b;
+
     @media (max-width: 860px) {
       display: none;
     }
   }
 
   &__inputs {
-    @include flex-container(column, flex-start, flex-start);
+    @include flex-container(row, flex-start, center);
     
     gap: 16px;
+  }
+
+  &__switch-title {
+    @include fontUnify(16, 22, 400);
+    letter-spacing: 0.02em;
+    color: #2b2b2b;
   }
 
   &__buttons {

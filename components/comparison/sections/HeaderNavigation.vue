@@ -49,6 +49,11 @@ export default class HeaderNavigationComponent extends Vue {
 .header-nav {
   margin-bottom: 24px;
 
+  @media (max-width: 860px) {
+    margin-bottom: 16px;
+    padding-right: 16px;
+  }
+
   &__wrapper {
   }
 
