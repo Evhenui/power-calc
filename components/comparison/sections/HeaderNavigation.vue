@@ -34,6 +34,7 @@ import Dropdown from "../UI/Dropdown.vue"
   },
 })
 export default class HeaderNavigationComponent extends Vue {
+  test: number = 10;
   listSelected = [
     { id: 1, name: "Комплект резервного питания", amount: 12 },
     { id: 2, name: "Комплект питания", amount: 2 },

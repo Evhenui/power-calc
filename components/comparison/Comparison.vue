@@ -2,8 +2,8 @@
     <div class="comparison">
        <div class="comparison__wrapper">
          <HeaderNavigation/>
-         <CharacteristicsHeader @getPositionScroll="test"/>
-         <CharacteristicsMain :sending="num"/>
+         <CharacteristicsHeader :positionScrollHeader="positionX"  @getPositionScroll="positionScrollTop"/>
+         <CharacteristicsMain :positionScrollX="positionX" @getPositionScrollBottom="positionScrollBottom"/>
        </div>
    </div>
 </template>
@@ -22,9 +22,13 @@ import CharacteristicsMain from "./sections/CharacteristicsMain.vue";
    }
 })
 export default class ComparisonComponent extends Vue {
-   num: number = 0;
-   test(el){
-      this.num = el;
+   positionX: number = 0;
+
+   positionScrollTop(position: number){
+      this.positionX = position;
+   }
+   positionScrollBottom(position: number){
+      this.positionX = position;
    }
 }
 </script>

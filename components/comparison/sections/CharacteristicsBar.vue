@@ -33,6 +33,8 @@ import InputSwitch from "@components/calculator/UI/InputSwitch.vue";
     InputSwitch
   },
 })
+
+
 export default class CharacteristicsBarComponent extends Vue {
   @Prop({required: false}) heightCard: number;
 

@@ -1,53 +1,64 @@
 <template>
   <section class="characteristics-header">
-    <div class="characteristics-header__nav">
-      <CharacteristicsBar :heightCard="sizeCard" ref="navigation" class="characteristics-header__nav-bar" />
+    <div class="characteristics-header__wrapper">
+      <div class="characteristics-header__nav">
+      <CharacteristicsBar
+        :heightCard="sizeCard"
+        ref="navigation"
+        class="characteristics-header__nav-bar"
+      />
     </div>
-      <section class="characteristics-header__items">
-
-      <ButtonArrow 
+    <section class="characteristics-header__items">
+      <ButtonArrow
         v-if="isButton"
-        class="characteristics-header__button left" 
+        class="characteristics-header__button left"
         moveSlide="left"
         @click.native="prevSlide"
-        />
+      />
 
-      <div ref="test" class="characteristics-header__items-wrapper" @scroll="sendPosition">
-        <CardProduct 
-          v-for="(item, index) in 10" 
-          :key="index" 
-          ref="slide" class="characteristics-header__item" />
+      <div
+        ref="test"
+        class="characteristics-header__items-wrapper"
+        @scroll="sendPosition"
+      >
+        <CardProduct
+          v-for="(item, index) in 10"
+          :key="index"
+          ref="slide"
+          class="characteristics-header__item"
+        />
       </div>
 
-      <ButtonArrow 
+      <ButtonArrow
         v-if="isButton"
-        class="characteristics-header__button right" 
+        class="characteristics-header__button right"
         :direction="buttonRight"
         @click.native="nextSlide"
         moveSlide="right"
-        />
-
+      />
     </section>
+    </div>
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
 import { Prop } from "vue-property-decorator";
+import { Watch } from "vue-property-decorator";
 import CharacteristicsBar from "./CharacteristicsBar.vue";
-import CardProduct from "@components/comparison/UI/product/CardProduct.vue"
+import CardProduct from "@components/comparison/UI/product/CardProduct.vue";
 import ButtonArrow from "../UI/ButtonArrow.vue";
 
 @Component({
   components: {
     CharacteristicsBar,
     CardProduct,
-    ButtonArrow
+    ButtonArrow,
   },
 })
 export default class CharacteristicsHeaderComponent extends Vue {
-
-  @Prop({required: false}) active: string;
+  @Prop({ required: false }) positionScrollHeader: number;
+  @Prop({ required: false }) active: string;
 
   $refs: {
     slide: CardProduct[];
@@ -55,51 +66,56 @@ export default class CharacteristicsHeaderComponent extends Vue {
     test: HTMLElement;
   };
 
-  sizeCard: string = '';
+  sizeCard: string = "";
   buttonRight: boolean = true;
   isButton: boolean = false;
   mobileWidth: number = 860;
 
+/*     @Watch('positionScrollHeader')
+  onpositionScrollHeaderChanged(val: number) {
+    this.$refs.test.scrollLeft = val;
+  } */
+
   nextSlide() {
     const cardProductElevent: any = this.$refs.slide[0].$el,
-          cardSize: number = cardProductElevent.offsetWidth;
+      cardSize: number = cardProductElevent.offsetWidth;
     let moveSpace: number = cardSize * 2;
-    
+
     this.$refs.test.scrollLeft += moveSpace;
     this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
   }
 
   prevSlide() {
     const cardProductElevent: any = this.$refs.slide[0].$el,
-          cardSize: number = cardProductElevent.offsetWidth;
+      cardSize: number = cardProductElevent.offsetWidth;
     let moveSpace: number = cardSize * 2;
 
     this.$refs.test.scrollLeft -= moveSpace;
     this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
   }
 
-  sendPosition() {
+  sendPosition() { 
     this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
   }
-  
+
   getSizeCard() {
     const cardProductElevent: any = this.$refs.slide[0].$el,
-          cardSize: number = cardProductElevent.offsetHeight;
+      cardSize: number = cardProductElevent.offsetHeight;
 
-    this.sizeCard = window.innerWidth > 860? `${cardSize}px`: 'auto';
+    this.sizeCard = window.innerWidth > 860 ? `${cardSize}px` : "auto";
   }
 
-  removeButtons(size:number) {
+  removeButtons(size: number) {
     this.isButton = window.innerWidth <= size ? false : true;
   }
 
   mounted() {
     this.getSizeCard();
-    window.addEventListener('resize', this.getSizeCard);
+    window.addEventListener("resize", this.getSizeCard);
 
     this.removeButtons(this.mobileWidth);
-    window.addEventListener('resize', () => {
-      this.removeButtons(this.mobileWidth)
+    window.addEventListener("resize", () => {
+      this.removeButtons(this.mobileWidth);
     });
   }
 }
@@ -107,7 +123,10 @@ export default class CharacteristicsHeaderComponent extends Vue {
  
 <style lang="scss" scoped>
 .characteristics-header {
-  @include flex-container(row, left);
+  
+
+  &__wrapper {
+    @include flex-container(row, left);
 
   margin-bottom: 16px;
 
@@ -116,6 +135,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     gap: 16px;
     margin-bottom: 8px;
+  }
   }
 
   &__items {
@@ -173,6 +193,5 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   }
 }
-
 </style>
  

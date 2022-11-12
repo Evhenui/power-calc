@@ -41,7 +41,7 @@ import Comparison from "@components/comparison/Comparison.vue"
 })
 export default class IndexPageComponent extends Vue {
   mounted() {
-    console.log(this.icons);
+    //console.log(this.icons);
   }
 }
 </script>
