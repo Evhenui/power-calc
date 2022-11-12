@@ -1,5 +1,8 @@
 <template>
-  <section class="characteristics-header">
+  <section ref="characteristics"
+    class="characteristics-header"
+    :class="{active: isActiveScroll}"
+  >
     <div class="characteristics-header__wrapper">
       <div class="characteristics-header__nav">
       <CharacteristicsBar
@@ -64,12 +67,14 @@ export default class CharacteristicsHeaderComponent extends Vue {
     slide: CardProduct[];
     navigation: CharacteristicsBar;
     test: HTMLElement;
+    characteristics: HTMLElement;
   };
 
   sizeCard: string = "";
   buttonRight: boolean = true;
   isButton: boolean = false;
   mobileWidth: number = 860;
+  isActiveScroll: boolean = false;
 
 /*     @Watch('positionScrollHeader')
   onpositionScrollHeaderChanged(val: number) {
@@ -109,33 +114,55 @@ export default class CharacteristicsHeaderComponent extends Vue {
     this.isButton = window.innerWidth <= size ? false : true;
   }
 
+  scrollState() {
+    if(window.scrollY >= this.$refs.characteristics.offsetTop) {
+      this.isActiveScroll = true;
+    }
+     else {
+      this.isActiveScroll = false;
+    }
+  }
+
   mounted() {
     this.getSizeCard();
     window.addEventListener("resize", this.getSizeCard);
+
+    this.getSizeCard();
+    window.addEventListener("scroll", this.getSizeCard);
 
     this.removeButtons(this.mobileWidth);
     window.addEventListener("resize", () => {
       this.removeButtons(this.mobileWidth);
     });
+
+    this.scrollState();
+    window.addEventListener("scroll", this.scrollState);
   }
 }
 </script>
  
 <style lang="scss" scoped>
 .characteristics-header {
-  
+  --height: 516px;
+  height: var(--height);
+  &.active &__wrapper{
+    max-width: 1408px;
+
+    position: fixed;
+    top: 0px;
+  }
 
   &__wrapper {
     @include flex-container(row, left);
 
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 
-  @media (max-width: 860px) {
-    @include flex-container(column, left);
+    @media (max-width: 860px) {
+      @include flex-container(column, left);
 
-    gap: 16px;
-    margin-bottom: 8px;
-  }
+      gap: 16px;
+      margin-bottom: 8px;
+    }
   }
 
   &__items {

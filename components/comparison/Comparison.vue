@@ -2,7 +2,10 @@
     <div class="comparison">
        <div class="comparison__wrapper">
          <HeaderNavigation/>
-         <CharacteristicsHeader :positionScrollHeader="positionX"  @getPositionScroll="positionScrollTop"/>
+         <CharacteristicsHeader 
+            :positionScrollHeader="positionX"  
+            @getPositionScroll="positionScrollTop"
+         />
          <CharacteristicsMain :positionScrollX="positionX" @getPositionScrollBottom="positionScrollBottom"/>
        </div>
    </div>
@@ -22,6 +25,7 @@ import CharacteristicsMain from "./sections/CharacteristicsMain.vue";
    }
 })
 export default class ComparisonComponent extends Vue {
+
    positionX: number = 0;
 
    positionScrollTop(position: number){
