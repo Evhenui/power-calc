@@ -1,8 +1,11 @@
 <template>
-  <section class="menu-bar">
+  <section 
+    class="menu-bar"
+    :class="{active: activeScroll}"
+  >
     <div 
       class="menu-bar__wrapper"
-      :style="{height: heightCard}"
+      :style="{height: resizeHeight}"
     >
       <div class="menu-bar__section-wrapper">
         <h3 class="menu-bar__title">Характеристики:</h3>
@@ -12,8 +15,14 @@
         </div>
       </div>
       <section class="menu-bar__buttons">
-        <ButtonWhite :state="state">Добавить товар</ButtonWhite>
-        <ButtonWhite :buttonType="buttonClear" :state="state">Очистить список</ButtonWhite>
+        <ButtonWhite 
+          :state="state" 
+          :scrollState="activeScroll"
+        >Добавить товар</ButtonWhite>
+        <ButtonWhite 
+          :buttonType="buttonClear" 
+          :state="state" 
+          :scrollState="activeScroll">Очистить список</ButtonWhite>
       </section>
     </div>
   </section>
@@ -21,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
-import { Prop } from "vue-property-decorator";
+import { Prop, Watch } from "vue-property-decorator";
 import ButtonWhite from "../UI/ButtonWhite.vue";
 import InputRadio from "../UI/InputRadio.vue";
 import InputSwitch from "@components/calculator/UI/InputSwitch.vue";
@@ -34,31 +43,36 @@ import InputSwitch from "@components/calculator/UI/InputSwitch.vue";
   },
 })
 
-
 export default class CharacteristicsBarComponent extends Vue {
   @Prop({required: false}) heightCard: number;
+  @Prop({required: false}) activeScroll: boolean;
 
   buttonClear: boolean = true;
   switchState: boolean = false;
   state: boolean = false;
+  resizeHeight: string = '';
   sizeMobileWindow: number = 860;
 
-  changeSize(size:number) {
-    this.state = window.innerWidth <= size ? true : false;
+  @Watch('heightCard')
+  onheightCardChanged(val: string) {
+    this.resizeHeight =  window.innerWidth > 860? val: 'auto';
   }
-
-  mounted() {
-    this.changeSize(this.sizeMobileWindow);
-    window.addEventListener('resize', () => {
-      this.changeSize(this.sizeMobileWindow)
-    });
-  }
-
 }
 </script>
  
 <style lang="scss" scoped>
 .menu-bar {
+  transition: all .2s ease-in-out;
+
+  &.active {
+
+    .menu-bar__wrapper {
+      width: 100%;
+    }
+    .menu-bar__buttons {
+      flex-direction: row;
+    } 
+  }
 
   &__wrapper {
     --height: auto;

@@ -1,7 +1,7 @@
 <template>
   <nav 
     class="card-navigation"
-    :class="{active: state}"
+    :class="[{active: state}, {scroll: stateScroll}]"
   >
     <Availability 
       :status="statusProduct.ends" 
@@ -26,6 +26,7 @@ import NavigationButtons from "./NavigationButtons.vue";
 })
 export default class NavigationComponent extends Vue {
   @Prop({required: false}) state: boolean;
+  @Prop({required: false}) stateScroll: boolean;
 
   statusProduct = {
     inStock: "in-stock",
@@ -50,6 +51,10 @@ export default class NavigationComponent extends Vue {
       .card-navigation__availability {
         display: none;
       }
+   }
+
+   &.scroll {
+    margin-bottom: 16px;
    }
 }
 </style>

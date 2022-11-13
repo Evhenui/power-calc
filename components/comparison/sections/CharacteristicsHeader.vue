@@ -1,12 +1,13 @@
 <template>
   <section ref="characteristics"
     class="characteristics-header"
-    :class="{active: isActiveScroll}"
+    :class="[{active: isActiveScroll}, {'scroll-mobile': isActiveScrollMobile}]"
   >
     <div class="characteristics-header__wrapper">
       <div class="characteristics-header__nav">
       <CharacteristicsBar
-        :heightCard="sizeCard"
+        :heightCard="cardSize"
+        :activeScroll="isActiveScroll"
         ref="navigation"
         class="characteristics-header__nav-bar"
       />
@@ -28,6 +29,8 @@
           v-for="(item, index) in 10"
           :key="index"
           ref="slide"
+          :scrollState="isActiveScroll"
+          :scrollStateMobile="isActiveScrollMobile"
           class="characteristics-header__item"
         />
       </div>
@@ -46,8 +49,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
-import { Prop } from "vue-property-decorator";
-import { Watch } from "vue-property-decorator";
+import { Prop, Watch } from "vue-property-decorator";
 import CharacteristicsBar from "./CharacteristicsBar.vue";
 import CardProduct from "@components/comparison/UI/product/CardProduct.vue";
 import ButtonArrow from "../UI/ButtonArrow.vue";
@@ -56,11 +58,10 @@ import ButtonArrow from "../UI/ButtonArrow.vue";
   components: {
     CharacteristicsBar,
     CardProduct,
-    ButtonArrow,
+    ButtonArrow
   },
 })
 export default class CharacteristicsHeaderComponent extends Vue {
-  @Prop({ required: false }) positionScrollHeader: number;
   @Prop({ required: false }) active: string;
 
   $refs: {
@@ -75,11 +76,16 @@ export default class CharacteristicsHeaderComponent extends Vue {
   isButton: boolean = false;
   mobileWidth: number = 860;
   isActiveScroll: boolean = false;
+  isActiveScrollMobile: boolean = false;
 
-/*     @Watch('positionScrollHeader')
-  onpositionScrollHeaderChanged(val: number) {
-    this.$refs.test.scrollLeft = val;
-  } */
+  cardSize: string = '';
+
+  resizeEl() {
+    const observer = new ResizeObserver((entries)=>{
+      this.cardSize = entries[0].borderBoxSize[0].blockSize + 'px';
+    });
+    observer.observe(this.$refs.slide[0].$el)
+  }
 
   nextSlide() {
     const cardProductElevent: any = this.$refs.slide[0].$el,
@@ -103,32 +109,31 @@ export default class CharacteristicsHeaderComponent extends Vue {
     this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
   }
 
-  getSizeCard() {
-    const cardProductElevent: any = this.$refs.slide[0].$el,
-      cardSize: number = cardProductElevent.offsetHeight;
-
-    this.sizeCard = window.innerWidth > 860 ? `${cardSize}px` : "auto";
-  }
-
   removeButtons(size: number) {
     this.isButton = window.innerWidth <= size ? false : true;
   }
 
   scrollState() {
     if(window.scrollY >= this.$refs.characteristics.offsetTop) {
-      this.isActiveScroll = true;
+      if(window.innerWidth >= 860){
+        this.isActiveScrollMobile = false;
+        this.isActiveScroll = true;
+      }else{
+        this.isActiveScroll = false;
+        this.isActiveScrollMobile = true;
+      } 
     }
      else {
-      this.isActiveScroll = false;
+      if(window.innerWidth >= 860){
+        this.isActiveScroll = false
+      } else {
+        this.isActiveScrollMobile = false;
+      } 
     }
   }
 
   mounted() {
-    this.getSizeCard();
-    window.addEventListener("resize", this.getSizeCard);
-
-    this.getSizeCard();
-    window.addEventListener("scroll", this.getSizeCard);
+    this.resizeEl();
 
     this.removeButtons(this.mobileWidth);
     window.addEventListener("resize", () => {
@@ -137,31 +142,71 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     this.scrollState();
     window.addEventListener("scroll", this.scrollState);
+    window.addEventListener("resize", this.scrollState);
   }
 }
 </script>
  
 <style lang="scss" scoped>
 .characteristics-header {
-  --height: 516px;
-  height: var(--height);
-  &.active &__wrapper{
-    max-width: 1408px;
+  margin-bottom: 16px;
 
-    position: fixed;
-    top: 0px;
+  &.active{
+    height: 300px;
+
+    margin-bottom: 0;
+
+    @media (max-width: 860px) {
+      height: 400px;
+    }
+    .characteristics-header__wrapper{
+      max-width: 1410px;
+      width: 100%;
+
+      position: fixed;
+      top: 0px;
+
+      padding-right: 16px;
+    }
+
+    .characteristics-header__nav{
+      flex: 1 0 274px;
+
+      @media (max-width: 860px) {
+       display: none;
+      }
+    }
+  }
+
+  &.scroll-mobile {
+    height: 190px;
+
+    .characteristics-header__wrapper{
+      max-width: 1410px;
+      width: 100%;
+
+      position: fixed;
+      top: 0px;
+
+      padding-right: 8px;
+    }
+
+    .characteristics-header__nav{
+       display: none;
+    }
   }
 
   &__wrapper {
     @include flex-container(row, left);
 
-    margin-bottom: 16px;
+    background-color: var(--color-sky-lightest);
+
+    padding-bottom: 16px;
 
     @media (max-width: 860px) {
       @include flex-container(column, left);
 
       gap: 16px;
-      margin-bottom: 8px;
     }
   }
 

@@ -40,11 +40,13 @@
         "./assets/scss/*"
       ],
     },
+    "typeRoots": ["node_modules/@types"],
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
       "@types/node",
-      "webpack-env"
+      "webpack-env",
+      "resize-observer-browser"
     ],
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,

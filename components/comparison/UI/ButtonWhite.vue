@@ -1,7 +1,7 @@
 <template>
    <button 
       class="button"
-      :class='[{del: buttonType}, {active: state}]'
+      :class='[{del: buttonType}, {active: state}, {active: scrollState}]'
    >
       <div class="button__image">
          <svg class="button__image-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,6 +29,8 @@ export default class ButtonWhiteComponent extends Vue {
 
    @Prop({required: false}) buttonType: boolean;
    @Prop({required: false}) state: boolean;
+   @Prop({required: false}) scrollState: boolean;
+   
 }
 </script>
  

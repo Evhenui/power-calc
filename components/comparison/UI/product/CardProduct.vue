@@ -2,10 +2,14 @@
   <section
     ref="cardProduct"
     class="card-product"
-    :class="{ active: scrollState }"
+    :class="[{active: scrollState}, {'active-mobile': scrollStateMobile}]"
   >
     <div class="card-product__wrapper">
-      <Navigation :state="state"/>
+      <Navigation 
+        :state="state"
+        :stateScroll="scrollState"
+        class="card-product__navigation"
+      />
       
       <section class="card-product__body">
         <div class="card-product__body-wrapper">
@@ -30,7 +34,10 @@
           <p class="card-product__code">Код: 56983</p>
           <div class="card-product__footer-navigation">
             <h1 class="card-product__price">972 ₴</h1>
-            <ButtonOrange :stateButton="state">Купить</ButtonOrange>
+            <ButtonOrange 
+              :stateButton="state"
+              :scrollState="scrollState"
+            >Купить</ButtonOrange>
           </div>
         </section>
       </section>
@@ -40,6 +47,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop, Watch } from "vue-property-decorator";
 import Navigation from "./Navigation.vue";
 import Rating from "./Rating.vue";
 import ButtonOrange from "@components/comparison/UI/ButtonOrange.vue";
@@ -54,11 +62,13 @@ import Availability from "./Availability.vue"
   },
 })
 export default class CardProductComponent extends Vue {
+  @Prop({ required: false }) scrollState: boolean = false;
+  @Prop({ required: false }) scrollStateMobile: boolean = false;
+
   $refs: {
     cardProduct: HTMLElement;
   };
 
-  scrollState: boolean = false;
   statusProduct = {
     inStock: "in-stock",
     preOrder: "pre-order",
@@ -66,13 +76,29 @@ export default class CardProductComponent extends Vue {
     ends: "ends",
   };
   state: boolean = false;
+
   sizeMobileWindow: number = 860;
+
+  isActiveScroll = {
+    desktop: false,
+    mobile: false
+  }
 
   changeSize(size:number) {
     this.state = window.innerWidth <= size ? true : false;
   }
 
+  getState() {
+    if(this.state) {
+      this.isActiveScroll.mobile = true;
+    }else {
+      this.isActiveScroll.desktop = true;
+   }
+  }
+
   mounted() {
+    this.getState();
+
     this.changeSize(this.sizeMobileWindow);
     window.addEventListener('resize', () => {
       this.changeSize(this.sizeMobileWindow)
@@ -133,6 +159,68 @@ export default class CardProductComponent extends Vue {
 
     .card-product__code {
       margin: 0;
+    }
+
+    .card-product__footer-navigation {
+      @include flex-container(row, space-between, center);
+    }
+
+    .card-product__price {
+      @include fontUnify(16, 22, 500);
+    }
+  }
+
+  &.active-mobile {
+
+    .card-product__navigation, .card-product__availability {
+      display: none;
+    }
+    .card-product__wrapper {
+      padding: 8px 0 8px 0;
+    }
+
+    .card-product__image-wrapper {
+      flex: 1 0 59px;
+
+      margin: 0;
+    }
+
+    .card-product__rating {
+      display: none;
+    }
+
+    .card-product__body-wrapper {
+      @include flex-container(row, space-between, center);
+      gap: 3px;
+    }
+
+    .card-product__body {
+      padding: 0 8px;
+    }
+
+    .card-product__body-wrapper {
+      margin-bottom: 0;
+    }
+
+    .card-product__subtitle {
+      @include fontUnify(12, 16, 400);
+
+      padding: 0;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+    
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .card-product__footer {
+      padding: 0;
+    }
+
+    .card-product__code {
+      display: none;
     }
 
     .card-product__footer-navigation {
