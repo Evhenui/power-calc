@@ -101,21 +101,25 @@ export default class CharacteristicsHeaderComponent extends Vue {
     const sizeCard: number = cardElement.offsetWidth;
     const maxCounter: number = this.sliderItemsLength / 2;
 
+    
+
     if((this.sliderItemsLength - maxCounter) === this.sliderCounter){
       this.sliderCounter = 0;
 
       window.getComputedStyle(slider).getPropertyValue('--transition');
       slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
-    } else if(this.sliderCounter * sizeCard === maxCounter * sizeCard){
-      console.log('true')
-      window.getComputedStyle(slider).getPropertyValue('--transition');
-      slider.style.setProperty('--transition', (- this.sliderItemsLength * sizeCard) + 'px');
     } else {
       this.sliderCounter += 1;
 
       window.getComputedStyle(slider).getPropertyValue('--transition');
       slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
+
+      if((this.sliderItemsLength - maxCounter) === this.sliderCounter) {
+        window.getComputedStyle(slider).getPropertyValue('--transition');
+        slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard - 81) + 'px');
+      }
     }
+
     this.$emit("getPositionScroll", this.sliderCounter);
     this.$emit("getSizeCard", sizeCard);
   }
