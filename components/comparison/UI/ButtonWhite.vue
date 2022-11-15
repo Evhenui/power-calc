@@ -38,7 +38,7 @@ export default class ButtonWhiteComponent extends Vue {
 .button {
    width: max-content;
 
-   @include flex-container(row, left, center);
+   @include flex-container(row, center, center);
    gap: 10px;
 
    border: 1px solid $color-main;
@@ -50,6 +50,10 @@ export default class ButtonWhiteComponent extends Vue {
    padding: 8px 31px;
 
    transition: all .1s ease-in-out;
+
+   @include bigMobile {
+      width: 100%;
+   }
 
    &.active {
       width: 100%;
@@ -140,6 +144,10 @@ export default class ButtonWhiteComponent extends Vue {
          color: $color-main;
 
          transition: all .1s ease-in-out;
+
+         @include bigMobile {
+            display: none;
+         }
       }
 }
 

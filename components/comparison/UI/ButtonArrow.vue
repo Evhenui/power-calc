@@ -10,6 +10,7 @@
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
+        class="button-arrow__image-state"
         d="M15 6L9 12L15 18"
         stroke="#F36C21"
         stroke-width="1.5"
@@ -42,12 +43,26 @@ export default class ButtonArrowComponent extends Vue {
 
     @include flex-container(column, center, center);
 
-    border: 1px solid #F36C21;
+    border: 2px solid #F36C21;
     border-radius: 50px;
 
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.5);
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    transition: all .1s ease-in-out;
+
+    &:hover {
+      background-color: #F36C21;
+
+      .button-arrow__image-state {
+        stroke: white;
+      }
+    }
+
+    &:active {
+      border-color: #AC450B;
+      background-color: #AC450B;
+    }
 
     &__image {
         &.right {

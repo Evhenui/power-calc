@@ -103,7 +103,7 @@ export default class RatingComponent extends Vue {
     }
 
     &__reviews {
-      @media(max-width: 860px) {
+      @include bigMobile {
         display: none;
       }
     }

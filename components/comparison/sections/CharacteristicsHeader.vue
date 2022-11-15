@@ -1,48 +1,54 @@
 <template>
-  <section ref="characteristics"
+  <section
+    ref="characteristics"
     class="characteristics-header"
-    :class="[{active: isActiveScroll}, {'scroll-mobile': isActiveScrollMobile}]"
+    :class="[
+      { active: isActiveScroll },
+      { 'scroll-mobile': isActiveScrollMobile },
+    ]"
   >
     <div class="characteristics-header__wrapper">
       <div class="characteristics-header__nav">
-      <CharacteristicsBar
-        :heightCard="cardSize"
-        :activeScroll="isActiveScroll"
-        ref="navigation"
-        class="characteristics-header__nav-bar"
-      />
-    </div>
-    <section class="characteristics-header__items">
-      <ButtonArrow
-        v-if="isButton"
-        class="characteristics-header__button left"
-        moveSlide="left"
-        @click.native="prevSlide"
-      />
-
-      <div
-        ref="test"
-        class="characteristics-header__items-wrapper"
-        @scroll="sendPosition"
-      >
-        <CardProduct
-          v-for="(item, index) in 10"
-          :key="index"
-          ref="slide"
-          :scrollState="isActiveScroll"
-          :scrollStateMobile="isActiveScrollMobile"
-          class="characteristics-header__item"
+        <CharacteristicsBar
+          :heightCard="cardSize"
+          :activeScroll="isActiveScroll"
+          :mobileSize="mobileSize"
+          ref="navigation"
+          class="characteristics-header__nav-bar"
         />
       </div>
+      <section class="characteristics-header__items">
+        <ButtonArrow
+          v-if="isButton"
+          class="characteristics-header__button left"
+          moveSlide="left"
+          @click.native="prevSlide"
+        />
 
-      <ButtonArrow
-        v-if="isButton"
-        class="characteristics-header__button right"
-        :direction="buttonRight"
-        @click.native="nextSlide"
-        moveSlide="right"
-      />
-    </section>
+        <div
+          ref="sliderWrapper"
+          class="characteristics-header__items-wrapper"
+          @scroll="sendPosition"
+        >
+          <CardProduct
+            v-for="(item, index) in 10"
+            :key="index"
+            ref="slide"
+            :scrollState="isActiveScroll"
+            :scrollStateMobile="isActiveScrollMobile"
+            :mobileSize="mobileSize"
+            class="characteristics-header__item"
+          />
+        </div>
+
+        <ButtonArrow
+          v-if="isButton"
+          class="characteristics-header__button right"
+          :direction="buttonRight"
+          @click.native="nextSlide"
+          moveSlide="right"
+        />
+      </section>
     </div>
   </section>
 </template>
@@ -58,55 +64,79 @@ import ButtonArrow from "../UI/ButtonArrow.vue";
   components: {
     CharacteristicsBar,
     CardProduct,
-    ButtonArrow
+    ButtonArrow,
   },
 })
 export default class CharacteristicsHeaderComponent extends Vue {
   @Prop({ required: false }) active: string;
+  @Prop({ required: false }) mobileSize: number;
 
   $refs: {
     slide: CardProduct[];
     navigation: CharacteristicsBar;
-    test: HTMLElement;
     characteristics: HTMLElement;
+    sliderWrapper: HTMLElement;
   };
 
   sizeCard: string = "";
   buttonRight: boolean = true;
   isButton: boolean = false;
-  mobileWidth: number = 860;
   isActiveScroll: boolean = false;
   isActiveScrollMobile: boolean = false;
+  cardSize: string = "";
 
-  cardSize: string = '';
+  sliderCounter: number = 0;
+  sliderItemsLength: number = 0;
 
   resizeEl() {
-    const observer = new ResizeObserver((entries)=>{
-      this.cardSize = entries[0].borderBoxSize[0].blockSize + 'px';
+    const observer = new ResizeObserver((entries) => {
+      this.cardSize = entries[0].borderBoxSize[0].blockSize + "px";
     });
-    observer.observe(this.$refs.slide[0].$el)
+    observer.observe(this.$refs.slide[0].$el);
   }
 
   nextSlide() {
-    const cardProductElevent: any = this.$refs.slide[0].$el,
-      cardSize: number = cardProductElevent.offsetWidth;
-    let moveSpace: number = cardSize * 2;
+    const slider = this.$refs.sliderWrapper;
+    const cardElement: any = this.$refs.slide[0].$el;
+    const sizeCard: number = cardElement.offsetWidth;
+    const maxCounter: number = this.sliderItemsLength / 2;
 
-    this.$refs.test.scrollLeft += moveSpace;
-    this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
+    if((this.sliderItemsLength - maxCounter) === this.sliderCounter){
+      this.sliderCounter = 0;
+
+      window.getComputedStyle(slider).getPropertyValue('--transition');
+      slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
+    } else if(this.sliderCounter * sizeCard === maxCounter * sizeCard){
+      console.log('true')
+      window.getComputedStyle(slider).getPropertyValue('--transition');
+      slider.style.setProperty('--transition', (- this.sliderItemsLength * sizeCard) + 'px');
+    } else {
+      this.sliderCounter += 1;
+
+      window.getComputedStyle(slider).getPropertyValue('--transition');
+      slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
+    }
+    this.$emit("getPositionScroll", this.sliderCounter);
+    this.$emit("getSizeCard", sizeCard);
   }
 
   prevSlide() {
-    const cardProductElevent: any = this.$refs.slide[0].$el,
-      cardSize: number = cardProductElevent.offsetWidth;
-    let moveSpace: number = cardSize * 2;
+    const slider = this.$refs.sliderWrapper;
+    const cardElement: any = this.$refs.slide[0].$el;
+    const sizeCard: number = cardElement.offsetWidth;
 
-    this.$refs.test.scrollLeft -= moveSpace;
-    this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
+    if(this.sliderCounter !== 0){
+      this.sliderCounter -= 1;
+
+      window.getComputedStyle(slider).getPropertyValue('--transition');
+      slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
+    }
+    this.$emit("getPositionScroll", this.sliderCounter);
+    this.$emit("getSizeCard", sizeCard);
   }
 
-  sendPosition() { 
-    this.$emit("getPositionScroll", this.$refs.test.scrollLeft);
+  sendPosition() {
+/*     this.$emit("getPositionScroll", this.$refs.test.scrollLeft); */
   }
 
   removeButtons(size: number) {
@@ -114,30 +144,31 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   scrollState() {
-    if(window.scrollY >= this.$refs.characteristics.offsetTop) {
-      if(window.innerWidth >= 860){
+    if (window.scrollY >= this.$refs.characteristics.offsetTop) {
+      if (window.innerWidth > this.mobileSize) {
         this.isActiveScrollMobile = false;
         this.isActiveScroll = true;
-      }else{
+      } else {
         this.isActiveScroll = false;
         this.isActiveScrollMobile = true;
-      } 
-    }
-     else {
-      if(window.innerWidth >= 860){
-        this.isActiveScroll = false
+      }
+    } else {
+      if (window.innerWidth > this.mobileSize) {
+        this.isActiveScroll = false;
       } else {
         this.isActiveScrollMobile = false;
-      } 
+      }
     }
   }
 
   mounted() {
+    this.sliderItemsLength = this.$refs.slide.length;
+
     this.resizeEl();
 
-    this.removeButtons(this.mobileWidth);
+    this.removeButtons(this.mobileSize);
     window.addEventListener("resize", () => {
-      this.removeButtons(this.mobileWidth);
+      this.removeButtons(this.mobileSize);
     });
 
     this.scrollState();
@@ -149,31 +180,31 @@ export default class CharacteristicsHeaderComponent extends Vue {
  
 <style lang="scss" scoped>
 .characteristics-header {
-  margin-bottom: 16px;
-
-  &.active{
+  &.active {
     height: 300px;
 
     margin-bottom: 0;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       height: 400px;
     }
-    .characteristics-header__wrapper{
+    .characteristics-header__wrapper {
       max-width: 1410px;
       width: 100%;
 
       position: fixed;
       top: 0px;
 
+      z-index: 1;
+
       padding-right: 16px;
     }
 
-    .characteristics-header__nav{
+    .characteristics-header__nav {
       flex: 1 0 274px;
 
-      @media (max-width: 860px) {
-       display: none;
+      @include bigMobile {
+        display: none;
       }
     }
   }
@@ -181,18 +212,19 @@ export default class CharacteristicsHeaderComponent extends Vue {
   &.scroll-mobile {
     height: 190px;
 
-    .characteristics-header__wrapper{
+    .characteristics-header__wrapper {
       max-width: 1410px;
       width: 100%;
 
       position: fixed;
       top: 0px;
+      z-index: 1;
 
       padding-right: 8px;
     }
 
-    .characteristics-header__nav{
-       display: none;
+    .characteristics-header__nav {
+      display: none;
     }
   }
 
@@ -201,9 +233,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     background-color: var(--color-sky-lightest);
 
-    padding-bottom: 16px;
-
-    @media (max-width: 860px) {
+    @include bigMobile {
       @include flex-container(column, left);
 
       gap: 16px;
@@ -220,6 +250,8 @@ export default class CharacteristicsHeaderComponent extends Vue {
     position: absolute;
     top: 50%;
 
+    z-index: 1;
+
     transform: translateY(-50%);
 
     &.left {
@@ -234,25 +266,10 @@ export default class CharacteristicsHeaderComponent extends Vue {
   &__items-wrapper {
     @include flex-container(row, left, center);
 
-    padding-bottom: 16px;
-
-    overflow: auto;
-
-    @media (max-width: 860px) {
-      padding-bottom: 8px;
-    }
-
-    &::-webkit-scrollbar {
-      height: 8px;
-
-      background-color: #d1d1d1;
-      border-radius: 100px;
-    }
-
-    &::-webkit-scrollbar-thumb:horizontal {
-      background-color: #393d38;
-      border-radius: 100px;
-    }
+    --transition: 0;
+    transform: translateX(var(--transition));
+    
+    transition: all .2s ease-in-out;
   }
 
   &__item {
@@ -260,7 +277,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     border-bottom: 1px solid #e9e9e9;
     border-right: 1px solid #e9e9e9;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       border: 1px solid #e9e9e9;
     }
   }

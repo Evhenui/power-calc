@@ -64,6 +64,7 @@ import Availability from "./Availability.vue"
 export default class CardProductComponent extends Vue {
   @Prop({ required: false }) scrollState: boolean = false;
   @Prop({ required: false }) scrollStateMobile: boolean = false;
+  @Prop({ required: false }) mobileSize: number;
 
   $refs: {
     cardProduct: HTMLElement;
@@ -76,8 +77,6 @@ export default class CardProductComponent extends Vue {
     ends: "ends",
   };
   state: boolean = false;
-
-  sizeMobileWindow: number = 860;
 
   isActiveScroll = {
     desktop: false,
@@ -99,9 +98,9 @@ export default class CardProductComponent extends Vue {
   mounted() {
     this.getState();
 
-    this.changeSize(this.sizeMobileWindow);
+    this.changeSize(this.mobileSize);
     window.addEventListener('resize', () => {
-      this.changeSize(this.sizeMobileWindow)
+      this.changeSize(this.mobileSize)
     });
   }
 }
@@ -113,7 +112,7 @@ export default class CardProductComponent extends Vue {
 
   background-color: white;
 
-  @media(max-width: 860px) {
+  @include bigMobile {
    flex: 1 0 152px;
   }
 
@@ -142,7 +141,7 @@ export default class CardProductComponent extends Vue {
     }
 
     .card-product__body-wrapper {
-      margin-bottom: 36px;
+      margin-bottom: 16px;
     }
 
     .card-product__subtitle {
@@ -237,39 +236,35 @@ export default class CardProductComponent extends Vue {
 
     transition: all 0.2s ease-in-out;
 
-    @media(max-width: 860px) { 
+    @include bigMobile {
       padding: 8px 0;
     }
   }
 
   &__body {
-    @media(max-width: 860px) {
+    @include bigMobile {
       padding: 0 8px;
     }
   }
 
   &__body-wrapper {
     margin-bottom: 8px;
-
-    transition: all 0.2s ease-in-out;
   }
 
   &__image-wrapper {
     @include flex-container(row, center, center);
 
     margin-bottom: 8px;
-
-    transition: all 0.2s ease-in-out;
   }
 
   &__image {
-   @media(max-width: 860px) {
+    @include bigMobile {
       width: 100px;
    }
   }
 
   &__description {
-    @media(max-width: 860px) {
+    @include bigMobile {
       @include flex-container(column, flex-start, left);
 
       gap: 8px;
@@ -283,9 +278,7 @@ export default class CardProductComponent extends Vue {
 
     padding: 0 16px;
 
-    transition: all 0.2s ease-in-out;
-
-    @media(max-width: 860px) {
+    @include bigMobile {
       @include fontUnify(12, 16, 400);
 
       padding: 0;
@@ -295,9 +288,7 @@ export default class CardProductComponent extends Vue {
   &__footer {
     padding: 0 16px;
 
-    transition: all 0.2s ease-in-out;
-
-    @media(max-width: 860px) {
+    @include bigMobile {
       padding: 0;
     }
   }
@@ -311,7 +302,7 @@ export default class CardProductComponent extends Vue {
 
     transition: all 0.2s ease-in-out;
 
-    @media(max-width: 860px) {
+    @include bigMobile {
       margin-bottom: 8px;
     }
   }
@@ -322,7 +313,7 @@ export default class CardProductComponent extends Vue {
 
     transition: all 0.2s ease-in-out;
 
-    @media(max-width: 860px) {
+    @include bigMobile {
       @include flex-container(row, space-between, center);
     }
   }
@@ -333,9 +324,7 @@ export default class CardProductComponent extends Vue {
     letter-spacing: 0.02em;
     text-transform: uppercase;
 
-    transition: all 0.2s ease-in-out;
-
-    @media(max-width: 860px) {
+    @include bigMobile {
       @include fontUnify(16, 22, 400);
     }
   }

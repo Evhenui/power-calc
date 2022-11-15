@@ -64,6 +64,7 @@ export default class ButtonCatalogComponent extends Vue {}
 
   margin: 0 auto;
   padding: 10px 57px;
+  
   &__name {
     @include fontUnify(20, 28, 400);
     letter-spacing: 0.02em;

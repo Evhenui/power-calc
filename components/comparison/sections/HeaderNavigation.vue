@@ -50,7 +50,7 @@ export default class HeaderNavigationComponent extends Vue {
 .header-nav {
   margin-bottom: 24px;
 
-  @media (max-width: 860px) {
+  @include bigMobile {
     margin-bottom: 16px;
     padding-right: 16px;
   }
@@ -64,7 +64,7 @@ export default class HeaderNavigationComponent extends Vue {
 
     margin-bottom: 32px;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       @include fontUnify(24, 29, 700);
 
       margin-bottom: 16px;
@@ -78,7 +78,7 @@ export default class HeaderNavigationComponent extends Vue {
 
     margin-bottom: 16px;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       @include fontUnify(16, 22, 400);
 
       margin-bottom: 8px;
@@ -92,7 +92,7 @@ export default class HeaderNavigationComponent extends Vue {
 
     overflow-y: auto;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       display: none;
     }
     
@@ -111,7 +111,7 @@ export default class HeaderNavigationComponent extends Vue {
   &__dropdown {
     display: none;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       display: inline-block;
       width: 100%;
     }

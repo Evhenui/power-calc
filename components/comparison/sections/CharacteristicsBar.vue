@@ -46,16 +46,16 @@ import InputSwitch from "@components/calculator/UI/InputSwitch.vue";
 export default class CharacteristicsBarComponent extends Vue {
   @Prop({required: false}) heightCard: number;
   @Prop({required: false}) activeScroll: boolean;
+  @Prop({required: false}) mobileSize: number;
 
   buttonClear: boolean = true;
   switchState: boolean = false;
   state: boolean = false;
   resizeHeight: string = '';
-  sizeMobileWindow: number = 860;
 
   @Watch('heightCard')
   onheightCardChanged(val: string) {
-    this.resizeHeight =  window.innerWidth > 860? val: 'auto';
+    this.resizeHeight =  window.innerWidth > this.mobileSize? val: 'auto';
   }
 }
 </script>
@@ -89,7 +89,7 @@ export default class CharacteristicsBarComponent extends Vue {
 
     padding: 16px;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       max-width: 100%;
       height: auto;
 
@@ -110,7 +110,7 @@ export default class CharacteristicsBarComponent extends Vue {
     letter-spacing: 0.02em;
     color: #2b2b2b;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       display: none;
     }
   }
@@ -131,7 +131,7 @@ export default class CharacteristicsBarComponent extends Vue {
     @include flex-container(column, flex-start, stretch);
     gap: 24px;
 
-    @media (max-width: 860px) {
+    @include bigMobile {
       @include flex-container(row, center, center);
     }
   }

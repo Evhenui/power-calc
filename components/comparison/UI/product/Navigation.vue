@@ -54,7 +54,7 @@ export default class NavigationComponent extends Vue {
    }
 
    &.scroll {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
    }
 }
 </style>

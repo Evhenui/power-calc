@@ -43,8 +43,6 @@ export default class ButtonOrangeComponent extends Vue {
 
    padding: 8px 32px;
 
-   transition: all .1s ease-in-out;
-
    &.active, &.scroll {
       width: max-content;
 
