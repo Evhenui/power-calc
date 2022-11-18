@@ -17,12 +17,15 @@
           class="characteristics-header__nav-bar"
         />
       </div>
-      <section class="characteristics-header__items">
+      <section
+       class="characteristics-header__items"
+       ref="sliderWidth"
+       >
         <ButtonArrow
           v-if="isButton"
           class="characteristics-header__button left"
           moveSlide="left"
-          @click.native="prevSlide"
+          @click.native="prevSlideTest"
         />
 
         <div
@@ -45,7 +48,7 @@
           v-if="isButton"
           class="characteristics-header__button right"
           :direction="buttonRight"
-          @click.native="nextSlide"
+          @click.native="nextSlideTest"
           moveSlide="right"
         />
       </section>
@@ -76,6 +79,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     navigation: CharacteristicsBar;
     characteristics: HTMLElement;
     sliderWrapper: HTMLElement;
+    sliderWidth: HTMLElement;
   };
 
   sizeCard: string = "";
@@ -88,6 +92,17 @@ export default class CharacteristicsHeaderComponent extends Vue {
   sliderCounter: number = 0;
   sliderItemsLength: number = 0;
 
+  slider: any = {
+    line: undefined,
+    slides: 0,
+    sliderWidth: 0,
+    widthArray: [ 0 ],
+    lineWidth: 0,
+    offset: 0,
+    step: 0,
+    ostatok: 0,
+  }
+
   resizeEl() {
     const observer = new ResizeObserver((entries) => {
       this.cardSize = entries[0].borderBoxSize[0].blockSize + "px";
@@ -95,33 +110,85 @@ export default class CharacteristicsHeaderComponent extends Vue {
     observer.observe(this.$refs.slide[0].$el);
   }
 
+  nextSlideTest() {
+    this.slider.ostatok = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
+      if(this.slider.ostatok >= 0) {
+        this.slider.offset = this.slider.offset + this.slider.widthArray[this.slider.step];
+        this.slider.line.style.transform =  "translateX(" + -this.slider.offset + 'px' + ")";
+      }
+      else {
+        this.slider.line.style.transform =  "translateX(" + -(this.slider.lineWidth - this.slider.sliderWidth) + 'px' + ")";
+      }
+      this.slider.step++;
+  }
+
+  prevSlideTest() {
+    this.slider.ostatok = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset - this.slider.widthArray[this.slider.step]);
+
+      if(this.slider.ostatok <= this.slider.maxSizeTranslate) {
+        this.slider.offset = this.slider.offset - this.slider.widthArray[this.slider.step];
+        this.slider.line.style.transform =  "translateX(" + -this.slider.offset + 'px' + ")";
+      }
+      else {
+        this.slider.line.style.transform =  "translateX(" + 0 + 'px' + ")";
+      }
+      this.slider.step--;
+  }
+
+  getSizeSlider() {
+    this.slider.line = this.$refs.sliderWrapper;
+    this.slider.slides = this.$refs.slide.length;
+
+    this.$refs.slide.forEach(item => {
+      this.slider.widthArray.push((item as any).$el.offsetWidth);
+      this.slider.lineWidth += (item as any).$el.offsetWidth;
+    })
+
+    this.slider.line.style.width = this.slider.lineWidth + 'px';
+  }
+
+  getNullStepSlider() {
+    this.slider.sliderWidth = this.$refs.sliderWidth.offsetWidth;
+    this.slider.ostatok = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
+    this.slider.offset = 0;
+    this.slider.step = 1;
+  }
+
   nextSlide() {
     const slider = this.$refs.sliderWrapper;
     const cardElement: any = this.$refs.slide[0].$el;
     const sizeCard: number = cardElement.offsetWidth;
     const maxCounter: number = this.sliderItemsLength / 2;
-
+    const scrollLastElement: number = sizeCard - (slider.offsetWidth % cardElement.offsetWidth);
+    let translatePosition: number = 0;
     
-
-    if((this.sliderItemsLength - maxCounter) === this.sliderCounter){
+    if((this.sliderItemsLength - maxCounter) + 1 === this.sliderCounter){
       this.sliderCounter = 0;
+      translatePosition = (- this.sliderCounter * sizeCard);
 
       window.getComputedStyle(slider).getPropertyValue('--transition');
-      slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
+      slider.style.setProperty('--transition', translatePosition + 'px'); 
     } else {
       this.sliderCounter += 1;
+      translatePosition =(- this.sliderCounter * sizeCard);
 
-      window.getComputedStyle(slider).getPropertyValue('--transition');
-      slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
-
-      if((this.sliderItemsLength - maxCounter) === this.sliderCounter) {
-        window.getComputedStyle(slider).getPropertyValue('--transition');
-        slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard - 81) + 'px');
+      if(cardElement.offsetWidth > slider.offsetWidth - (-translatePosition)) {
+        
       }
-    }
+      window.getComputedStyle(slider).getPropertyValue('--transition');
+      slider.style.setProperty('--transition', translatePosition + 'px');
 
-    this.$emit("getPositionScroll", this.sliderCounter);
-    this.$emit("getSizeCard", sizeCard);
+     /*  if((this.sliderItemsLength - maxCounter) === this.sliderCounter) {
+        translatePosition =(- this.sliderCounter * sizeCard - scrollLastElement);
+
+        window.getComputedStyle(slider).getPropertyValue('--transition');
+        slider.style.setProperty('--transition', translatePosition + 'px');
+      } */
+    }
+    console.log((slider.offsetWidth - (-translatePosition)) + 243)
+   
+    this.$emit("getPositionScroll", translatePosition);
+    this.$emit("getSizeCard", sizeCard); 
   }
 
   prevSlide() {
@@ -129,13 +196,16 @@ export default class CharacteristicsHeaderComponent extends Vue {
     const cardElement: any = this.$refs.slide[0].$el;
     const sizeCard: number = cardElement.offsetWidth;
 
+    let translatePosition: number = 0; 
+
     if(this.sliderCounter !== 0){
       this.sliderCounter -= 1;
+      translatePosition =(- this.sliderCounter * sizeCard);
 
       window.getComputedStyle(slider).getPropertyValue('--transition');
       slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
     }
-    this.$emit("getPositionScroll", this.sliderCounter);
+    this.$emit("getPositionScroll", translatePosition);
     this.$emit("getSizeCard", sizeCard);
   }
 
@@ -166,6 +236,9 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   mounted() {
+    this.getSizeSlider()
+    this.getNullStepSlider()
+    window.addEventListener("resize", this.getNullStepSlider);
     this.sliderItemsLength = this.$refs.slide.length;
 
     this.resizeEl();
@@ -198,7 +271,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
       position: fixed;
       top: 0px;
-
+      
       z-index: 1;
 
       padding-right: 16px;

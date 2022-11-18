@@ -369,7 +369,7 @@ export default class CharacteristicsMainComponent extends Vue {
   @Watch('positionScrollX')
   onpositionScrollXChanged(val: number) {
     window.getComputedStyle(this.$refs.sliderWrapper).getPropertyValue('--translate');
-    this.$refs.sliderWrapper.style.setProperty('--translate', (- val * this.sizeCard) + 'px');
+    this.$refs.sliderWrapper.style.setProperty('--translate', val + 'px');
     
   }
 
