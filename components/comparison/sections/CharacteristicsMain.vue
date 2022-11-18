@@ -51,7 +51,7 @@ export default class CharacteristicsMainComponent extends Vue {
   @Prop({required: false}) positionScrollX: number;
   @Prop({required: false}) mobileSize: number;
   @Prop({required: false}) sizeCard: number;
-  
+  @Prop({required: false}) slider: any;
 
   $refs: {
     menuCategory: HTMLElement[];

@@ -100,7 +100,9 @@ export default class CharacteristicsHeaderComponent extends Vue {
     lineWidth: 0,
     offset: 0,
     step: 0,
-    ostatok: 0,
+    remainder: 0,
+    maxSizeTranslate: 0,
+    maxStep: 0
   }
 
   resizeEl() {
@@ -111,28 +113,34 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   nextSlideTest() {
-    this.slider.ostatok = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
-      if(this.slider.ostatok >= 0) {
+    this.slider.remainder = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
+      if(this.slider.remainder >= 0) {
         this.slider.offset = this.slider.offset + this.slider.widthArray[this.slider.step];
         this.slider.line.style.transform =  "translateX(" + -this.slider.offset + 'px' + ")";
       }
       else {
         this.slider.line.style.transform =  "translateX(" + -(this.slider.lineWidth - this.slider.sliderWidth) + 'px' + ")";
       }
-      this.slider.step++;
+
+      if(this.slider.step < this.slider.maxStep + 1) {
+        this.slider.step++;
+      }
   }
 
   prevSlideTest() {
-    this.slider.ostatok = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset - this.slider.widthArray[this.slider.step]);
+    this.slider.remainder = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset - this.slider.widthArray[this.slider.step]);
 
-      if(this.slider.ostatok <= this.slider.maxSizeTranslate) {
+      if(this.slider.remainder <= this.slider.maxSizeTranslate) {
         this.slider.offset = this.slider.offset - this.slider.widthArray[this.slider.step];
         this.slider.line.style.transform =  "translateX(" + -this.slider.offset + 'px' + ")";
       }
       else {
         this.slider.line.style.transform =  "translateX(" + 0 + 'px' + ")";
       }
-      this.slider.step--;
+
+      if(this.slider.step > 1) {
+        this.slider.step--;
+      }
   }
 
   getSizeSlider() {
@@ -149,9 +157,11 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
   getNullStepSlider() {
     this.slider.sliderWidth = this.$refs.sliderWidth.offsetWidth;
-    this.slider.ostatok = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
+    this.slider.remainder = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
+    this.slider.maxSizeTranslate = this.slider.remainder;
     this.slider.offset = 0;
     this.slider.step = 1;
+    this.slider.maxStep = Math.ceil(this.slider.slides - (this.slider.sliderWidth / this.slider.widthArray[1]));
   }
 
   nextSlide() {
