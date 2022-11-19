@@ -31,6 +31,9 @@
         <div
           ref="sliderWrapper"
           class="characteristics-header__items-wrapper"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
         >
           <CardProduct
             v-for="(item, index) in 10"
@@ -101,7 +104,9 @@ export default class CharacteristicsHeaderComponent extends Vue {
     step: 0,
     remainder: 0,
     maxSizeTranslate: 0,
-    maxStep: 0
+    maxStep: 0,
+    positionX: null,
+    differencePosition: 0
   }
 
   resizeEl() {
@@ -127,9 +132,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
       if(this.slider.step < this.slider.maxStep + 1) {
         this.slider.step++;
-      }
-
-      
+      } 
   }
 
   prevSlide() {
@@ -197,6 +200,29 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   }
 
+  handleTouchStart(event) {
+    this.slider.positionX = event.touches[0].clientX;
+  }
+
+  handleTouchMove(event) {
+    const position =  event.touches[0].clientX;
+
+    if(!this.slider.positionX) {
+        return false;
+    }
+
+    this.slider.differencePosition = position - this.slider.positionX;
+    this.slider.positionX = null;
+  }
+
+  handleTouchEnd() {
+    if(this.slider.differencePosition > 0) {
+      this.prevSlide()
+    } else {
+      this.nextSlide() 
+    }
+}
+
   mounted() {
     this.getSizeSlider()
     this.getNullStepSlider()
@@ -230,7 +256,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
     .characteristics-header__wrapper {
       max-width: 1410px;
-      width: 100%;
+      width: 97.5%;
 
       position: fixed;
       top: 0px;
