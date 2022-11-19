@@ -25,13 +25,12 @@
           v-if="isButton"
           class="characteristics-header__button left"
           moveSlide="left"
-          @click.native="prevSlideTest"
+          @click.native="prevSlide"
         />
 
         <div
           ref="sliderWrapper"
           class="characteristics-header__items-wrapper"
-          @scroll="sendPosition"
         >
           <CardProduct
             v-for="(item, index) in 10"
@@ -48,7 +47,7 @@
           v-if="isButton"
           class="characteristics-header__button right"
           :direction="buttonRight"
-          @click.native="nextSlideTest"
+          @click.native="nextSlide"
           moveSlide="right"
         />
       </section>
@@ -112,35 +111,46 @@ export default class CharacteristicsHeaderComponent extends Vue {
     observer.observe(this.$refs.slide[0].$el);
   }
 
-  nextSlideTest() {
+  nextSlide() {
     this.slider.remainder = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset + this.slider.widthArray[this.slider.step]);
       if(this.slider.remainder >= 0) {
         this.slider.offset = this.slider.offset + this.slider.widthArray[this.slider.step];
         this.slider.line.style.transform =  "translateX(" + -this.slider.offset + 'px' + ")";
+
+        this.$emit("getSliderValue", this.slider.offset);
       }
       else {
         this.slider.line.style.transform =  "translateX(" + -(this.slider.lineWidth - this.slider.sliderWidth) + 'px' + ")";
+
+        this.$emit("getSliderValue", this.slider.lineWidth - this.slider.sliderWidth);
       }
 
       if(this.slider.step < this.slider.maxStep + 1) {
         this.slider.step++;
       }
+
+      
   }
 
-  prevSlideTest() {
+  prevSlide() {
     this.slider.remainder = this.slider.lineWidth - this.slider.sliderWidth - (this.slider.offset - this.slider.widthArray[this.slider.step]);
 
       if(this.slider.remainder <= this.slider.maxSizeTranslate) {
         this.slider.offset = this.slider.offset - this.slider.widthArray[this.slider.step];
         this.slider.line.style.transform =  "translateX(" + -this.slider.offset + 'px' + ")";
+
+        this.$emit("getSliderValue", this.slider.offset);
       }
       else {
         this.slider.line.style.transform =  "translateX(" + 0 + 'px' + ")";
+
+        this.$emit("getSliderValue", 0);
       }
 
       if(this.slider.step > 1) {
         this.slider.step--;
       }
+      
   }
 
   getSizeSlider() {
@@ -152,7 +162,8 @@ export default class CharacteristicsHeaderComponent extends Vue {
       this.slider.lineWidth += (item as any).$el.offsetWidth;
     })
 
-    this.slider.line.style.width = this.slider.lineWidth + 'px';
+    window.getComputedStyle(this.slider.line).getPropertyValue('--width');
+    this.slider.line.style.setProperty('--width', this.slider.lineWidth + 'px'); 
   }
 
   getNullStepSlider() {
@@ -161,66 +172,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     this.slider.maxSizeTranslate = this.slider.remainder;
     this.slider.offset = 0;
     this.slider.step = 1;
-    this.slider.maxStep = Math.ceil(this.slider.slides - (this.slider.sliderWidth / this.slider.widthArray[1]));
-  }
-
-  nextSlide() {
-    const slider = this.$refs.sliderWrapper;
-    const cardElement: any = this.$refs.slide[0].$el;
-    const sizeCard: number = cardElement.offsetWidth;
-    const maxCounter: number = this.sliderItemsLength / 2;
-    const scrollLastElement: number = sizeCard - (slider.offsetWidth % cardElement.offsetWidth);
-    let translatePosition: number = 0;
-    
-    if((this.sliderItemsLength - maxCounter) + 1 === this.sliderCounter){
-      this.sliderCounter = 0;
-      translatePosition = (- this.sliderCounter * sizeCard);
-
-      window.getComputedStyle(slider).getPropertyValue('--transition');
-      slider.style.setProperty('--transition', translatePosition + 'px'); 
-    } else {
-      this.sliderCounter += 1;
-      translatePosition =(- this.sliderCounter * sizeCard);
-
-      if(cardElement.offsetWidth > slider.offsetWidth - (-translatePosition)) {
-        
-      }
-      window.getComputedStyle(slider).getPropertyValue('--transition');
-      slider.style.setProperty('--transition', translatePosition + 'px');
-
-     /*  if((this.sliderItemsLength - maxCounter) === this.sliderCounter) {
-        translatePosition =(- this.sliderCounter * sizeCard - scrollLastElement);
-
-        window.getComputedStyle(slider).getPropertyValue('--transition');
-        slider.style.setProperty('--transition', translatePosition + 'px');
-      } */
-    }
-    console.log((slider.offsetWidth - (-translatePosition)) + 243)
-   
-    this.$emit("getPositionScroll", translatePosition);
-    this.$emit("getSizeCard", sizeCard); 
-  }
-
-  prevSlide() {
-    const slider = this.$refs.sliderWrapper;
-    const cardElement: any = this.$refs.slide[0].$el;
-    const sizeCard: number = cardElement.offsetWidth;
-
-    let translatePosition: number = 0; 
-
-    if(this.sliderCounter !== 0){
-      this.sliderCounter -= 1;
-      translatePosition =(- this.sliderCounter * sizeCard);
-
-      window.getComputedStyle(slider).getPropertyValue('--transition');
-      slider.style.setProperty('--transition', (- this.sliderCounter * sizeCard) + 'px');
-    }
-    this.$emit("getPositionScroll", translatePosition);
-    this.$emit("getSizeCard", sizeCard);
-  }
-
-  sendPosition() {
-/*     this.$emit("getPositionScroll", this.$refs.test.scrollLeft); */
+    this.slider.maxStep = Math.ceil(this.slider.slides - (this.$refs.sliderWidth.offsetWidth / this.slider.widthArray[1]));
   }
 
   removeButtons(size: number) {
@@ -248,6 +200,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
   mounted() {
     this.getSizeSlider()
     this.getNullStepSlider()
+
     window.addEventListener("resize", this.getNullStepSlider);
     this.sliderItemsLength = this.$refs.slide.length;
 
@@ -283,8 +236,6 @@ export default class CharacteristicsHeaderComponent extends Vue {
       top: 0px;
       
       z-index: 1;
-
-      padding-right: 16px;
     }
 
     .characteristics-header__nav {
@@ -351,6 +302,9 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   &__items-wrapper {
+    --width: auto;
+    width: var(--width);
+
     @include flex-container(row, left, center);
 
     --transition: 0;

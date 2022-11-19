@@ -3,17 +3,14 @@
       <div class="comparison__wrapper">
         <HeaderNavigation/>
         <CharacteristicsHeader 
-           :positionScrollHeader="positionX"  
-           @getPositionScroll="positionScrollTop"
            @getSizeCard="sizeCard"
+           @getSliderValue="sliderValue"
            :mobileSize="mobileSize"
-           :slider="slider"
         />
         <CharacteristicsMain 
-         :positionScrollX="positionX"
+         :sliderValue="transform"
          :mobileSize="mobileSize"
          :sizeCard="sizeCardProduct"
-         :slider="slider"
          />
       </div>
   </div>
@@ -37,19 +34,7 @@ export default class ComparisonComponent extends Vue {
   positionX: number = 0;
   mobileSize: number = 1024;
   sizeCardProduct: number = 0;
-
-  slider: any = {
-    line: undefined,
-    slides: 0,
-    sliderWidth: 0,
-    widthArray: [ 0 ],
-    lineWidth: 0,
-    offset: 0,
-    step: 0,
-    remainder: 0,
-    maxSizeTranslate: 0,
-    maxStep: 0
-  }
+  transform:number = 0;
 
   positionScrollTop(position: number){
      this.positionX = position;
@@ -59,6 +44,9 @@ export default class ComparisonComponent extends Vue {
   }
   sizeCard(size:number) {
      this.sizeCardProduct = size;
+  }
+  sliderValue(transform:number) {
+   this.transform = transform;
   }
 }
 </script>

@@ -51,7 +51,7 @@ export default class CharacteristicsMainComponent extends Vue {
   @Prop({required: false}) positionScrollX: number;
   @Prop({required: false}) mobileSize: number;
   @Prop({required: false}) sizeCard: number;
-  @Prop({required: false}) slider: any;
+  @Prop({required: false}) sliderValue: number;
 
   $refs: {
     menuCategory: HTMLElement[];
@@ -364,13 +364,12 @@ export default class CharacteristicsMainComponent extends Vue {
       ],
     },
   ];
-  someArr: Array<Object> = [];
 
-  @Watch('positionScrollX')
-  onpositionScrollXChanged(val: number) {
-    window.getComputedStyle(this.$refs.sliderWrapper).getPropertyValue('--translate');
-    this.$refs.sliderWrapper.style.setProperty('--translate', val + 'px');
-    
+
+  @Watch('sliderValue')
+  onSliderValueChanged(val: number) {
+    window.getComputedStyle(this.$refs.sliderWrapper).getPropertyValue('--transform');
+    this.$refs.sliderWrapper.style.setProperty('--transform', - val + 'px'); 
   }
 
   resizeCharacteristics() {
@@ -484,8 +483,8 @@ export default class CharacteristicsMainComponent extends Vue {
     
     @include flex-container(column, left);
 
-    --translate: 0;
-    transform: translateX(var(--translate));
+    --transform: 0;
+    transform: translateX(var(--transform));
 
     transition: all .2s ease-in-out;
   }
