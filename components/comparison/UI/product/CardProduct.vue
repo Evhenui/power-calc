@@ -113,7 +113,7 @@ export default class CardProductComponent extends Vue {
   background-color: white;
 
   @include bigMobile {
-   flex: 1 0 152px;
+   flex: 0 0 152px;
   }
 
   &.active {

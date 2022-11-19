@@ -36,6 +36,7 @@ export default class ComparisonComponent extends Vue {
   sizeCardProduct: number = 0;
   transform:number = 0;
 
+
   positionScrollTop(position: number){
      this.positionX = position;
   }

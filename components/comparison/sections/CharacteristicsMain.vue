@@ -368,8 +368,11 @@ export default class CharacteristicsMainComponent extends Vue {
 
   @Watch('sliderValue')
   onSliderValueChanged(val: number) {
-    window.getComputedStyle(this.$refs.sliderWrapper).getPropertyValue('--transform');
-    this.$refs.sliderWrapper.style.setProperty('--transform', - val + 'px'); 
+    this.$refs.items.forEach((item)=> {
+      window.getComputedStyle(item).getPropertyValue('--transform');
+      item.style.setProperty('--transform', - val + 'px'); 
+    })
+    
   }
 
   resizeCharacteristics() {
@@ -480,13 +483,6 @@ export default class CharacteristicsMainComponent extends Vue {
 
   &__slider-wrapepr {
     width: max-content;
-    
-    @include flex-container(column, left);
-
-    --transform: 0;
-    transform: translateX(var(--transform));
-
-    transition: all .2s ease-in-out;
   }
 
   &__item-title {
@@ -528,11 +524,21 @@ export default class CharacteristicsMainComponent extends Vue {
 
     background-color: white;
 
+    --transform: 0;
+    transform: translateX(var(--transform));
+
+    transition: all .2s ease-in-out;
+
     &:nth-of-type(2n) {
       background-color: #e9e9e9;
+
       @include bigMobile {
         background-color: white;
       }
+    }
+    @include bigMobile {
+      --transform: 0;
+      transform: translateX(var(--transform));
     }
   }
 
