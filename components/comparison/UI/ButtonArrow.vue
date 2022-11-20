@@ -1,5 +1,8 @@
 <template>
-  <button class="button-arrow">
+  <button 
+    class="button-arrow"
+    :disabled="isDisabled"
+  >
     <svg
       class="button-arrow__image"
       :class="{right: direction}"
@@ -30,7 +33,7 @@ import { Prop } from "vue-property-decorator";
 })
 export default class ButtonArrowComponent extends Vue {
   @Prop({ required: false }) direction: boolean;
-
+  @Prop({ required: false }) isDisabled: boolean;
 }
 </script>
 
@@ -46,7 +49,7 @@ export default class ButtonArrowComponent extends Vue {
     border: 2px solid #F36C21;
     border-radius: 50px;
 
-    background: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     transition: all .1s ease-in-out;
@@ -68,6 +71,21 @@ export default class ButtonArrowComponent extends Vue {
         &.right {
             transform: rotateZ(180deg);
         }
+    }
+    &:disabled {
+      background-color: var(--color-sky-light);
+
+      border-color: var(--color-sky-light);
+
+      cursor: auto;
+
+      .button-arrow__image-state {
+        stroke: white;
+      }
+
+      &:hover {
+       background-color: var(--color-sky-light);
+      }
     }
 }
 </style>

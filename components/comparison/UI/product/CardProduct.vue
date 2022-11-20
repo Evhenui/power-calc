@@ -7,6 +7,7 @@
     <div class="card-product__wrapper">
       <Navigation 
         :state="state"
+        :status="status"
         :stateScroll="scrollState"
         class="card-product__navigation"
       />
@@ -14,26 +15,33 @@
       <section class="card-product__body">
         <div class="card-product__body-wrapper">
           <div class="card-product__image-wrapper">
-            <img class="card-product__image" src="@/assets/img/product-card.png" alt="product name" />
+            <img 
+              class="card-product__image" 
+              :src="image"
+              alt="product name" 
+            />
           </div>
           <section class="card-product__description">
             <Rating class="card-product__rating" :state="state" />
 
             <Availability 
               class="card-product__availability"
-              :status="statusProduct.ends"
+              :status="status"
               :state="!state"
             ></Availability>
             <p class="card-product__subtitle">
-              Комплект резервного питания для котла LogicPower ИБП + AGM батарея
-              UPS A500 + АКБ AGM 235W
+              <slot name="nameProduct"></slot>
             </p>
           </section>
         </div>
         <section class="card-product__footer">
-          <p class="card-product__code">Код: 56983</p>
+          <p class="card-product__code">Код: 
+            <slot name="code"></slot>
+          </p>
           <div class="card-product__footer-navigation">
-            <h1 class="card-product__price">972 ₴</h1>
+            <h1 class="card-product__price">
+              <slot name="price"></slot> ₴
+            </h1>
             <ButtonOrange 
               :stateButton="state"
               :scrollState="scrollState"
@@ -65,17 +73,13 @@ export default class CardProductComponent extends Vue {
   @Prop({ required: false }) scrollState: boolean = false;
   @Prop({ required: false }) scrollStateMobile: boolean = false;
   @Prop({ required: false }) mobileSize: number;
+  @Prop({ required: false }) status: string;
+  @Prop({ required: true }) image: string;
 
   $refs: {
     cardProduct: HTMLElement;
   };
 
-  statusProduct = {
-    inStock: "in-stock",
-    preOrder: "pre-order",
-    notAvailable: "not-available",
-    ends: "ends",
-  };
   state: boolean = false;
 
   isActiveScroll = {
@@ -258,6 +262,8 @@ export default class CardProductComponent extends Vue {
   }
 
   &__image {
+    width: 152px;
+
     @include bigMobile {
       width: 100px;
    }

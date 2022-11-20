@@ -3,9 +3,9 @@
     class="availability"
     :class="[status, {active:state}]"
     >
-    <span class="availability__name in-stock">В наличии</span>
-    <span class="availability__name pre-order">Предзаказ</span>
-    <span class="availability__name not-available">Нет в наличии</span>
+    <span class="availability__name inStock">В наличии</span>
+    <span class="availability__name preOrder">Предзаказ</span>
+    <span class="availability__name notAvailable">Нет в наличии</span>
     <span class="availability__name ends">Заканчивается</span>
   </section>
 </template>
@@ -27,19 +27,19 @@ export default class AvailabilityComponent extends Vue {
   &.active {
     display: none;
   }
-  &.in-stock &__name.in-stock {
+  &.inStock &__name.inStock {
     display: block;
 
     color: #159822;
   }
 
-  &.pre-order &__name.pre-order {
+  &.preOrder &__name.preOrder {
     display: block;
 
     color: #4490bb;
   }
 
-  &.not-available &__name.not-available {
+  &.notAvailable &__name.notAvailable {
     display: block;
 
     color: #393d38;

@@ -24,7 +24,11 @@
             <div class="characteristic__item-title">
               <p class="characteristic__title">{{ element.title }}</p>
             </div>
-            <section ref="items" class="characteristic__items">
+            <section  
+              ref="sliderDescription"  
+              class="characteristic__items" 
+              :style="{ '--translateX': - slider.translateX + 'px' }"
+            >
               <div
                 v-for="(option, i) in element.option"
                 :key="i"
@@ -51,11 +55,12 @@ export default class CharacteristicsMainComponent extends Vue {
   @Prop({required: false}) positionScrollX: number;
   @Prop({required: false}) mobileSize: number;
   @Prop({required: false}) sizeCard: number;
-  @Prop({required: false}) sliderValue: number;
+  @Prop({required: false}) sliderCounter: number;
+  @Prop({required: false}) sliderTranslateX: number;
 
   $refs: {
     menuCategory: HTMLElement[];
-    items: HTMLElement[];
+    sliderDescription: HTMLElement[];
     slideCategory: HTMLElement[];
     sliderFooter: HTMLElement;
 
@@ -365,18 +370,25 @@ export default class CharacteristicsMainComponent extends Vue {
     },
   ];
 
+  slider: any = {
+    distance: 0,
+    translateX: 0,
+    counter: 0,
+    buttonState: false,
+  };
 
-  @Watch('sliderValue')
-  onSliderValueChanged(val: number) {
-    this.$refs.items.forEach((item)=> {
-      window.getComputedStyle(item).getPropertyValue('--transform');
-      item.style.setProperty('--transform', - val + 'px'); 
-    })
-    
+  @Watch('sliderCounter')
+  onSliderCounterChanged(val: number) {
+    this.slider.counter = val;
+  }
+
+  @Watch('sliderTranslateX')
+  onSliderTranslateXChanged(val: number) {
+    this.slider.translateX = val;
   }
 
   resizeCharacteristics() {
-    const slideCategory = this.$refs.items;
+    const slideCategory = this.$refs.sliderDescription;
     const menuCategory = this.$refs.menuCategory;
 
     if(window.innerWidth > this.mobileSize) {
@@ -524,8 +536,8 @@ export default class CharacteristicsMainComponent extends Vue {
 
     background-color: white;
 
-    --transform: 0;
-    transform: translateX(var(--transform));
+    --translateX: 0;
+    transform: translateX(var(--translateX));
 
     transition: all .2s ease-in-out;
 
@@ -536,10 +548,10 @@ export default class CharacteristicsMainComponent extends Vue {
         background-color: white;
       }
     }
-    @include bigMobile {
+/*     @include bigMobile {
       --transform: 0;
       transform: translateX(var(--transform));
-    }
+    } */
   }
 
   &__body-description {
