@@ -16,10 +16,7 @@
       </nav>
 
       <section class="characteristic__slider" >
-        <div 
-          class="characteristic__slider-wrapepr"
-          ref="sliderWrapper"
-        >
+        <div class="characteristic__slider-wrapepr">
           <template v-for="element in characteristics">
             <div class="characteristic__item-title">
               <p class="characteristic__title">{{ element.title }}</p>
@@ -52,7 +49,6 @@ import { Prop, Watch } from "vue-property-decorator";
   components: {},
 })
 export default class CharacteristicsMainComponent extends Vue {
-  @Prop({required: false}) positionScrollX: number;
   @Prop({required: false}) mobileSize: number;
   @Prop({required: false}) sizeCard: number;
   @Prop({required: false}) sliderCounter: number;
@@ -62,9 +58,6 @@ export default class CharacteristicsMainComponent extends Vue {
     menuCategory: HTMLElement[];
     sliderDescription: HTMLElement[];
     slideCategory: HTMLElement[];
-    sliderFooter: HTMLElement;
-
-    sliderWrapper: HTMLElement;
   };
 
   characteristics = [
@@ -413,10 +406,6 @@ export default class CharacteristicsMainComponent extends Vue {
       })
 
     }
-  }
-
-  sendPosition() {
- /*    this.$emit("getPositionScrollBottom", this.$refs.sliderFooter.scrollLeft); */
   }
 
   mounted() {

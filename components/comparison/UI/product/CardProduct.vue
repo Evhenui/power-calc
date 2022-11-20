@@ -253,6 +253,10 @@ export default class CardProductComponent extends Vue {
 
   &__body-wrapper {
     margin-bottom: 8px;
+
+    @include bigMobile {
+      transition: all .2s ease-in-out;
+    }
   }
 
   &__image-wrapper {
@@ -280,6 +284,7 @@ export default class CardProductComponent extends Vue {
   &__subtitle {
     @include fontUnify(16, 22, 400);
     letter-spacing: 0.02em;
+    word-break: break-all;
     color: #2b2b2b;
 
     padding: 0 16px;

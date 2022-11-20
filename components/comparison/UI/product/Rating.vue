@@ -87,7 +87,7 @@ export default class RatingComponent extends Vue {
     padding: 0 18px 8px 18px;
     margin-bottom: 8px;
 
-    &.active {
+    @include bigMobile {
       border: none;
 
       padding: 0;

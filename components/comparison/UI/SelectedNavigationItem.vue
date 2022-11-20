@@ -26,11 +26,8 @@
 <script lang="ts">
 import {Component, Vue} from "~/tools/version-types";
 
-
 @Component({
-   components: {
-
-   }
+   components: {}
 })
 export default class SelectedNavigationItemComponent extends Vue {
 

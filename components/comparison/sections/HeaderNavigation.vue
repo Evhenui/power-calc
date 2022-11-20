@@ -34,7 +34,6 @@ import Dropdown from "../UI/Dropdown.vue"
   },
 })
 export default class HeaderNavigationComponent extends Vue {
-  test: number = 10;
   listSelected = [
     { id: 1, name: "Комплект резервного питания", amount: 12 },
     { id: 2, name: "Комплект питания", amount: 2 },
@@ -53,9 +52,6 @@ export default class HeaderNavigationComponent extends Vue {
   @include bigMobile {
     margin-bottom: 16px;
     padding-right: 16px;
-  }
-
-  &__wrapper {
   }
 
   &__title {
@@ -112,8 +108,9 @@ export default class HeaderNavigationComponent extends Vue {
     display: none;
 
     @include bigMobile {
-      display: inline-block;
       width: 100%;
+
+      display: inline-block; 
     }
   }
 }

@@ -1,14 +1,10 @@
 <template>
-  <nav 
-    class="card-navigation"
-    :class="[{active: state}, {scroll: stateScroll}]"
-  >
+  <nav class="card-navigation">
     <Availability 
       :status="status" 
-      :state="state"
       class="card-navigation__availability"
     />
-    <NavigationButtons :state="state" />
+    <NavigationButtons />
   </nav>
 </template>
 
@@ -25,16 +21,8 @@ import NavigationButtons from "./NavigationButtons.vue";
   },
 })
 export default class NavigationComponent extends Vue {
-  @Prop({required: false}) state: boolean;
   @Prop({required: false}) stateScroll: boolean;
   @Prop({required: false}) status: string;
-
-  statusProduct = {
-    inStock: "in-stock",
-    preOrder: "pre-order",
-    notAvailable: "not-available",
-    ends: "ends",
-  };
 }
 </script>
  
@@ -45,7 +33,7 @@ export default class NavigationComponent extends Vue {
    padding: 0 8px;
    margin-bottom: 8px;
 
-   &.active {
+   @include bigMobile { 
       justify-content: flex-end;
       margin: 0;
 

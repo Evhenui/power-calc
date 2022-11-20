@@ -327,7 +327,7 @@ export default class CaracteristicsSliderComponent extends Vue {
   &__button {
     position: absolute;
     top: 23%;
-    z-index: 1;
+    z-index: 100;
     &.left {
       left: 0;
     }

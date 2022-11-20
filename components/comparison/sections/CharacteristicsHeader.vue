@@ -2,11 +2,8 @@
   <section
     ref="characteristics"
     class="characteristics-header"
-    :class="[
-      { active: isActiveScroll },
-      { 'scroll-mobile': isActiveScrollMobile },
-    ]"
-    :style="{ '--heightHeader': isActiveScroll? cardSize : 'auto' }"
+    :class="{ active: isActiveScroll }"
+    :style="{ '--height-header': isActiveScroll? cardSize : 'auto' }"
   >
     <div class="characteristics-header__wrapper">
       <div class="characteristics-header__nav">
@@ -15,6 +12,7 @@
           :activeScroll="isActiveScroll"
           :mobileSize="mobileSize"
           class="characteristics-header__nav-bar"
+          ref="navBar"
         />
       </div>
       <section class="characteristics-header__items" ref="sliderWindow">
@@ -85,6 +83,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     slides: CardProduct[];
     sliderWidth: HTMLElement;
     sliderWindow: HTMLElement;
+    navBar: CharacteristicsBar;
   };
 
   buttonRight: boolean = true;
@@ -7490,21 +7489,35 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   scrollState() {
-    if (window.scrollY >= this.$refs.characteristics.offsetTop) {
+    const characteristicsPosition = this.$refs.characteristics.offsetTop;
+    const navHeight = this.$refs.navBar.$el.scrollHeight;
+
+    if (window.innerWidth > this.mobileSize) {
+      if (window.scrollY >= characteristicsPosition) {
+        this.isActiveScroll = true;
       if (window.innerWidth > this.mobileSize) {
         this.isActiveScrollMobile = false;
-        this.isActiveScroll = true;
       } else {
-        this.isActiveScroll = false;
         this.isActiveScrollMobile = true;
+      } 
+    } else {
+        this.isActiveScroll = false;
+        this.isActiveScrollMobile = false;
       }
     } else {
+      if (window.scrollY >= characteristicsPosition + navHeight) {
+      this.isActiveScroll = true;
       if (window.innerWidth > this.mobileSize) {
-        this.isActiveScroll = false;
+        this.isActiveScrollMobile = false;
       } else {
+        this.isActiveScrollMobile = true;
+      } 
+    } else {
+        this.isActiveScroll = false;
         this.isActiveScrollMobile = false;
       }
     }
+ 
   }
 
 //-----slider------
@@ -7597,14 +7610,11 @@ export default class CharacteristicsHeaderComponent extends Vue {
 <style lang="scss" scoped>
 .characteristics-header {
   &.active {
-    --heightHeader: auto;
-    height: var(--heightHeader);
+    --height-header: auto;
+    height: var(--height-header);
 
     margin-bottom: 0;
 
-    @include bigMobile {
-      height: 400px;
-    }
     .characteristics-header__wrapper {
       max-width: 1410px;
       width: 97.5%;
@@ -7612,7 +7622,18 @@ export default class CharacteristicsHeaderComponent extends Vue {
       position: fixed;
       top: 0px;
 
-      z-index: 1;
+      z-index: 100;
+
+      @include bigMobile {
+        max-width: 1410px;
+        width: 100%;
+
+        position: fixed;
+        top: 0px;
+        z-index: 100;
+
+        padding-right: 8px;
+      }
     }
 
     .characteristics-header__nav {
@@ -7624,24 +7645,6 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   }
 
-  &.scroll-mobile {
-    height: 190px;
-
-    .characteristics-header__wrapper {
-      max-width: 1410px;
-      width: 100%;
-
-      position: fixed;
-      top: 0px;
-      z-index: 1;
-
-      padding-right: 8px;
-    }
-
-    .characteristics-header__nav {
-      display: none;
-    }
-  }
 
   &__wrapper {
     @include flex-container(row, left);
@@ -7665,7 +7668,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     position: absolute;
     top: 50%;
 
-    z-index: 1;
+    z-index: 100;
 
     transform: translateY(-50%);
 

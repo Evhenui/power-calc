@@ -117,7 +117,7 @@ export default class NavigationButtonsComponent extends Vue {
 
   gap: 16px;
 
-  &.active {
+  @include bigMobile {
     .navigation__pin-image,
     .navigation__like-image,
     .navigation__trash-image {

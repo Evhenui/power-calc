@@ -19,7 +19,6 @@ import { Prop } from "vue-property-decorator";
 
 @Component({})
 export default class InputRadioComponent extends Vue {
-
    @Prop({required: true}) nameInput: string;
    @Prop({required: true}) valueInput: string;
 }
@@ -29,7 +28,7 @@ export default class InputRadioComponent extends Vue {
 .selecet {
    &__input {
       position: absolute;
-      z-index: -1;
+      z-index: -100;
 
       opacity: 0;
    }
