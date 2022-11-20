@@ -6,6 +6,7 @@
       { active: isActiveScroll },
       { 'scroll-mobile': isActiveScrollMobile },
     ]"
+    :style="{ '--heightHeader': isActiveScroll? cardSize : 'auto' }"
   >
     <div class="characteristics-header__wrapper">
       <div class="characteristics-header__nav">
@@ -13,7 +14,6 @@
           :heightCard="cardSize"
           :activeScroll="isActiveScroll"
           :mobileSize="mobileSize"
-          ref="navigation"
           class="characteristics-header__nav-bar"
         />
       </div>
@@ -27,7 +27,7 @@
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
-          :style="{'--translate': - slider.stepOffset + 'px'}"
+          :style="{ '--translate': -slider.translateX + 'px' }"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -73,171 +73,28 @@ export default class CharacteristicsHeaderComponent extends Vue {
   @Prop({ required: false }) mobileSize: number;
 
   $refs: {
-    slides: CardProduct[];
-    navigation: CharacteristicsBar;
     characteristics: HTMLElement;
-    sliderWrapper: HTMLElement;
-    sliderWindowWidth: HTMLElement;
-
+    slides: CardProduct[];
     sliderWidth: HTMLElement;
     sliderWindow: HTMLElement;
-    
   };
 
-  sizeCard: string = "";
   buttonRight: boolean = true;
-  isButton: boolean = false;
   isActiveScroll: boolean = false;
   isActiveScrollMobile: boolean = false;
   cardSize: string = "";
 
- /*  slider: any = {
-    line: undefined,
-    slides: 0,
-    sliderWidth: 0,
-    widthArray: [],
-    lineWidth: 0,
-    offset: 0,
-    step: 0,
-    remainder: 0,
-    maxSizeTranslate: 0,
-    maxStep: 0,
-    positionX: null,
-    differencePosition: 0,
-  }; */
-
   slider: any = {
     distance: 0,
-    stepOffset: 0,
-    counter: 1
-  }
- 
+    translateX: 0,
+    counter: 0,
+  };
 
-  resizeEl() {
+  resizeElements() {
     const observer = new ResizeObserver((entries) => {
       this.cardSize = entries[0].borderBoxSize[0].blockSize + "px";
     });
     observer.observe(this.$refs.slides[0].$el);
-  }
-
-  nextSlide() {
- /*    this.slider.remainder =
-      this.slider.lineWidth -
-      this.slider.sliderWidth -
-      (this.slider.offset + this.slider.widthArray[this.slider.step]);
-
-    if (this.slider.remainder >= 0) {
-      this.slider.offset += this.slider.widthArray[this.slider.step];
-
-      window.getComputedStyle(this.slider.line).getPropertyValue("--translate");
-      this.slider.line.style.setProperty(
-        "--translate",
-        -this.slider.offset + "px"
-      );
-
-      this.$emit("getSliderValue", this.slider.offset);
-    } else {
-      window.getComputedStyle(this.slider.line).getPropertyValue("--translate");
-      this.slider.line.style.setProperty(
-        "--translate",
-        -(this.slider.lineWidth - this.slider.sliderWidth) + "px"
-      );
-
-      this.slider.offset = this.slider.lineWidth - this.slider.sliderWidth;
-      this.$emit(
-        "getSliderValue",
-        this.slider.lineWidth - this.slider.sliderWidth
-      );
-    }
-
-    if (this.slider.step < this.slider.maxStep + 1) {
-      this.slider.step++;
-    } else {
-      this.slider.offset = this.slider.maxSizeTranslate;
-    } */
-    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
-    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
-    const slidesLength: number = this.$refs.slides.length;
-    const slideWidth: number = sliderWidth / slidesLength;
-
-    this.slider.distance = sliderWidth - sliderWindow - (this.slider.stepOffset + slideWidth);
-
-    if (this.slider.distance >= 0) {
-      this.slider.stepOffset = slideWidth * this.slider.counter;
-
-      this.slider.counter++
-    } else {
-      this.slider.stepOffset = sliderWidth - sliderWindow;
-    }
-
-   
-  }
-
-  prevSlide() {
- /*    this.slider.remainder =
-      this.slider.lineWidth -
-      this.slider.sliderWidth -
-      (this.slider.offset - this.slider.widthArray[this.slider.step]);
-    if (this.slider.remainder <= this.slider.maxSizeTranslate) {
-      this.slider.offset =
-        this.slider.offset - this.slider.widthArray[this.slider.step];
-
-      window.getComputedStyle(this.slider.line).getPropertyValue("--translate");
-      this.slider.line.style.setProperty(
-        "--translate",
-        -this.slider.offset + "px"
-      );
-
-      this.$emit("getSliderValue", this.slider.offset);
-    } else {
-      window.getComputedStyle(this.slider.line).getPropertyValue("--translate");
-      this.slider.line.style.setProperty("--translate", 0 + "px");
-
-      this.slider.offset = 0;
-      this.$emit("getSliderValue", 0);
-    }
-
-    if (this.slider.step > 1) {
-      this.slider.step--;
-    } */
-  }
-
-  getSizeSlider() {
- /*    this.slider.line = this.$refs.sliderWrapper;
-    this.slider.slides = this.$refs.slide.length;
-
-    this.$refs.slide.forEach((item) => {
-      this.slider.lineWidth += (item as any).$el.offsetWidth;
-    });
-
-    window.getComputedStyle(this.slider.line).getPropertyValue("--width");
-    this.slider.line.style.setProperty("--width", this.slider.lineWidth + "px"); */
-  }
-
-  getNullStepSlider() {
-/*     this.slider.sliderWidth = this.$refs.sliderWidth.offsetWidth;
-    this.slider.remainder =
-      this.slider.lineWidth -
-      this.slider.sliderWidth -
-      (this.slider.offset + this.slider.widthArray[this.slider.step]);
-
-    this.slider.offset = 0;
-    this.slider.step = 1; */
-  }
-
-  getSliderStep() {
- /*    this.slider.maxStep = Math.ceil(
-      this.slider.slides -
-        this.$refs.sliderWidth.offsetWidth / this.$refs.slide[0].$el.offsetWidth
-    );
-    this.$refs.slide.forEach((item, index) => {
-      this.slider.widthArray[index + 1] = (item as any).$el.offsetWidth;
-    });
-    this.slider.maxSizeTranslate =
-      this.slider.widthArray[1] *
-      (this.slider.slides -
-        this.$refs.sliderWidth.offsetWidth /
-          this.$refs.slide[0].$el.offsetWidth); */
   }
 
   scrollState() {
@@ -255,6 +112,45 @@ export default class CharacteristicsHeaderComponent extends Vue {
       } else {
         this.isActiveScrollMobile = false;
       }
+    }
+  }
+
+//-----slider------
+
+  nextSlide() {
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
+    const slidesLength: number = this.$refs.slides.length;
+    const slideWidth: number = sliderWidth / slidesLength;
+    const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
+
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX + slideWidth);
+
+    if (this.slider.distance >= 0 && this.slider.counter < maxStep - 1) {
+      this.slider.counter++;
+      this.slider.translateX = slideWidth * this.slider.counter;
+    } else {
+      this.slider.translateX = sliderWidth - sliderWindow;
+      this.slider.counter = maxStep;
+    }
+  }
+
+  prevSlide() {
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
+    const slidesLength: number = this.$refs.slides.length;
+    const slideWidth: number = sliderWidth / slidesLength;
+    const startingPosition: number = 0;
+
+    this.slider.distance =
+      sliderWidth - sliderWindow - (this.slider.translateX - slideWidth);
+
+    if (this.slider.distance <= sliderWidth - sliderWindow) {
+      this.slider.counter--;
+      this.slider.translateX = slideWidth * this.slider.counter;
+    } else {
+      this.slider.translateX = startingPosition;
+      this.slider.distance = sliderWidth - sliderWindow;
     }
   }
 
@@ -281,25 +177,22 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   }
 
+//---------------
+
   mounted() {
- /*    this.getSizeSlider();
-    this.getNullStepSlider();
-
-    this.getSliderStep();
-    window.addEventListener("resize", this.getSliderStep);
-
-    window.addEventListener("resize", this.getNullStepSlider);
-
-    window.addEventListener("resize", this.nextSlide); */
-
-    this.resizeEl();
+    this.resizeElements();
 
     this.scrollState();
     window.addEventListener("scroll", this.scrollState);
+
     window.addEventListener("resize", this.scrollState);
+    window.addEventListener("resize", this.prevSlide);
   }
 
   unmounted() {
+    window.removeEventListener("scroll", this.scrollState);
+    window.removeEventListener("resize", this.scrollState);
+    window.addEventListener("resize", this.prevSlide);
   }
 }
 </script>
@@ -307,7 +200,8 @@ export default class CharacteristicsHeaderComponent extends Vue {
 <style lang="scss" scoped>
 .characteristics-header {
   &.active {
-    height: 300px;
+    --heightHeader: auto;
+    height: var(--heightHeader);
 
     margin-bottom: 0;
 
