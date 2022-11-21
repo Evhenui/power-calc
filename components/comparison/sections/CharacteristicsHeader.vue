@@ -7534,12 +7534,14 @@ export default class CharacteristicsHeaderComponent extends Vue {
     if (this.slider.distance >= 0 && this.slider.counter < maxStep - 1) {
       this.slider.counter++;
       this.slider.translateX = slideWidth * this.slider.counter;
-      this.slider.buttonState = false;
+      
     } else {
       this.slider.translateX = sliderWidth - sliderWindow;
       this.slider.counter = maxStep;
-      this.slider.buttonState = true;
     }
+
+    this.slider.buttonState = this.slider.counter < maxStep? false: true;
+
     this.$emit("sliderPosition", this.slider.counter, this.slider.translateX);
   }
 
@@ -7548,6 +7550,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
     const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
     const slidesLength: number = this.$refs.slides.length;
     const slideWidth: number = sliderWidth / slidesLength;
+    const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
     const startingPosition: number = 0;
 
     this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX - slideWidth);
@@ -7555,12 +7558,13 @@ export default class CharacteristicsHeaderComponent extends Vue {
     if (this.slider.distance <= sliderWidth - sliderWindow) {
       this.slider.counter--;
       this.slider.translateX = slideWidth * this.slider.counter;
-      this.slider.buttonState = false;
     } else {
       this.slider.translateX = startingPosition;
       this.slider.distance = sliderWidth - sliderWindow;
-      this.slider.buttonState = true;
     }
+
+    this.slider.buttonState = this.slider.counter < maxStep? false: true;
+
     this.$emit("sliderPosition", this.slider.counter, this.slider.translateX);
   }
 
