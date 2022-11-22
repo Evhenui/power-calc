@@ -24,8 +24,7 @@
             <section  
               ref="sliderDescription"  
               class="characteristic__items" 
-              :style="{ '--translateX': - slider.translateX + 'px' }"
-            >
+              :style="{ '--translateX': - slider.translateX + 'px' }">
               <div
                 v-for="(option, i) in element.option"
                 :key="i"
@@ -53,6 +52,8 @@ export default class CharacteristicsMainComponent extends Vue {
   @Prop({required: false}) sizeCard: number;
   @Prop({required: false}) sliderCounter: number;
   @Prop({required: false}) sliderTranslateX: number;
+  @Prop({required: false}) sliderMobileTranslateX: number;
+  
 
   $refs: {
     menuCategory: HTMLElement[];
@@ -380,6 +381,13 @@ export default class CharacteristicsMainComponent extends Vue {
     this.slider.translateX = val;
   }
 
+  @Watch('sliderMobileTranslateX')
+  onSliderMobileTranslateXhanged(val: number) {
+    this.$refs.sliderDescription.forEach(item => {
+      item.style.transform = `translateX(${val}px)`
+    })
+  }
+
   resizeCharacteristics() {
     const slideCategory = this.$refs.sliderDescription;
     const menuCategory = this.$refs.menuCategory;
@@ -530,6 +538,10 @@ export default class CharacteristicsMainComponent extends Vue {
 
     transition: all .2s ease-in-out;
 
+    @include bigMobile {
+      transition: none;
+    }
+
     &:nth-of-type(2n) {
       background-color: #e9e9e9;
 
@@ -537,10 +549,6 @@ export default class CharacteristicsMainComponent extends Vue {
         background-color: white;
       }
     }
-/*     @include bigMobile {
-      --transform: 0;
-      transform: translateX(var(--transform));
-    } */
   }
 
   &__body-description {

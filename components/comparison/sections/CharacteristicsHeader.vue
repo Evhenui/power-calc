@@ -15,7 +15,10 @@
           ref="navBar"
         />
       </div>
-      <section class="characteristics-header__items" ref="sliderWindow">
+      <section 
+        class="characteristics-header__items" 
+        ref="sliderWindow"
+      >
         <ButtonArrow
           class="characteristics-header__button left"
           moveSlide="left"
@@ -97,6 +100,11 @@ export default class CharacteristicsHeaderComponent extends Vue {
     counter: 0,
     buttonState: false,
   };
+
+  initialPosition = 0;
+  moving = true;
+  transform = 0;
+
 
   cartItems = [
     {
@@ -7569,28 +7577,36 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   handleTouchStart(event) {
-    this.slider.positionX = event.touches[0].clientX;
+    this.initialPosition = event.touches[0].clientX;
+    this.moving = true;
+    const transformMatrix = window.getComputedStyle(this.$refs.sliderWidth).getPropertyValue('transform');
+    if(transformMatrix !== 'none') {
+      this.transform = parseInt(transformMatrix.split(',')[4].trim());
+    }
   }
 
   handleTouchMove(event) {
-    const position = event.touches[0].clientX;
+    if(this.moving) {
+      const currentPosition = event.touches[0].clientX;
+      const diff = currentPosition - this.initialPosition;
+      const maxtranslateX = -(this.$refs.sliderWidth.scrollWidth - this.$refs.sliderWindow.offsetWidth);
+      let translateX: number = this.transform + diff;
 
-    if (!this.slider.positionX) {
-      return false;
+      this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
+      if(this.transform + diff > 0) {
+        translateX = 0;
+        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
+      } else if (maxtranslateX > this.transform + diff) {
+        translateX = maxtranslateX;
+       this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
+      }
+      this.$emit("sliderMobilePosition", translateX);
     }
-
-    this.slider.differencePosition = position - this.slider.positionX;
-    this.slider.positionX = null;
   }
 
   handleTouchEnd() {
-    if (this.slider.differencePosition > 0) {
-      this.prevSlide();
-    } else {
-      this.nextSlide();
-    }
+   this.moving = false;
   }
-
 //---------------
 
   mounted() {
@@ -7601,6 +7617,9 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     window.addEventListener("resize", this.scrollState);
     window.addEventListener("resize", this.prevSlide);
+    window.addEventListener("resize", ()=> {
+      this.$refs.sliderWidth.style.transform = `translateX(${0}px)`;
+    });
   }
 
   unmounted() {
@@ -7699,6 +7718,10 @@ export default class CharacteristicsHeaderComponent extends Vue {
     transform: translateX(var(--translate));
 
     transition: all 0.2s ease-in-out;
+
+    @include bigMobile {
+      transition: none;
+    }
   }
 
   &__item {
