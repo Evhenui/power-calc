@@ -7,6 +7,7 @@
            @sliderPosition="sliderPosition"
            @sliderMobilePosition="sliderMobilePosition"
            :mobileSize="mobileSize"
+           :positionSlider="sliderMobileMainTranslateX"
         />
         <CharacteristicsMain 
          :sliderCounter="sliderCouner"
@@ -14,6 +15,7 @@
          :sliderMobileTranslateX="sliderMobileTranslateX"
          :mobileSize="mobileSize"
          :sizeCard="sizeCardProduct"
+         @sliderPositionMain="sliderPositionMain"
          />
       </div>
   </div>
@@ -34,19 +36,13 @@ import CharacteristicsMain from "./sections/CharacteristicsMain.vue";
 })
 export default class ComparisonComponent extends Vue {
 
-  positionX: number = 0;
   mobileSize: number = 1024;
   sizeCardProduct: number = 0;
   sliderCouner: number = 0;
   sliderTranslateX: number = 0;
   sliderMobileTranslateX: number = 0;
+  sliderMobileMainTranslateX: number = 0;
 
-  positionScrollTop(position: number){
-     this.positionX = position;
-  }
-  positionScrollBottom(position: number){
-     this.positionX = position;
-  }
   sizeCard(size:number) {
      this.sizeCardProduct = size;
   }
@@ -56,6 +52,9 @@ export default class ComparisonComponent extends Vue {
   }
   sliderMobilePosition(translate: number) {
    this.sliderMobileTranslateX = translate;
+  }
+  sliderPositionMain(translate: number) {
+   this.sliderMobileMainTranslateX = translate;
   }
 }
 </script>

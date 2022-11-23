@@ -29,7 +29,7 @@
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
-          :style="{ '--translate': -slider.translateX + 'px' }"
+          :style="[{ '--translate': -slider.translateX + 'px' }, { '--translate-mobile': slider.mobileValue.translateX + 'px' }]"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -80,6 +80,13 @@ import ButtonArrow from "../UI/ButtonArrow.vue";
 export default class CharacteristicsHeaderComponent extends Vue {
   @Prop({ required: false }) active: string;
   @Prop({ required: false }) mobileSize: number;
+  @Prop({ required: false }) positionSlider: number;
+
+  @Watch("positionSlider")
+  onPositionSliderChanged(val: number) {
+    this.$refs.sliderWidth.style.transform = `translateX(${val}px)`;
+  }
+  
 
   $refs: {
     characteristics: HTMLElement;
@@ -99,12 +106,13 @@ export default class CharacteristicsHeaderComponent extends Vue {
     translateX: 0,
     counter: 0,
     buttonState: false,
+    mobileValue: {
+      initialPosition: 0,
+      moving: true,
+      transform: 0,
+      translateX: 0
+    }
   };
-
-  initialPosition = 0;
-  moving = true;
-  transform = 0;
-
 
   cartItems = [
     {
@@ -7577,35 +7585,51 @@ export default class CharacteristicsHeaderComponent extends Vue {
   }
 
   handleTouchStart(event) {
-    this.initialPosition = event.touches[0].clientX;
-    this.moving = true;
-    const transformMatrix = window.getComputedStyle(this.$refs.sliderWidth).getPropertyValue('transform');
-    if(transformMatrix !== 'none') {
-      this.transform = parseInt(transformMatrix.split(',')[4].trim());
+    const sliderWidth = this.$refs.sliderWidth;
+    const positionX = event.touches[0].clientX;
+    const transformMatrix = window.getComputedStyle(sliderWidth).getPropertyValue('transform');
+
+    if(window.innerWidth < this.mobileSize) {
+      this.slider.mobileValue.initialPosition = positionX;
+      this.slider.mobileValue.moving = true;
+
+      transformMatrix !== 'none'? this.slider.mobileValue.transform = parseInt(transformMatrix.split(',')[4].trim()): 0;
     }
   }
 
   handleTouchMove(event) {
-    if(this.moving) {
-      const currentPosition = event.touches[0].clientX;
-      const diff = currentPosition - this.initialPosition;
-      const maxtranslateX = -(this.$refs.sliderWidth.scrollWidth - this.$refs.sliderWindow.offsetWidth);
-      let translateX: number = this.transform + diff;
+    const positionX = event.touches[0].clientX;
+    const diff = positionX - this.slider.mobileValue.initialPosition;
+    const maxTranslateX = - (this.$refs.sliderWidth.scrollWidth - this.$refs.sliderWindow.offsetWidth);
+    let translateX = this.slider.mobileValue.transform + diff;
 
-      this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
-      if(this.transform + diff > 0) {
-        translateX = 0;
-        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
-      } else if (maxtranslateX > this.transform + diff) {
-        translateX = maxtranslateX;
+    if(window.innerWidth < this.mobileSize) {
+
+      if(this.slider.mobileValue.moving) {
        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
+      /*  this.slider.mobileValue.translateX = translateX; */
+
+      if(this.slider.mobileValue.transform + diff > 0) {
+        translateX = 0;
+     /*    this.slider.mobileValue.translateX = translateX; */
+        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
+      } 
+
+      else if (maxTranslateX > this.slider.mobileValue.transform + diff) {
+        translateX = maxTranslateX;
+       /*  this.slider.mobileValue.translateX = translateX; */
+        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
       }
-      this.$emit("sliderMobilePosition", translateX);
+
+        this.$emit("sliderMobilePosition", translateX);
+      }
     }
   }
 
   handleTouchEnd() {
-   this.moving = false;
+    if(window.innerWidth < this.mobileSize) {
+      this.slider.mobileValue.moving = false;
+    }
   }
 //---------------
 
@@ -7618,7 +7642,11 @@ export default class CharacteristicsHeaderComponent extends Vue {
     window.addEventListener("resize", this.scrollState);
     window.addEventListener("resize", this.prevSlide);
     window.addEventListener("resize", ()=> {
-      this.$refs.sliderWidth.style.transform = `translateX(${0}px)`;
+      if(window.innerWidth < this.mobileSize) {
+        this.$refs.sliderWidth.style.transform = `translateX(${0}px)`;
+      } else if (window.innerWidth > this.mobileSize) {
+        this.$refs.sliderWidth.removeAttribute('style')
+      }
     });
   }
 
@@ -7717,9 +7745,12 @@ export default class CharacteristicsHeaderComponent extends Vue {
     --translate: 0;
     transform: translateX(var(--translate));
 
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 
     @include bigMobile {
+/*       --translate-mobile: 0;
+      transform: translateX(var(--translate-mobile)); */
+
       transition: none;
     }
   }
