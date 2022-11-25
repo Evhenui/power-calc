@@ -30,7 +30,6 @@ import {Component, Vue} from "~/tools/version-types";
    components: {}
 })
 export default class SelectedNavigationItemComponent extends Vue {
-
    isActive:boolean = false;
 }
 </script>

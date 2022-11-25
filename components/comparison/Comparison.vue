@@ -1,75 +1,68 @@
 <template>
-   <div class="comparison">
-      <div class="comparison__wrapper">
-        <HeaderNavigation/>
-        <CharacteristicsHeader 
-           @getSizeCard="sizeCard"
-           @sliderPosition="sliderPosition"
-           @sliderMobilePosition="sliderMobilePosition"
-           :mobileSize="mobileSize"
-           :positionSlider="sliderMobileMainTranslateX"
-        />
-        <CharacteristicsMain 
-         :sliderCounter="sliderCouner"
-         :sliderTranslateX="sliderTranslateX"
-         :sliderMobileTranslateX="sliderMobileTranslateX"
-         :mobileSize="mobileSize"
-         :sizeCard="sizeCardProduct"
-         @sliderPositionMain="sliderPositionMain"
-         />
-      </div>
+  <div class="comparison">
+    <div class="comparison__wrapper">
+      <HeaderNavigation />
+      <CharacteristicsHeader
+        @sliderPosition="sliderPosition"
+        @sliderMobilePosition="sliderMobilePosition"
+        :mobileSize="mobileSize"
+        :positionSlider="slider.mobileFooterTranslateX"
+      />
+      <CharacteristicsMain
+        :sliderTranslateX="slider.desktopTranslateX"
+        :sliderMobileTranslateX="slider.mobileTranslateX"
+        :mobileSize="mobileSize"
+        @sliderPositionMain="sliderPositionMain"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "~/tools/version-types";
-import HeaderNavigation from "./sections/HeaderNavigation.vue"
+import { Component, Vue } from "~/tools/version-types";
+import HeaderNavigation from "./sections/HeaderNavigation.vue";
 import CharacteristicsHeader from "./sections/CharacteristicsHeader.vue";
 import CharacteristicsMain from "./sections/CharacteristicsMain.vue";
 
 @Component({
   components: {
-     HeaderNavigation,
-     CharacteristicsHeader,
-     CharacteristicsMain
-  }
+    HeaderNavigation,
+    CharacteristicsHeader,
+    CharacteristicsMain,
+  },
 })
 export default class ComparisonComponent extends Vue {
-
   mobileSize: number = 1024;
-  sizeCardProduct: number = 0;
-  sliderCouner: number = 0;
-  sliderTranslateX: number = 0;
-  sliderMobileTranslateX: number = 0;
-  sliderMobileMainTranslateX: number = 0;
-
-  sizeCard(size:number) {
-     this.sizeCardProduct = size;
+  
+  slider = {
+   desktopTranslateX: 0,
+   mobileTranslateX: 0,
+   mobileFooterTranslateX: 0
   }
-  sliderPosition(counter: number, translateX: number) {
-   this.sliderCouner = counter;
-   this.sliderTranslateX = translateX;
+
+  sliderPosition(translateX: number) {
+    this.slider.desktopTranslateX = translateX;
   }
   sliderMobilePosition(translate: number) {
-   this.sliderMobileTranslateX = translate;
+    this.slider.mobileTranslateX = translate;
   }
   sliderPositionMain(translate: number) {
-   this.sliderMobileMainTranslateX = translate;
+    this.slider.mobileFooterTranslateX = translate;
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .comparison {
-&__wrapper {
-  @extend %width-main;
+  &__wrapper {
+    @extend %width-main;
 
-  @extend %padding-wrp;
-  margin: 0 auto;
+    @extend %padding-wrp;
+    margin: 0 auto;
 
-  @include bigMobile {
-     padding: 0 0 0 16px;
+    @include bigMobile {
+      padding: 0 0 0 16px;
+    }
   }
-}
 }
 </style>

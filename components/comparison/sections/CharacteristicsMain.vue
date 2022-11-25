@@ -10,6 +10,7 @@
           v-for="(item, index) in characteristics"
           :key="index"
           class="characteristic__category-item"
+          :style="{ '--height': sectionHeight + 'px' }"
         >
           <p class="characteristic__item-name">{{ item.title }}</p>
         </div>
@@ -27,9 +28,12 @@
               <p class="characteristic__title">{{ element.title }}</p>
             </div>
             <section
-              ref="sliderDescription"
               class="characteristic__items"
-              :style="{ '--translate-x': -slider.translateX + 'px' }"
+              ref="sliderDescription"
+              :style="[
+                { '--translate-x': -slider.translateX + 'px' },
+                { '--height': sectionHeight + 'px' }
+              ]"
             >
               <div
                 v-for="(option, i) in element.option"
@@ -55,8 +59,6 @@ import { Prop, Watch } from "vue-property-decorator";
 })
 export default class CharacteristicsMainComponent extends Vue {
   @Prop({ required: false }) mobileSize: number;
-  @Prop({ required: false }) sizeCard: number;
-  @Prop({ required: false }) sliderCounter: number;
   @Prop({ required: false }) sliderTranslateX: number;
   @Prop({ required: false }) sliderMobileTranslateX: number;
 
@@ -370,11 +372,8 @@ export default class CharacteristicsMainComponent extends Vue {
     },
   ];
 
-  slider: any = {
-    distance: 0,
+  slider = {
     translateX: 0,
-    counter: 0,
-    buttonState: false,
     mobileValue: {
       initialPosition: 0,
       moving: true,
@@ -383,10 +382,7 @@ export default class CharacteristicsMainComponent extends Vue {
     },
   };
 
-  @Watch("sliderCounter")
-  onSliderCounterChanged(val: number) {
-    this.slider.counter = val;
-  }
+  sectionHeight: number | string = 'auto';
 
   @Watch("sliderTranslateX")
   onSliderTranslateXChanged(val: number) {
@@ -403,19 +399,13 @@ export default class CharacteristicsMainComponent extends Vue {
   handleTouchStart(event) {
     const sliderWidth = this.$refs.sliderDescription[0];
     const positionX = event.touches[0].clientX;
-    const transformMatrix = window
-      .getComputedStyle(sliderWidth)
-      .getPropertyValue("transform");
+    const transformMatrix = window.getComputedStyle(sliderWidth).getPropertyValue("transform");
 
     if (window.innerWidth < this.mobileSize) {
       this.slider.mobileValue.initialPosition = positionX;
       this.slider.mobileValue.moving = true;
 
-      transformMatrix !== "none"
-        ? (this.slider.mobileValue.transform = parseInt(
-            transformMatrix.split(",")[4].trim()
-          ))
-        : 0;
+      transformMatrix !== "none" ? (this.slider.mobileValue.transform = parseInt(transformMatrix.split(",")[4].trim())): 0;
     }
   }
 
@@ -462,24 +452,15 @@ export default class CharacteristicsMainComponent extends Vue {
     const slideCategory = this.$refs.sliderDescription;
     const menuCategory = this.$refs.menuCategory;
 
-    if (window.innerWidth > this.mobileSize) {
+    if(window.innerWidth > this.mobileSize) {
       menuCategory.forEach((element, index) => {
-        if (element.clientHeight > slideCategory[index].clientHeight) {
-          window.getComputedStyle(slideCategory[index]).getPropertyValue("--height");
-          slideCategory[index].style.setProperty("--height", element.clientHeight + "px");
-        } else {
-          window.getComputedStyle(element).getPropertyValue("--height");
-          element.style.setProperty("--height", slideCategory[index].clientHeight + "px");
-        }
-      });
-    } else {
-      slideCategory.forEach((element, index) => {
-        window
-          .getComputedStyle(slideCategory[index])
-          .getPropertyValue("--height");
-        element.style.setProperty("--height", "auto");
-      });
-    }
+
+        element.clientHeight > slideCategory[index].clientHeight?
+        this.sectionHeight = element.clientHeight:
+        this.sectionHeight = slideCategory[index].clientHeight;
+
+      })
+    } else this.sectionHeight = 'auto';
   }
 
   mounted() {
@@ -488,16 +469,15 @@ export default class CharacteristicsMainComponent extends Vue {
 
     window.addEventListener("resize", ()=> {
       if(window.innerWidth > this.mobileSize) {
-        this.$refs.sliderDescription.forEach(item=> {
+       /*  this.$refs.sliderDescription.forEach(item=> {
           item.removeAttribute('style');
-        })
+        }) */
       } else {
         this.$refs.sliderDescription.forEach(item=> {
           item.style.transform = `translateX(${0}px)`;;
         })
       }
-    });
-    
+    })
   }
 }
 </script>
@@ -546,6 +526,8 @@ export default class CharacteristicsMainComponent extends Vue {
   &__category-item {
     --height: auto;
     height: var(--height);
+
+    @include flex-container(column, center);
 
     &:nth-child(2n) {
       background-color: #e9e9e9;
@@ -634,6 +616,7 @@ export default class CharacteristicsMainComponent extends Vue {
     max-width: 243px;
     width: 100%;
 
+    @include flex-container(column, center);
     flex: 0 0 243px;
 
     border-right: 1px solid #d1d1d1;
@@ -653,9 +636,10 @@ export default class CharacteristicsMainComponent extends Vue {
 
     @include bigMobile {
       @include fontUnify(14, 20, 400);
+      text-overflow: ellipsis;
+      text-align: center;
 
       overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 }

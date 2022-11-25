@@ -46,16 +46,16 @@ import { Prop } from "vue-property-decorator";
   components: {},
 })
 export default class DropdownComponent extends Vue {
+  active: boolean = false;
+  activeSelect: boolean = false;
+  selectItem: string = "Списки сравнения";
+
   listSelect = [
     { itemName: "Комплект резервного питания" },
     { itemName: "Комплект питания" },
     { itemName: "Комплект резервного питания" },
     { itemName: "Комплект питания" },
   ];
-
-  active: boolean = false;
-  activeSelect: boolean = false;
-  selectItem: string = "Списки сравнения";
 
   getItem(event) {
     this.selectItem = event.target.innerText;

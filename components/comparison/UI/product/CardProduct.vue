@@ -4,8 +4,8 @@
     class="card-product"
     :class="[{active: scrollState}, {'active-mobile': scrollStateMobile}]"
   >
-    <div class="card-product__wrapper">
-      <Navigation 
+   <div class="card-product__wrapper">
+       <Navigation 
         :state="state"
         :status="status"
         :stateScroll="scrollState"
@@ -49,13 +49,13 @@
           </div>
         </section>
       </section>
-    </div>
+    </div> 
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
-import { Prop, Watch } from "vue-property-decorator";
+import { Prop } from "vue-property-decorator";
 import Navigation from "./Navigation.vue";
 import Rating from "./Rating.vue";
 import ButtonOrange from "@components/comparison/UI/ButtonOrange.vue";
@@ -101,9 +101,14 @@ export default class CardProductComponent extends Vue {
 
   mounted() {
     this.getState();
-
     this.changeSize(this.mobileSize);
     window.addEventListener('resize', () => {
+      this.changeSize(this.mobileSize)
+    });
+  }
+
+  unmounted() {
+    window.removeEventListener("resize", () => {
       this.changeSize(this.mobileSize)
     });
   }

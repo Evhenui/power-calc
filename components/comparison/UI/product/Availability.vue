@@ -1,7 +1,7 @@
 <template>
   <section 
     class="availability"
-    :class="[status, {active:state}]"
+    :class="[status, {active : state}]"
     >
     <span class="availability__name inStock">В наличии</span>
     <span class="availability__name preOrder">Предзаказ</span>

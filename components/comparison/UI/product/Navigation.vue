@@ -21,7 +21,6 @@ import NavigationButtons from "./NavigationButtons.vue";
   },
 })
 export default class NavigationComponent extends Vue {
-  @Prop({required: false}) stateScroll: boolean;
   @Prop({required: false}) status: string;
 }
 </script>

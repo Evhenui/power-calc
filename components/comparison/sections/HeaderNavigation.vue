@@ -10,7 +10,10 @@
             v-for="(item, id) in listSelected"
             :key="id"
           >
-            <SelectedNavigationItem>
+            <SelectedNavigationItem 
+              ref="selectItems"
+              @click.native="addSelect"
+            >
               <template v-slot:name>{{ item.name }}</template>
               <template v-slot:amount>{{ item.amount }}</template>
             </SelectedNavigationItem>
@@ -42,6 +45,28 @@ export default class HeaderNavigationComponent extends Vue {
     { id: 5, name: "Комплект резервного питания", amount: 12 },
     { id: 6, name: "Комплект питания", amount: 2 },
   ];
+  $refs: {
+    selectItems: SelectedNavigationItem[];
+  };
+
+  delActiv(param) {
+    param.forEach((el) => {
+      el.$el.classList.remove('active');
+    })
+  }
+
+  addSelect(event) {
+    this.delActiv(this.$refs.selectItems);
+    
+    if(event.target.classList.contains('nav-item')) {
+      event.target.classList.add('active');
+    }else {
+      event.target.parentElement.classList.add('active');
+    }
+  }
+
+  mounted() {
+  }
 }
 </script>
  

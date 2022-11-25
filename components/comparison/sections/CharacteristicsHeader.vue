@@ -29,10 +29,10 @@
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
-          :style="[{ '--translate': -slider.translateX + 'px' }, { '--translate-mobile': slider.mobileValue.translateX + 'px' }]"
           @touchstart="handleTouchStart"
-          @touchmove="handleTouchMove"
+          @touchmove.prevent="handleTouchMove"
           @touchend="handleTouchEnd"
+          :style="{ '--translate': -slider.translateX + 'px' }"
         >
           <CardProduct
             v-for="(item, index) in cartItems"
@@ -113,6 +113,10 @@ export default class CharacteristicsHeaderComponent extends Vue {
       translateX: 0
     }
   };
+
+  startPosition = 0;
+  diff = 0;
+  switch = false;
 
   cartItems = [
     {
@@ -7558,7 +7562,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     this.slider.buttonState = this.slider.counter < maxStep? false: true;
 
-    this.$emit("sliderPosition", this.slider.counter, this.slider.translateX);
+    this.$emit("sliderPosition", this.slider.translateX);
   }
 
   prevSlide() {
@@ -7581,56 +7585,27 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     this.slider.buttonState = this.slider.counter < maxStep? false: true;
 
-    this.$emit("sliderPosition", this.slider.counter, this.slider.translateX);
+    this.$emit("sliderPosition", this.slider.translateX);
   }
 
   handleTouchStart(event) {
-    const sliderWidth = this.$refs.sliderWidth;
-    const positionX = event.touches[0].clientX;
-    const transformMatrix = window.getComputedStyle(sliderWidth).getPropertyValue('transform');
-
-    if(window.innerWidth < this.mobileSize) {
-      this.slider.mobileValue.initialPosition = positionX;
-      this.slider.mobileValue.moving = true;
-
-      transformMatrix !== 'none'? this.slider.mobileValue.transform = parseInt(transformMatrix.split(',')[4].trim()): 0;
-    }
+    this.switch = true;
+    this.startPosition = event.touches[0].clientX;
   }
 
   handleTouchMove(event) {
-    const positionX = event.touches[0].clientX;
-    const diff = positionX - this.slider.mobileValue.initialPosition;
-    const maxTranslateX = - (this.$refs.sliderWidth.scrollWidth - this.$refs.sliderWindow.offsetWidth);
-    let translateX = this.slider.mobileValue.transform + diff;
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
 
-    if(window.innerWidth < this.mobileSize) {
-
-      if(this.slider.mobileValue.moving) {
-       this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
-      /*  this.slider.mobileValue.translateX = translateX; */
-
-      if(this.slider.mobileValue.transform + diff > 0) {
-        translateX = 0;
-     /*    this.slider.mobileValue.translateX = translateX; */
-        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
-      } 
-
-      else if (maxTranslateX > this.slider.mobileValue.transform + diff) {
-        translateX = maxTranslateX;
-       /*  this.slider.mobileValue.translateX = translateX; */
-        this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`;
-      }
-
-        this.$emit("sliderMobilePosition", translateX);
-      }
-    }
+    if(!this.switch) return;
+    this.diff = event.touches[0].clientX - this.startPosition;
+    this.slider.translateX = - this.diff;
   }
 
-  handleTouchEnd() {
-    if(window.innerWidth < this.mobileSize) {
-      this.slider.mobileValue.moving = false;
-    }
+  handleTouchEnd(event) {
+    this.switch = false;
   }
+
 //---------------
 
   mounted() {
@@ -7648,6 +7623,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
         this.$refs.sliderWidth.removeAttribute('style')
       }
     });
+    
   }
 
   unmounted() {
@@ -7747,12 +7723,6 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     transition: transform 0.2s ease-in-out;
 
-    @include bigMobile {
-/*       --translate-mobile: 0;
-      transform: translateX(var(--translate-mobile)); */
-
-      transition: none;
-    }
   }
 
   &__item {
@@ -7765,5 +7735,6 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   }
 }
+
 </style>
  
