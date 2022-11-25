@@ -1,9 +1,5 @@
 <template>
-   <section 
-      class="nav-item"
-      :class="{active:isActive}"
-      @click="isActive = !isActive"
-   >
+   <section class="nav-item">
       <span class="nav-item__title">
          <slot name="name"></slot>
       </span>
@@ -30,7 +26,6 @@ import {Component, Vue} from "~/tools/version-types";
    components: {}
 })
 export default class SelectedNavigationItemComponent extends Vue {
-   isActive:boolean = false;
 }
 </script>
  
@@ -43,6 +38,7 @@ export default class SelectedNavigationItemComponent extends Vue {
 
    border: 1px solid #D7D7D7;
    border-radius: 8px;
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
    background-color: #D7D7D7;
 

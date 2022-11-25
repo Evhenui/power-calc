@@ -10,7 +10,7 @@
           v-for="(item, index) in characteristics"
           :key="index"
           class="characteristic__category-item"
-          :style="{ '--height': sectionHeight + 'px' }"
+          :style="{ '--height': sectionHeight}"
         >
           <p class="characteristic__item-name">{{ item.title }}</p>
         </div>
@@ -19,6 +19,7 @@
       <section class="characteristic__slider" ref="sliderWindow">
         <div
           class="characteristic__slider-wrapepr"
+          ref="sliderWidth"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -32,7 +33,7 @@
               ref="sliderDescription"
               :style="[
                 { '--translate-x': -slider.translateX + 'px' },
-                { '--height': sectionHeight + 'px' }
+                { '--height': sectionHeight }
               ]"
             >
               <div
@@ -62,11 +63,15 @@ export default class CharacteristicsMainComponent extends Vue {
   @Prop({ required: false }) sliderTranslateX: number;
   @Prop({ required: false }) sliderMobileTranslateX: number;
 
+  @Prop({ required: false }) positionSliderCounter: number;
+  @Prop({ required: false }) positionSliderTranslate: number;
+
   $refs: {
     menuCategory: HTMLElement[];
     sliderDescription: HTMLElement[];
     slideCategory: HTMLElement[];
     sliderWindow: HTMLElement;
+    sliderWidth: HTMLElement;
   };
 
   characteristics = [
@@ -372,8 +377,11 @@ export default class CharacteristicsMainComponent extends Vue {
     },
   ];
 
-  slider = {
+  slider: any = {
+    distance: 0,
     translateX: 0,
+    counter: 0,
+    buttonState: false,
     mobileValue: {
       initialPosition: 0,
       moving: true,
@@ -382,22 +390,82 @@ export default class CharacteristicsMainComponent extends Vue {
     },
   };
 
-  sectionHeight: number | string = 'auto';
-
-  @Watch("sliderTranslateX")
-  onSliderTranslateXChanged(val: number) {
-    this.slider.translateX = val;
+  sliderMobile: any = {
+    positionX: null,
+    diff: 0
   }
 
-  @Watch("sliderMobileTranslateX")
+  sectionHeight: number | string = 'auto';
+
+ /*  @Watch("sliderTranslateX")
+  onSliderTranslateXChanged(val: number) {
+    this.slider.translateX = val;
+  } */
+
+/*   @Watch("sliderMobileTranslateX")
   onSliderMobileTranslateXhanged(val: number) {
     this.$refs.sliderDescription.forEach((item) => {
       item.style.transform = `translateX(${val}px)`;
     });
+  } */
+
+  @Watch("positionSliderCounter")
+  onPositionSliderCounterChanged(val: number) {
+    this.slider.counter = val;
+  }
+  @Watch("positionSliderTranslate")
+  onPositionSliderTranslateChanged(val: number) {
+    this.slider.translateX = val;
+  }
+
+
+  nextSlide() {
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
+    const slidesLength: number = this.characteristics[0].option.length;
+    const slideWidth: number = sliderWidth / this.characteristics[0].option.length;
+    const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX + slideWidth);
+
+    if (this.slider.distance >= 0 && this.slider.counter < maxStep - 1) {
+      this.slider.counter++;
+      this.slider.translateX = slideWidth * this.slider.counter;
+      
+    } else {
+      this.slider.translateX = sliderWidth - sliderWindow;
+      this.slider.counter = maxStep;
+    }
+
+    this.slider.buttonState = this.slider.counter < maxStep? false: true;
+
+    this.$emit("sliderPositionFooter", this.slider.translateX, this.slider.counter);
+  }
+
+  prevSlide() {
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
+    const slidesLength: number = this.characteristics[0].option.length;
+    const slideWidth: number = sliderWidth / this.characteristics[0].option.length;
+    const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
+    const startingPosition: number = 0;
+
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX - slideWidth);
+
+    if (this.slider.distance <= sliderWidth - sliderWindow) {
+      this.slider.counter--;
+      this.slider.translateX = slideWidth * this.slider.counter;
+    } else {
+      this.slider.translateX = startingPosition;
+      this.slider.distance = sliderWidth - sliderWindow;
+    }
+
+    this.slider.buttonState = this.slider.counter < maxStep? false: true;
+
+    this.$emit("sliderPositionFooter", this.slider.translateX, this.slider.counter);
   }
 
   handleTouchStart(event) {
-    const sliderWidth = this.$refs.sliderDescription[0];
+  /*   const sliderWidth = this.$refs.sliderDescription[0];
     const positionX = event.touches[0].clientX;
     const transformMatrix = window.getComputedStyle(sliderWidth).getPropertyValue("transform");
 
@@ -406,11 +474,12 @@ export default class CharacteristicsMainComponent extends Vue {
       this.slider.mobileValue.moving = true;
 
       transformMatrix !== "none" ? (this.slider.mobileValue.transform = parseInt(transformMatrix.split(",")[4].trim())): 0;
-    }
+    } */
+    this.sliderMobile.positionX = event.touches[0].clientX;
   }
 
   handleTouchMove(event) {
-    const positionX = event.touches[0].clientX;
+  /*   const positionX = event.touches[0].clientX;
     const diff = positionX - this.slider.mobileValue.initialPosition;
     const maxTranslateX = - (this.$refs.sliderDescription[0].scrollWidth - this.$refs.sliderWindow.offsetWidth);
     let translateX = this.slider.mobileValue.transform + diff;
@@ -420,11 +489,11 @@ export default class CharacteristicsMainComponent extends Vue {
         this.$refs.sliderDescription.forEach((item) => {
           item.style.transform = `translateX(${translateX}px)`;
         });
-        /*  this.slider.mobileValue.translateX = translateX; */
+         //this.slider.mobileValue.translateX = translateX;
 
         if (this.slider.mobileValue.transform + diff > 0) {
           translateX = 0;
-          /*    this.slider.mobileValue.translateX = translateX; */
+          //    this.slider.mobileValue.translateX = translateX; 
           this.$refs.sliderDescription.forEach((item) => {
             item.style.transform = `translateX(${translateX}px)`;
           });
@@ -432,20 +501,29 @@ export default class CharacteristicsMainComponent extends Vue {
 
         if (maxTranslateX > this.slider.mobileValue.transform + diff) {
           translateX = maxTranslateX;
-          /*  this.slider.mobileValue.translateX = translateX; */
+          //  this.slider.mobileValue.translateX = translateX; 
           this.$refs.sliderDescription.forEach((item) => {
             item.style.transform = `translateX(${translateX}px)`;
           });
         }
       }
       this.$emit("sliderPositionMain", translateX);
-    } 
+    } */ 
+    const positionMove: number = event.touches[0].clientX;
+    const diff = positionMove - this.sliderMobile.positionX;
+
+    if(!this.sliderMobile.positionX) return false;
+
+    this.sliderMobile.diff = diff;
+    this.sliderMobile.diff > 0 ? this.prevSlide() : this.nextSlide();
+ 
+    this.sliderMobile.positionX = null;
   }
 
   handleTouchEnd() {
-    if (window.innerWidth < this.mobileSize) {
+/*     if (window.innerWidth < this.mobileSize) {
       this.slider.mobileValue.moving = false;
-    }
+    } */
   }
 
   resizeCharacteristics() {
@@ -456,8 +534,8 @@ export default class CharacteristicsMainComponent extends Vue {
       menuCategory.forEach((element, index) => {
 
         element.clientHeight > slideCategory[index].clientHeight?
-        this.sectionHeight = element.clientHeight:
-        this.sectionHeight = slideCategory[index].clientHeight;
+        this.sectionHeight = `${element.clientHeight}px`:
+        this.sectionHeight = `${slideCategory[index].clientHeight}px`;
 
       })
     } else this.sectionHeight = 'auto';
@@ -473,9 +551,9 @@ export default class CharacteristicsMainComponent extends Vue {
           item.removeAttribute('style');
         }) */
       } else {
-        this.$refs.sliderDescription.forEach(item=> {
+        /* this.$refs.sliderDescription.forEach(item=> {
           item.style.transform = `translateX(${0}px)`;;
-        })
+        }) */
       }
     })
   }
@@ -600,7 +678,7 @@ export default class CharacteristicsMainComponent extends Vue {
     transition: all 0.2s ease-in-out;
 
     @include bigMobile {
-      transition: none;
+      /* transition: none; */
     }
 
     &:nth-of-type(2n) {

@@ -7,12 +7,18 @@
         @sliderMobilePosition="sliderMobilePosition"
         :mobileSize="mobileSize"
         :positionSlider="slider.mobileFooterTranslateX"
+        :positionSliderCounter="sliderFooter.counter"
+        :positionSliderTranslate="sliderFooter.translate"
       />
       <CharacteristicsMain
         :sliderTranslateX="slider.desktopTranslateX"
         :sliderMobileTranslateX="slider.mobileTranslateX"
+
+        :positionSliderCounter="sliderHeader.counter"
+        :positionSliderTranslate="sliderHeader.translate"
         :mobileSize="mobileSize"
         @sliderPositionMain="sliderPositionMain"
+        @sliderPositionFooter="sliderPositionFooter"
       />
     </div>
   </div>
@@ -40,14 +46,29 @@ export default class ComparisonComponent extends Vue {
    mobileFooterTranslateX: 0
   }
 
-  sliderPosition(translateX: number) {
-    this.slider.desktopTranslateX = translateX;
+  sliderFooter: any = {
+    translate: 0,
+    counter: 0
+  }
+
+  sliderHeader: any = {
+    translate: 0,
+    counter: 0
+  }
+
+  sliderPosition(translate: number, counter: number ) {
+    this.sliderHeader.translate = translate;
+    this.sliderHeader.counter = counter;
   }
   sliderMobilePosition(translate: number) {
     this.slider.mobileTranslateX = translate;
   }
   sliderPositionMain(translate: number) {
     this.slider.mobileFooterTranslateX = translate;
+  }
+  sliderPositionFooter(translate: number, counter: number ) {
+    this.sliderFooter.translate = translate;
+    this.sliderFooter.counter = counter;
   }
 }
 </script>

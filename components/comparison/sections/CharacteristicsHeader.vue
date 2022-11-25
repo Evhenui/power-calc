@@ -29,10 +29,10 @@
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
+          :style="[{ '--translate': -slider.translateX + 'px' }]"
           @touchstart="handleTouchStart"
-          @touchmove.prevent="handleTouchMove"
+          @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
-          :style="{ '--translate': -slider.translateX + 'px' }"
         >
           <CardProduct
             v-for="(item, index) in cartItems"
@@ -82,11 +82,21 @@ export default class CharacteristicsHeaderComponent extends Vue {
   @Prop({ required: false }) mobileSize: number;
   @Prop({ required: false }) positionSlider: number;
 
-  @Watch("positionSlider")
+  @Prop({ required: false }) positionSliderCounter: number;
+  @Prop({ required: false }) positionSliderTranslate: number;
+  /* @Watch("positionSlider")
   onPositionSliderChanged(val: number) {
     this.$refs.sliderWidth.style.transform = `translateX(${val}px)`;
+  } */
+
+  @Watch("positionSliderCounter")
+  onPositionSliderCounterChanged(val: number) {
+    this.slider.counter = val;
   }
-  
+  @Watch("positionSliderTranslate")
+  onPositionSliderTranslateChanged(val: number) {
+    this.slider.translateX = val;
+  }
 
   $refs: {
     characteristics: HTMLElement;
@@ -114,9 +124,10 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   };
 
-  startPosition = 0;
-  diff = 0;
-  switch = false;
+  sliderMobile: any = {
+    positionX: null,
+    diff: 0
+  }
 
   cartItems = [
     {
@@ -7548,7 +7559,6 @@ export default class CharacteristicsHeaderComponent extends Vue {
     const slidesLength: number = this.$refs.slides.length;
     const slideWidth: number = sliderWidth / slidesLength;
     const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
-
     this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX + slideWidth);
 
     if (this.slider.distance >= 0 && this.slider.counter < maxStep - 1) {
@@ -7562,7 +7572,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     this.slider.buttonState = this.slider.counter < maxStep? false: true;
 
-    this.$emit("sliderPosition", this.slider.translateX);
+    this.$emit("sliderPosition", this.slider.translateX, this.slider.counter);
   }
 
   prevSlide() {
@@ -7585,25 +7595,65 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     this.slider.buttonState = this.slider.counter < maxStep? false: true;
 
-    this.$emit("sliderPosition", this.slider.translateX);
+    this.$emit("sliderPosition", this.slider.translateX, this.slider.counter);
   }
 
   handleTouchStart(event) {
-    this.switch = true;
-    this.startPosition = event.touches[0].clientX;
+/*     const sliderWidth = this.$refs.sliderWidth;
+    const positionX = event.touches[0].clientX;
+    const transformMatrix = window.getComputedStyle(sliderWidth).getPropertyValue('transform');
+
+    if(window.innerWidth < this.mobileSize) {
+      this.slider.mobileValue.initialPosition = positionX;
+      this.slider.mobileValue.moving = true;
+
+      transformMatrix !== 'none'? this.slider.mobileValue.transform = parseInt(transformMatrix.split(',')[4].trim()): 0;
+    } */
+    this.sliderMobile.positionX = event.touches[0].clientX;
   }
 
   handleTouchMove(event) {
-    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
-    const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
+/*     const positionX = event.touches[0].clientX;
+    const diff = positionX - this.slider.mobileValue.initialPosition;
+    const maxTranslateX = - (this.$refs.sliderWidth.scrollWidth - this.$refs.sliderWindow.offsetWidth);
+    let translateX = this.slider.mobileValue.transform + diff;
 
-    if(!this.switch) return;
-    this.diff = event.touches[0].clientX - this.startPosition;
-    this.slider.translateX = - this.diff;
+    if(window.innerWidth < this.mobileSize) {
+
+      if(this.slider.mobileValue.moving) {
+     //  this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`; 
+       this.slider.translateX = -translateX;
+
+      if(this.slider.mobileValue.transform + diff > 0) {
+        translateX = 0;
+        this.slider.translateX = translateX;
+      //   this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`; 
+      } 
+
+      else if (maxTranslateX > this.slider.mobileValue.transform + diff) {
+        translateX = maxTranslateX;
+        this.slider.translateX = -translateX;
+        // this.$refs.sliderWidth.style.transform = `translateX(${translateX}px)`; 
+      }
+
+        this.$emit("sliderMobilePosition", translateX);
+      }
+    } */
+    const positionMove: number = event.touches[0].clientX;
+    const diff = positionMove - this.sliderMobile.positionX;
+
+    if(!this.sliderMobile.positionX) return false;
+
+    this.sliderMobile.diff = diff;
+    this.sliderMobile.diff > 0 ? this.prevSlide() : this.nextSlide();
+ 
+    this.sliderMobile.positionX = null;
   }
 
-  handleTouchEnd(event) {
-    this.switch = false;
+  handleTouchEnd() {
+  /*   if(window.innerWidth < this.mobileSize) {
+      this.slider.mobileValue.moving = false;
+    } */
   }
 
 //---------------
@@ -7616,14 +7666,13 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     window.addEventListener("resize", this.scrollState);
     window.addEventListener("resize", this.prevSlide);
-    window.addEventListener("resize", ()=> {
+  /*   window.addEventListener("resize", ()=> {
       if(window.innerWidth < this.mobileSize) {
         this.$refs.sliderWidth.style.transform = `translateX(${0}px)`;
       } else if (window.innerWidth > this.mobileSize) {
         this.$refs.sliderWidth.removeAttribute('style')
       }
-    });
-    
+    }); */
   }
 
   unmounted() {
@@ -7723,6 +7772,12 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     transition: transform 0.2s ease-in-out;
 
+    @include bigMobile {
+/*       --translate-mobile: 0;
+      transform: translateX(var(--translate-mobile)); */
+
+      /* transition: none; */
+    }
   }
 
   &__item {
@@ -7735,6 +7790,5 @@ export default class CharacteristicsHeaderComponent extends Vue {
     }
   }
 }
-
 </style>
  
