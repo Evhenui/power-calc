@@ -10,16 +10,16 @@
             v-for="(item, id) in listSelected"
             :key="id"
           >
-            <SelectedNavigationItem 
+            <SelectedNavigation 
               ref="selectItems"
               @click.native="addSelect"
             >
               <template v-slot:name>{{ item.name }}</template>
               <template v-slot:amount>{{ item.amount }}</template>
-            </SelectedNavigationItem>
+            </SelectedNavigation>
           </li>
         </ul>
-        <Dropdown class="header-nav__dropdown"></Dropdown>
+        <DropdownMenu class="header-nav__dropdown"></DropdownMenu>
       </nav>
     </div>
   </section>
@@ -27,15 +27,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
-import SelectedNavigationItem from "../UI/SelectedNavigationItem.vue";
-import Dropdown from "../UI/Dropdown.vue"
+import SelectedNavigation from "../UI/SelectedNavigation.vue";
+import DropdownMenu from "../UI/DropdownMenu.vue"
 
 @Component({
   components: {
-    SelectedNavigationItem,
-    Dropdown
+    SelectedNavigation,
+    DropdownMenu
   },
 })
+
 export default class HeaderNavigationComponent extends Vue {
   listSelected = [
     { id: 1, name: "Комплект резервного питания", amount: 12 },
@@ -46,8 +47,9 @@ export default class HeaderNavigationComponent extends Vue {
     { id: 6, name: "Комплект питания", amount: 2 },
   ];
   $refs: {
-    selectItems: SelectedNavigationItem[];
+    selectItems: SelectedNavigation[];
   };
+  
 
   delActiv(param) {
     param.forEach((el) => {
@@ -57,15 +59,7 @@ export default class HeaderNavigationComponent extends Vue {
 
   addSelect(event) {
     this.delActiv(this.$refs.selectItems);
-    
-    if(event.target.classList.contains('nav-item')) {
-      event.target.classList.add('active');
-    }else {
-      event.target.parentElement.classList.add('active');
-    }
-  }
-
-  mounted() {
+    event.currentTarget.classList.add('active');
   }
 }
 </script>

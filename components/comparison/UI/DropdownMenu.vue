@@ -45,7 +45,7 @@ import { Prop } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class DropdownComponent extends Vue {
+export default class DropdownMenuComponent extends Vue {
   active: boolean = false;
   activeSelect: boolean = false;
   selectItem: string = "Списки сравнения";

@@ -80,21 +80,16 @@ import ButtonArrow from "../UI/ButtonArrow.vue";
 export default class CharacteristicsHeaderComponent extends Vue {
   @Prop({ required: false }) active: string;
   @Prop({ required: false }) mobileSize: number;
-  @Prop({ required: false }) positionSlider: number;
+  @Prop({ required: false }) sliderCounter: number;
+  @Prop({ required: false }) sliderTranslate: number;
 
-  @Prop({ required: false }) positionSliderCounter: number;
-  @Prop({ required: false }) positionSliderTranslate: number;
-  /* @Watch("positionSlider")
-  onPositionSliderChanged(val: number) {
-    this.$refs.sliderWidth.style.transform = `translateX(${val}px)`;
-  } */
-
-  @Watch("positionSliderCounter")
-  onPositionSliderCounterChanged(val: number) {
+  @Watch("sliderCounter")
+  onSliderCounterChanged(val: number) {
     this.slider.counter = val;
   }
-  @Watch("positionSliderTranslate")
-  onPositionSliderTranslateChanged(val: number) {
+
+  @Watch("sliderTranslate")
+  onSliderTranslateChanged(val: number) {
     this.slider.translateX = val;
   }
 
@@ -7663,16 +7658,8 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
     this.scrollState();
     window.addEventListener("scroll", this.scrollState);
-
     window.addEventListener("resize", this.scrollState);
     window.addEventListener("resize", this.prevSlide);
-  /*   window.addEventListener("resize", ()=> {
-      if(window.innerWidth < this.mobileSize) {
-        this.$refs.sliderWidth.style.transform = `translateX(${0}px)`;
-      } else if (window.innerWidth > this.mobileSize) {
-        this.$refs.sliderWidth.removeAttribute('style')
-      }
-    }); */
   }
 
   unmounted() {
