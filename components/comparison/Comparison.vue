@@ -1,7 +1,7 @@
 <template>
   <div class="comparison">
     <div class="comparison__wrapper">
-      <HeaderNavigation />
+<!--       <HeaderNavigation />
       <CharacteristicsHeader
         @sliderPosition="sliderPosition"
         :mobileSize="mobileSize"
@@ -13,7 +13,8 @@
         :mobileSize="mobileSize"
         :sliderCounter="slider.counter"
         :sliderTranslate="slider.translate"
-      />
+      /> -->
+      <CharacteristicsEmpty/>
     </div>
   </div>
 </template>
@@ -23,12 +24,14 @@ import { Component, Vue } from "~/tools/version-types";
 import HeaderNavigation from "./sections/HeaderNavigation.vue";
 import CharacteristicsHeader from "./sections/CharacteristicsHeader.vue";
 import CharacteristicsMain from "./sections/CharacteristicsMain.vue";
+import CharacteristicsEmpty from "./sections/CharacteristicsEmpty.vue";
 
 @Component({
   components: {
     HeaderNavigation,
     CharacteristicsHeader,
     CharacteristicsMain,
+    CharacteristicsEmpty
   },
 })
 export default class ComparisonComponent extends Vue {
