@@ -6,7 +6,7 @@
     <div
       class="navigation__pin"
       :class="{ active: stateActive.pin }"
-      @click="stateActive.pin = !stateActive.pin"
+      @click="activePin"
     >
       <svg
         class="navigation__pin-image"
@@ -108,6 +108,11 @@ export default class NavigationButtonsComponent extends Vue {
     pin: false,
     like: false,
   };
+
+  activePin(event) {
+    this.stateActive.pin = !this.stateActive.pin;
+    this.$emit('getPin', this.stateActive.pin)
+  }
 }
 </script>
 

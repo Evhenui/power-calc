@@ -29,7 +29,7 @@
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
-          :style="[{ '--translate': -slider.translateX + 'px' }, {'--width': widthSlider}]"
+          :style="[{ '--left': -slider.positionLeft + 'px' }, {'--width': widthSlider}]"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -43,6 +43,7 @@
             :scrollStateMobile="isActiveScrollMobile"
             :mobileSize="mobileSize"
             :image="item.images[0].url"
+            @getPin="getPin"
             class="characteristics-header__item"
           > 
           <template v-slot:nameProduct>{{item.name.ru}}</template>
@@ -70,7 +71,6 @@ import CharacteristicsBar from "./CharacteristicsBar.vue";
 import CardProduct from "@components/comparison/UI/product/CardProduct.vue";
 import ButtonArrow from "../UI/ButtonArrow.vue";
 
-
 @Component({
   components: {
     CharacteristicsBar,
@@ -92,40 +92,30 @@ export default class CharacteristicsHeaderComponent extends Vue {
     navBar: CharacteristicsBar;
   };
 
-  @Watch("sliderCounter")
-  onsliderCounterChanged(val: number) {
-    this.slider.counter = val;
-  }
-  @Watch("sliderTranslate")
-  onsliderTranslateChanged(val: number) {
-    this.slider.translateX = val;
-  }
-
   buttonRight: boolean = true;
   isActiveScroll: boolean = false;
   isActiveScrollMobile: boolean = false;
   cardSize: string = "";
 
-
   widthSlider: string = '';
 
-  test:boolean = false;
+  testLeft: number = 0;
 
   slider: any = {
     distance: 0,
-    translateX: 0,
+    positionLeft: 0,
     counter: 0,
     buttonState: false,
     mobileValue: {
       initialPosition: 0,
       moving: true,
       transform: 0,
-      translateX: 0
+      positionLeft: 0
     }
   };
 
   sliderMobile: any = {
-    positionX: null,
+    positionLeft: null,
     diff: 0
   }
 
@@ -7512,6 +7502,16 @@ export default class CharacteristicsHeaderComponent extends Vue {
     },
   ]
 
+  @Watch("sliderCounter")
+  onsliderCounterChanged(val: number) {
+    this.slider.counter = val;
+  }
+
+  @Watch("sliderTranslate")
+  onsliderTranslateChanged(val: number) {
+    this.slider.positionLeft = val;
+  }
+
   resizeElements() {
     const observer = new ResizeObserver((entries) => {
       this.cardSize = entries[0].borderBoxSize[0].blockSize + "px";
@@ -7556,6 +7556,22 @@ export default class CharacteristicsHeaderComponent extends Vue {
     this.widthSlider = sliderWidth + 'px';
   }
 
+  getPin(el) {
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    const slidesLength: number = this.$refs.slides.length;
+    const slideWidth: number = sliderWidth / slidesLength;
+
+    if(!el.classList.contains('active-pin')) {
+      window.getComputedStyle(el).getPropertyValue('--translateX');
+      el.style.setProperty('--left', this.testLeft + 'px');
+     /*  el.style.left = this.testLeft + 'px'; */
+      this.testLeft += slideWidth;
+    } else {
+   /*    el.style.position = 'static';
+      el.style.left = 'auto'; */
+      this.testLeft -= slideWidth;
+    }
+  }
 //-----slider------
 
   nextSlide() {
@@ -7564,20 +7580,20 @@ export default class CharacteristicsHeaderComponent extends Vue {
     const slidesLength: number = this.$refs.slides.length;
     const slideWidth: number = sliderWidth / slidesLength;
     const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
-    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX + slideWidth);
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.positionLeft + slideWidth);
 
     if (this.slider.distance >= 0 && this.slider.counter < maxStep - 1) {
       this.slider.counter++;
-      this.slider.translateX = slideWidth * this.slider.counter;
+      this.slider.positionLeft = slideWidth * this.slider.counter;
       
     } else {
-      this.slider.translateX = sliderWidth - sliderWindow;
+      this.slider.positionLeft = sliderWidth - sliderWindow;
       this.slider.counter = maxStep;
     }
 
     this.slider.buttonState = this.slider.counter < maxStep? false: true;
 
-    this.$emit("sliderPosition", this.slider.translateX, this.slider.counter);
+    this.$emit("sliderPosition", this.slider.positionLeft, this.slider.counter);
   }
 
   prevSlide() {
@@ -7588,19 +7604,19 @@ export default class CharacteristicsHeaderComponent extends Vue {
     const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
     const startingPosition: number = 0;
 
-    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX - slideWidth);
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.positionLeft - slideWidth);
 
     if (this.slider.distance <= sliderWidth - sliderWindow) {
       this.slider.counter--;
-      this.slider.translateX = slideWidth * this.slider.counter;
+      this.slider.positionLeft = slideWidth * this.slider.counter;
     } else {
-      this.slider.translateX = startingPosition;
+      this.slider.positionLeft = startingPosition;
       this.slider.distance = sliderWidth - sliderWindow;
     }
 
     this.slider.buttonState = this.slider.counter < maxStep? false: true;
 
-    this.$emit("sliderPosition", this.slider.translateX, this.slider.counter);
+    this.$emit("sliderPosition", this.slider.positionLeft, this.slider.counter);
   }
 
   handleTouchStart(event) {
@@ -7614,7 +7630,7 @@ export default class CharacteristicsHeaderComponent extends Vue {
 
       transformMatrix !== 'none'? this.slider.mobileValue.transform = parseInt(transformMatrix.split(',')[4].trim()): 0;
     } */
-    this.sliderMobile.positionX = event.touches[0].clientX;
+    this.sliderMobile.positionLeft = event.touches[0].clientX;
   }
 
   handleTouchMove(event) {
@@ -7645,14 +7661,14 @@ export default class CharacteristicsHeaderComponent extends Vue {
       }
     } */
     const positionMove: number = event.touches[0].clientX;
-    const diff = positionMove - this.sliderMobile.positionX;
+    const diff = positionMove - this.sliderMobile.positionLeft;
 
-    if(!this.sliderMobile.positionX) return false;
+    if(!this.sliderMobile.positionLeft) return false;
 
     this.sliderMobile.diff = diff;
     this.sliderMobile.diff > 0 ? this.prevSlide() : this.nextSlide();
  
-    this.sliderMobile.positionX = null;
+    this.sliderMobile.positionLeft = null;
   }
 
   handleTouchEnd() {
@@ -7763,25 +7779,20 @@ export default class CharacteristicsHeaderComponent extends Vue {
     --width: auto;
     width: var(--width);
 
-    @include flex-container(row, left, center);
+    position: relative;
+    --left: 0;
+    left: var(--left);
 
-    --translate: 0;
-    /* transform: translateX(var(--translate)); */
+    @include flex-container(row, left, center);
 
     transition: left 0.2s ease-in-out;
 
-    position: relative;
-    left: var(--translate);
-
-    @include bigMobile {
-/*       --translate-mobile: 0;
-      transform: translateX(var(--translate-mobile)); */
-
-      /* transition: none; */
-    }
   }
 
   &__item {
+    --left: 0;
+    left: var(--left);
+
     border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
     border-right: 1px solid #e9e9e9;

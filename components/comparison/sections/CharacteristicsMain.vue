@@ -31,7 +31,7 @@
               class="characteristic__items"
               ref="sliderDescription"
               :style="[
-                { '--translate-x': -slider.translateX + 'px' },
+                { '--left': -slider.positionLeft + 'px' },
                 { '--height': sectionHeight }
               ]"
             >
@@ -77,7 +77,7 @@ export default class CharacteristicsMainComponent extends Vue {
   }
   @Watch("sliderTranslate")
   onsliderTranslateChanged(val: number) {
-    this.slider.translateX = val;
+    this.slider.positionLeft = val;
   }
 
   characteristics = [
@@ -385,7 +385,7 @@ export default class CharacteristicsMainComponent extends Vue {
 
   slider: any = {
     distance: 0,
-    translateX: 0,
+    positionLeft: 0,
     counter: 0,
   };
 
@@ -396,34 +396,24 @@ export default class CharacteristicsMainComponent extends Vue {
 
   sectionHeight: number | string = 'auto';
 
-  @Watch("sliderCounter")
-  onSliderCounterChanged(val: number) {
-    this.slider.counter = val;
-  }
-  @Watch("sliderTranslate")
-  onSliderTranslateChanged(val: number) {
-    this.slider.translateX = val;
-  }
-
-
   nextSlide() {
     const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
     const sliderWindow: number = this.$refs.sliderWindow.offsetWidth;
     const slidesLength: number = this.characteristics[0].option.length;
     const slideWidth: number = sliderWidth / this.characteristics[0].option.length;
     const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
-    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX + slideWidth);
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.positionLeft + slideWidth);
 
     if (this.slider.distance >= 0 && this.slider.counter < maxStep - 1) {
       this.slider.counter++;
-      this.slider.translateX = slideWidth * this.slider.counter;
+      this.slider.positionLeft = slideWidth * this.slider.counter;
       
     } else {
-      this.slider.translateX = sliderWidth - sliderWindow;
+      this.slider.positionLeft = sliderWidth - sliderWindow;
       this.slider.counter = maxStep;
     }
 
-    this.$emit("sliderPosition", this.slider.translateX, this.slider.counter);
+    this.$emit("sliderPosition", this.slider.positionLeft, this.slider.counter);
   }
 
   prevSlide() {
@@ -434,17 +424,17 @@ export default class CharacteristicsMainComponent extends Vue {
     const maxStep: number = Math.round(slidesLength - sliderWindow / slideWidth);
     const startingPosition: number = 0;
 
-    this.slider.distance = sliderWidth - sliderWindow - (this.slider.translateX - slideWidth);
+    this.slider.distance = sliderWidth - sliderWindow - (this.slider.positionLeft - slideWidth);
 
     if (this.slider.distance <= sliderWidth - sliderWindow) {
       this.slider.counter--;
-      this.slider.translateX = slideWidth * this.slider.counter;
+      this.slider.positionLeft = slideWidth * this.slider.counter;
     } else {
-      this.slider.translateX = startingPosition;
+      this.slider.positionLeft = startingPosition;
       this.slider.distance = sliderWidth - sliderWindow;
     }
 
-    this.$emit("sliderPosition", this.slider.translateX, this.slider.counter);
+    this.$emit("sliderPosition", this.slider.positionLeft, this.slider.counter);
   }
 
   handleTouchStart(event) {
@@ -597,18 +587,15 @@ export default class CharacteristicsMainComponent extends Vue {
     --height: auto;
     height: var(--height);
 
+    position: relative;
+    --left: 0;
+    left: var(--left);
+
     @include flex-container(row, left);
 
     background-color: white;
 
-    --translate-x: 0;
-    transform: translateX(var(--translate-x));
-
     transition: all 0.2s ease-in-out;
-
-    @include bigMobile {
-      /* transition: none; */
-    }
 
     &:nth-of-type(2n) {
       background-color: #e9e9e9;

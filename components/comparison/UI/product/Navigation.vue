@@ -4,7 +4,9 @@
       :status="status" 
       class="card-navigation__availability"
     />
-    <NavigationButtons />
+    <NavigationButtons
+      @getPin="getPin"
+     />
   </nav>
 </template>
 
@@ -22,6 +24,10 @@ import NavigationButtons from "./NavigationButtons.vue";
 })
 export default class NavigationComponent extends Vue {
   @Prop({required: false}) status: string;
+
+  getPin(status) {
+    this.$emit('getPin', status)
+  }
 }
 </script>
  

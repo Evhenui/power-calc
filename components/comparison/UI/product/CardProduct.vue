@@ -2,13 +2,18 @@
   <section
     ref="cardProduct"
     class="card-product"
-    :class="[{active: scrollState}, {'active-mobile': scrollStateMobile}]"
+    :class="[
+      {active: scrollState},
+      {'active-mobile': scrollStateMobile},
+      {'active-pin': activePin}      
+    ]"
   >
    <div class="card-product__wrapper">
        <Navigation 
         :state="state"
         :status="status"
         :stateScroll="scrollState"
+        @getPin="getPin"
         class="card-product__navigation"
       />
       
@@ -81,6 +86,7 @@ export default class CardProductComponent extends Vue {
   };
 
   state: boolean = false;
+  activePin: boolean = false;
 
   isActiveScroll = {
     desktop: false,
@@ -97,6 +103,11 @@ export default class CardProductComponent extends Vue {
     }else {
       this.isActiveScroll.desktop = true;
    }
+  }
+
+  getPin(status) {
+    this.activePin = status;
+    this.$emit('getPin', this.$refs.cardProduct)
   }
 
   mounted() {
@@ -120,6 +131,8 @@ export default class CardProductComponent extends Vue {
   flex: 1 0 243px;
 
   background-color: white;
+
+  transition: left .2s ease-in-out;
 
   @include bigMobile {
    flex: 0 0 152px;
@@ -238,6 +251,11 @@ export default class CardProductComponent extends Vue {
     .card-product__price {
       @include fontUnify(16, 22, 500);
     }
+  }
+
+  &.active-pin {
+    position: sticky;
+    
   }
 
   &__wrapper {
