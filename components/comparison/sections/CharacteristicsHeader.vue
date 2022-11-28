@@ -29,7 +29,7 @@
         <div
           ref="sliderWidth"
           class="characteristics-header__items-wrapper"
-          :style="[{ '--translate': -slider.translateX + 'px' }]"
+          :style="[{ '--translate': -slider.translateX + 'px' }, {'--width': widthSlider}]"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -70,6 +70,7 @@ import CharacteristicsBar from "./CharacteristicsBar.vue";
 import CardProduct from "@components/comparison/UI/product/CardProduct.vue";
 import ButtonArrow from "../UI/ButtonArrow.vue";
 
+
 @Component({
   components: {
     CharacteristicsBar,
@@ -83,16 +84,6 @@ export default class CharacteristicsHeaderComponent extends Vue {
   @Prop({ required: false }) sliderCounter: number;
   @Prop({ required: false }) sliderTranslate: number;
 
-  @Watch("sliderCounter")
-  onSliderCounterChanged(val: number) {
-    this.slider.counter = val;
-  }
-
-  @Watch("sliderTranslate")
-  onSliderTranslateChanged(val: number) {
-    this.slider.translateX = val;
-  }
-
   $refs: {
     characteristics: HTMLElement;
     slides: CardProduct[];
@@ -101,10 +92,24 @@ export default class CharacteristicsHeaderComponent extends Vue {
     navBar: CharacteristicsBar;
   };
 
+  @Watch("sliderCounter")
+  onsliderCounterChanged(val: number) {
+    this.slider.counter = val;
+  }
+  @Watch("sliderTranslate")
+  onsliderTranslateChanged(val: number) {
+    this.slider.translateX = val;
+  }
+
   buttonRight: boolean = true;
   isActiveScroll: boolean = false;
   isActiveScrollMobile: boolean = false;
   cardSize: string = "";
+
+
+  widthSlider: string = '';
+
+  test:boolean = false;
 
   slider: any = {
     distance: 0,
@@ -7546,6 +7551,11 @@ export default class CharacteristicsHeaderComponent extends Vue {
  
   }
 
+  getWidthSlider() {
+    const sliderWidth: number = this.$refs.sliderWidth.scrollWidth;
+    this.widthSlider = sliderWidth + 'px';
+  }
+
 //-----slider------
 
   nextSlide() {
@@ -7654,12 +7664,13 @@ export default class CharacteristicsHeaderComponent extends Vue {
 //---------------
 
   mounted() {
+    this.getWidthSlider();
     this.resizeElements();
-
     this.scrollState();
     window.addEventListener("scroll", this.scrollState);
     window.addEventListener("resize", this.scrollState);
     window.addEventListener("resize", this.prevSlide);
+    window.addEventListener("resize", this.getWidthSlider);
   }
 
   unmounted() {
@@ -7755,9 +7766,12 @@ export default class CharacteristicsHeaderComponent extends Vue {
     @include flex-container(row, left, center);
 
     --translate: 0;
-    transform: translateX(var(--translate));
+    /* transform: translateX(var(--translate)); */
 
-    transition: transform 0.2s ease-in-out;
+    transition: left 0.2s ease-in-out;
+
+    position: relative;
+    left: var(--translate);
 
     @include bigMobile {
 /*       --translate-mobile: 0;

@@ -1,57 +1,48 @@
 <template>
-  <div class="comparison">
+  <div 
+    class="comparison" 
+    :class="{ empty: pageState === false }"
+  >
     <div class="comparison__wrapper">
-<!--       <HeaderNavigation />
-      <CharacteristicsHeader
-        @sliderPosition="sliderPosition"
-        :mobileSize="mobileSize"
-        :sliderCounter="slider.counter"
-        :sliderTranslate="slider.translate"
-      />
-      <CharacteristicsMain
-        @sliderPosition="sliderPosition"
-        :mobileSize="mobileSize"
-        :sliderCounter="slider.counter"
-        :sliderTranslate="slider.translate"
-      /> -->
-      <CharacteristicsEmpty/>
+      <ComparisonMain class="comparison__main" />
+      <ComparisonEmpty class="comparison__empty" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
-import HeaderNavigation from "./sections/HeaderNavigation.vue";
-import CharacteristicsHeader from "./sections/CharacteristicsHeader.vue";
-import CharacteristicsMain from "./sections/CharacteristicsMain.vue";
-import CharacteristicsEmpty from "./sections/CharacteristicsEmpty.vue";
+import ComparisonEmpty from "./sections/ComparisonEmpty.vue";
+import ComparisonMain from "./sections/ComparisonMain.vue";
 
 @Component({
   components: {
-    HeaderNavigation,
-    CharacteristicsHeader,
-    CharacteristicsMain,
-    CharacteristicsEmpty
+    ComparisonEmpty,
+    ComparisonMain,
   },
 })
 export default class ComparisonComponent extends Vue {
-  mobileSize: number = 1024;
-
-  slider: any = {
-    translate: 0,
-    counter: 0
-  }
-
-  sliderPosition(translate: number, counter: number ) {
-    this.slider.translate = translate;
-    this.slider.counter = counter;
-  }
-
+  pageState: boolean = true;
 }
 </script>
 
 <style lang="scss" scoped>
 .comparison {
+  &.empty {
+    .comparison__wrapper {
+      @include bigMobile {
+        padding: 0 16px;
+      }
+    }
+
+    .comparison__empty {
+      display: block;
+    }
+
+    .comparison__main {
+      display: none;
+    }
+  }
   &__wrapper {
     @extend %width-main;
 
@@ -61,6 +52,10 @@ export default class ComparisonComponent extends Vue {
     @include bigMobile {
       padding: 0 0 0 16px;
     }
+  }
+
+  &__empty {
+    display: none;
   }
 }
 </style>

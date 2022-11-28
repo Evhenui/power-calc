@@ -54,6 +54,7 @@
 import { Component, Vue } from "~/tools/version-types";
 import { Prop, Watch } from "vue-property-decorator";
 
+
 @Component({
   components: {},
 })
@@ -69,6 +70,15 @@ export default class CharacteristicsMainComponent extends Vue {
     sliderWindow: HTMLElement;
     sliderWidth: HTMLElement;
   };
+
+  @Watch("sliderCounter")
+  onsliderCounterChanged(val: number) {
+    this.slider.counter = val;
+  }
+  @Watch("sliderTranslate")
+  onsliderTranslateChanged(val: number) {
+    this.slider.translateX = val;
+  }
 
   characteristics = [
     {

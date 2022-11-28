@@ -28,7 +28,7 @@ import BreadCrumbs from "../UI/BreadCrumbs.vue";
     BreadCrumbs
   },
 })
-export default class CharacteristicsEmptyComponent extends Vue {
+export default class ComparisonEmptyComponent extends Vue {
     crambsItem: Array<string> = ['Главная', 'Продукция', 'Акция']
 }
 </script>
