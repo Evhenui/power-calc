@@ -176,6 +176,10 @@ export default class CardProductComponent extends Vue {
       @include flex-container(row, space-between, center);
 
       padding: 0;
+
+      @include bigMobile {
+        display: block;
+      }
     }
 
     .card-product__code {

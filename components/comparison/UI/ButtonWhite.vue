@@ -102,7 +102,7 @@ export default class ButtonWhiteComponent extends Vue {
     width: 100%;
   }
 
-  &.active {
+/*   &.active {
     width: 100%;
 
     @include flex-container(row, center);
@@ -110,7 +110,7 @@ export default class ButtonWhiteComponent extends Vue {
     .button__name {
       display: none;
     }
-  }
+  } */
 
   &:hover {
     border-color: #ff5b00;
@@ -187,9 +187,9 @@ export default class ButtonWhiteComponent extends Vue {
 
     transition: all 0.1s ease-in-out;
 
-    @include bigMobile {
+/*     @include bigMobile {
       display: none;
-    }
+    } */
   }
 }
 </style>

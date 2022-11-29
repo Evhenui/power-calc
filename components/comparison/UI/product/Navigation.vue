@@ -5,6 +5,7 @@
       class="card-navigation__availability"
     />
     <NavigationButtons
+      v-if="!stateScroll"
       @getPin="getPin"
      />
   </nav>
@@ -24,6 +25,7 @@ import NavigationButtons from "./NavigationButtons.vue";
 })
 export default class NavigationComponent extends Vue {
   @Prop({required: false}) status: string;
+  @Prop({required: false}) stateScroll: boolean;
 
   getPin(status) {
     this.$emit('getPin', status)
@@ -45,10 +47,6 @@ export default class NavigationComponent extends Vue {
       .card-navigation__availability {
         display: none;
       }
-   }
-
-   &.scroll {
-    margin-bottom: 8px;
    }
 }
 </style>

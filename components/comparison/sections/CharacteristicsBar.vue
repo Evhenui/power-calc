@@ -19,10 +19,10 @@
           :state="state" 
           :scrollState="activeScroll"
         >Добавить товар</ButtonWhite>
-        <ButtonWhite 
+<!--         <ButtonWhite 
           :buttonType="buttonClear" 
           :state="state" 
-          :scrollState="activeScroll">Очистить список</ButtonWhite>
+          :scrollState="activeScroll">Очистить список</ButtonWhite> -->
       </section>
     </div>
   </section>
@@ -127,14 +127,14 @@ export default class CharacteristicsBarComponent extends Vue {
     color: #2b2b2b;
   }
 
-  &__buttons {
+/*   &__buttons {
     @include flex-container(column, flex-start, stretch);
     gap: 24px;
 
     @include bigMobile {
       @include flex-container(row, center, center);
     }
-  }
+  } */
 }
 </style>
  
