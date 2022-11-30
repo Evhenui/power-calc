@@ -7,7 +7,8 @@
       <!-- <Nuxt /> -->
       <!-- <Checkout /> -->
      <!--  <PowerCalculator/> -->
-     <Comparison/>
+     <!-- <Comparison/> -->
+      <OrderDone/>
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -23,8 +24,10 @@ import SvgSprite from "@shared/components/svg/SvgSprite.vue";
 import Menu from "@components/common/header/menu/Menu.vue";
 import PopUpCart from "@components/popup/PopUpCart.vue";
 import Checkout from "@components/checkout/Checkout.vue";
+
 import PowerCalculator from "@components/calculator/PowerCalculator.vue"
 import Comparison from "@components/comparison/Comparison.vue"
+import OrderDone from "~/components/order_done/OrderDone.vue";
 
 @Component({
   components: {
@@ -36,13 +39,12 @@ import Comparison from "@components/comparison/Comparison.vue"
     Home,
     Checkout,
     PowerCalculator,
-    Comparison
+    Comparison,
+    OrderDone
   },
 })
 export default class IndexPageComponent extends Vue {
-  mounted() {
-    //console.log(this.icons);
-  }
+
 }
 </script>
 
