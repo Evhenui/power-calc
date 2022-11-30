@@ -39,18 +39,29 @@ export default class TimetableComponent extends Vue {}
     margin: 0 auto;
 
     &__wrapper {
-        @include flex-container(column, center, center);
+      @include flex-container(column, center, center);
 
-        background-color: white;
+      background-color: white;
 
-        padding: 32px;
-        gap: 24px;
+      padding: 32px;
+      gap: 24px;
+
+      @include bigMobile {
+        border-bottom: 1px solid #8A8A8A;
+        
+        gap: 32px;
+      }
     }
 
     &__title {
         @include fontUnify(16, 22, 600);
         color: #2B2B2B;
         letter-spacing: 0.02em;
+        text-align: center;
+
+        @include bigMobile {
+          @include fontUnify(16, 22, 500);
+        }
     }
 
     &__body {

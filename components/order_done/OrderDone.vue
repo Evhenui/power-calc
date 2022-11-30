@@ -29,6 +29,10 @@ export default class OrderDoneComponent extends Vue {}
 
 <style lang="scss" scoped>
 .order-done {
+  @include bigMobile {
+    background-color: white;
+  }
+
   &__wrapper {
     @extend %width-main;
 
@@ -37,6 +41,10 @@ export default class OrderDoneComponent extends Vue {}
     padding: 16px 16px 136px 16px;
     margin: 0 auto;
     gap: 8px;
+
+    @include bigMobile {
+      padding: 64px 16px 152px 16px;
+    }
   }
 }
 </style>

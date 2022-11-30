@@ -101,12 +101,22 @@ export default class SocialNetworksComponent extends Vue {}
 
       padding: 32px;
       gap: 24px;
+
+      @include bigMobile {
+        padding: 32px 16px 0 16px;
+        gap: 32px;
+      }
     }
 
     &__title {
       @include fontUnify(16, 22, 400);
       color: #2B2B2B;
       letter-spacing: 0.02em;
+      text-align: center;
+
+      @include bigMobile {
+        @include fontUnify(16, 22, 500);
+      }
     }
 
     &__icons {

@@ -87,12 +87,22 @@ export default class GratitudeComponent extends Vue {}
         background-color: white;
 
         padding: 32px;
+
+        @include bigMobile {
+          padding: 0 0 32px 0;
+
+          border-bottom: 1px solid #8A8A8A;
+        }
     }
 
     &__image-wrapper {
         font-size: 0;
 
         margin-bottom: 24px;
+
+        @include bigMobile {
+          margin-bottom: 32px;
+        }
     }
 
     &__title {
@@ -102,6 +112,11 @@ export default class GratitudeComponent extends Vue {}
         text-transform: uppercase;
 
         margin-bottom: 32px;
+
+        @include bigMobile {
+          @include fontUnify(20, 30, 600);
+          text-transform: none;
+        }
     }
 
     &__subtitle {
@@ -113,6 +128,12 @@ export default class GratitudeComponent extends Vue {}
         letter-spacing: 0.02em;
 
         margin-bottom: 32px;
+
+        @include bigMobile {
+          @include fontUnify(16, 22, 600);
+
+          margin-bottom: 48px;
+        }
     }
 }
 </style>
