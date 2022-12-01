@@ -8,7 +8,8 @@
       <!-- <Checkout /> -->
      <!--  <PowerCalculator/> -->
      <!-- <Comparison/> -->
-      <OrderDone/>
+     <!--  <OrderDone/> -->
+     <Catalog/>
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -28,6 +29,7 @@ import Checkout from "@components/checkout/Checkout.vue";
 import PowerCalculator from "@components/calculator/PowerCalculator.vue"
 import Comparison from "@components/comparison/Comparison.vue"
 import OrderDone from "~/components/order_done/OrderDone.vue";
+import Catalog from "~/components/catalog/Catalog.vue";
 
 @Component({
   components: {
@@ -40,7 +42,8 @@ import OrderDone from "~/components/order_done/OrderDone.vue";
     Checkout,
     PowerCalculator,
     Comparison,
-    OrderDone
+    OrderDone,
+    Catalog
   },
 })
 export default class IndexPageComponent extends Vue {
