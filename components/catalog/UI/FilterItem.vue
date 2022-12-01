@@ -47,19 +47,6 @@ export default class FilterItemComponent extends Vue {}
 
   transition: all 0.1s ease-in-out;
 
-  &:hover {
-    background-color: $color-main;
-    border-color: $color-main;
-  }
-
-  &:hover &__filter-name {
-    color: white;
-  }
-
-  &:hover &__close-state {
-    stroke: white;
-  }
-
   &__filter-name {
     @include fontUnify(16, 22, 400);
     letter-spacing: 0.02em;

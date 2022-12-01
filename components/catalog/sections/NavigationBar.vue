@@ -1,6 +1,7 @@
 <template>
     <nav class="navigation">
         <section class="navigation__status">
+         <!--    <CheckBox @change="some">retert</CheckBox> -->
             <div>
                 <input type="checkbox" id="stock" name="stock" value="yes">
                 <label for="stock">Акции</label>
@@ -42,28 +43,31 @@
                     </svg>
                 </div>
             </div>
-            <div class="navigation__filter-body">
-                <div>
+            <div 
+                ref="filterPower"
+                class="navigation__filter-body"
+            >
+                <div ref="checkboxPower" class="test">
                     <input type="checkbox" id="stock" name="stock" value="yes">
                     <label for="stock">1000/900 (43)</label>
                 </div>
-                <div>
+                <div ref="checkboxPower" class="test">
                     <input type="checkbox" id="stock" name="stock" value="yes">
                     <label for="stock">1000/900 (43)</label>
                 </div>
-                <div>
+                <div ref="checkboxPower" class="test">
                     <input type="checkbox" id="stock" name="stock" value="yes">
                     <label for="stock">1000/900 (43)</label>
                 </div>
-                <div>
+                <div ref="checkboxPower" class="test">
                     <input type="checkbox" id="stock" name="stock" value="yes">
                     <label for="stock">1000/900 (43)</label>
                 </div>
-                <div>
+                <div ref="checkboxPower" class="test">
                     <input type="checkbox" id="stock" name="stock" value="yes">
                     <label for="stock">1000/900 (43)</label>
                 </div>
-                <ShowAll/>
+                <ShowAll @click.native="showAll"/>
             </div>
         </section>
         <section class="navigation__filter">
@@ -119,28 +123,61 @@
 import { Component, Vue } from "~/tools/version-types";
 import FilterPriceControl from "../UI/FilterPriceControl.vue"
 import ShowAll from "../UI/ShowAll.vue";
+import CheckBox from "@components/common/buttons/CheckBox.vue"
 
 @Component({
     components: {
         FilterPriceControl,
-        ShowAll
+        ShowAll,
+        CheckBox
     },
 })
 export default class NavigationBarComponent extends Vue {
 
-    activeFilter(event) {
-        const bodySection = event.currentTarget.nextElementSibling;
+$refs: {
+    filterPower: HTMLElement;
+    checkboxPower: HTMLElement[];
+};
 
-        event.currentTarget.classList.toggle('active');
+initialHeight: number = 0;
 
-        if(event.currentTarget.classList.contains('active')) {
-            window.getComputedStyle(bodySection).getPropertyValue('--height');
-            bodySection.style.setProperty('--height', bodySection.scrollHeight + 'px'); 
-        } else {
-            window.getComputedStyle(bodySection).getPropertyValue('--height');
-            bodySection.style.setProperty('--height', 0 + 'px');
-        }
+getInitialHeight() {
+    this.initialHeight = this.$refs.filterPower.scrollHeight;
+}
+
+activeFilter(event) {
+    const bodySection = event.currentTarget.nextElementSibling;
+
+    event.currentTarget.classList.toggle('active');
+
+    if(event.currentTarget.classList.contains('active')) {
+        window.getComputedStyle(bodySection).getPropertyValue('--height');
+        bodySection.style.setProperty('--height', bodySection.scrollHeight + 'px'); 
+    } else {
+        window.getComputedStyle(bodySection).getPropertyValue('--height');
+        bodySection.style.setProperty('--height', 0 + 'px');
     }
+}
+
+showAll() {
+    const a = this.$refs.filterPower.offsetHeight;
+
+    console.log(this.$refs.filterPower.scrollHeight)
+
+    this.$refs.filterPower.classList.toggle('active')
+
+    if(this.$refs.filterPower.classList.contains('active')) {
+        window.getComputedStyle(this.$refs.filterPower).getPropertyValue('--height');
+        this.$refs.filterPower.style.setProperty('--height', this.$refs.filterPower.scrollHeight + 'px'); 
+    } else {
+        window.getComputedStyle(this.$refs.filterPower).getPropertyValue('--height');
+        this.$refs.filterPower.style.setProperty('--height', this.initialHeight + 'px'); 
+    }
+    
+}
+mounted() {
+    this.getInitialHeight();
+}
 }
 </script>
 
@@ -211,6 +248,19 @@ export default class NavigationBarComponent extends Vue {
         transition: height .2s ease-in-out;
 
         overflow: hidden;
+    }
+}
+
+.navigation__filter-body {
+    &.active {
+        .test:nth-child(n + 3) {
+            display: block;
+        }
+    }
+}
+.test {
+    &:nth-child(n + 3) {
+        display: none;
     }
 }
 </style>
