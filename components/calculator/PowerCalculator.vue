@@ -35,6 +35,8 @@ export default class PowerCalculatorComponent extends Vue {}
 
   &__wrapper {
     @extend %width-main;
+
+    padding-bottom: 136px;
   }
 }
 </style>

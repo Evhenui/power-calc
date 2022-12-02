@@ -49,12 +49,13 @@ export default class CatalogComponent extends Vue {
   
 <style lang="scss" scoped>
 .catalog {
+  @extend %padding-wrp;
 
     &__wrapper {
         @extend %width-main;
 
-        @extend %padding-wrp;
         margin: 0 auto;
+        padding-bottom: 136px;
     }
 
     &__title {

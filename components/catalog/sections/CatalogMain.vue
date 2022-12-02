@@ -21,7 +21,9 @@ export default class CatalogMainComponent extends Vue {}
 
 <style lang="scss" scoped>
 .main {
-    @include flex-container(row, space-between);
+    @include flex-container(row, flex-start, flex-start);
+
+    gap: 8px;
 }
 </style>
             

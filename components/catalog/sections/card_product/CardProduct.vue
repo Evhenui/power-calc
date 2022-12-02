@@ -10,13 +10,13 @@
         </div>
         <div class="card-product__section footer">
           <div class="card-product__main-info">
-            <NavAvailability />
+            <NavAvailability :status="availabilityState" />
             <div class="card-product__identification">
               <p class="card-product__name-product">Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)</p>
               <p class="card-product__code">Код: 56983</p>
             </div>
           </div>
-          <CardFooter />
+          <CardFooter :status="footerValues" />
         </div>
     </div>
   </section> 
@@ -37,7 +37,30 @@ import CardFooter from "./sections/CardFooter.vue"
     CardFooter
   },
 })
-export default class CardProductComponent extends Vue {}
+export default class CardProductComponent extends Vue {
+  availabilityState: any = {
+    buttonStatus: {
+        inStock: 'in-stock',
+        notAvailable: 'not-available',
+        ends: 'ends',
+        preOrder: 'pre-order'
+    },
+    services: {
+      delivery: false,
+      credit: false
+    }
+  }
+
+  footerValues: any = {
+    buttonState: {
+        buy: 'buy',
+        report: 'report',
+        preOrder: 'pre-order'
+    },
+    price: '972 ₴'
+  }
+  
+}
 </script>
     
 <style lang="scss" scoped>
@@ -64,7 +87,7 @@ export default class CardProductComponent extends Vue {}
 
   &__header-nav {
     width: 100%;
-    
+
     position: absolute;
     top: 16px;
   }

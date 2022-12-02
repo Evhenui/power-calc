@@ -7,7 +7,7 @@
 import {Component, Vue} from "~/tools/version-types";
 
 @Component({})
-export default class PowerCalcFooterComponent extends Vue {}
+export default class FooterCatalogComponent extends Vue {}
 </script>
   
 <style lang="scss" scoped>
@@ -20,4 +20,3 @@ export default class PowerCalcFooterComponent extends Vue {}
     padding: 32px;
 }
 </style>
-  

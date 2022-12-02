@@ -1,12 +1,13 @@
 <template>
     <footer class="card-footer">
-        <h1 class="card-footer__price">972 ₴</h1>
-        <ButtonBuy :state="buttonState.buy" />
+        <h1 class="card-footer__price">{{status.price}}</h1>
+        <ButtonBuy :state="status.buttonState.buy" />
     </footer>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 import ButtonBuy from "../UI/ButtonBuy.vue";
 
 @Component({
@@ -15,11 +16,7 @@ components: {
 },
 })
 export default class CardFooterComponent extends Vue {
-    buttonState: any = {
-        buy: 'buy',
-        report: 'report',
-        preOrder: 'pre-order'
-    }
+    @Prop({ required: true }) status: any;
 }
 </script>
 

@@ -79,6 +79,9 @@ export default class ButtonBuyComponent extends Vue {
     }
 
     &__image {
+        width: 24px;
+        height: 24px;
+        
         display: none;
 
         color: white;
