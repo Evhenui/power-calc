@@ -20,5 +20,8 @@ export default class CatalogMainComponent extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+.main {
+    @include flex-container(row, space-between);
+}
 </style>
             
