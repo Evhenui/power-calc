@@ -22,6 +22,8 @@ export default class ButtonPageComponent extends Vue {}
     
     @include flex-container(column, center, center);
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);

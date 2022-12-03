@@ -1,8 +1,12 @@
 <template>
     <button 
         class="button-status"
-        :class="status"
-        :disabled="status === 'not-available'"
+        :class="[
+            status,
+            {filter: filterActive},
+            {inactive: inactive}
+        ]"
+        :disabled="inactive"
     >
         <div class="button-status__images">
             <SvgIcon class="button-status__image in-stock" :icon="icons['in-stock']" />
@@ -31,6 +35,8 @@ components: {
 })
 export default class ButtonStatusComponent extends Vue {
     @Prop({ required: true }) status: string;
+    @Prop({ required: false }) filterActive: boolean;
+    @Prop({ required: true }) inactive: boolean;
 }
 </script>
 
@@ -42,14 +48,34 @@ export default class ButtonStatusComponent extends Vue {
 
     @include flex-container(row, center, center);
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     border: 1px solid;
     border-radius: 4px;
 
     padding: 4px;
     gap: 8px;
 
+    &:disabled {
+        cursor: auto;
+    }
+
+    &.filter &__title{
+        @include fontUnify(12, 16, 400); 
+    }
+
+    @include bigMobile { 
+        width: max-content;
+
+        padding: 0;
+    }
+
     &.in-stock {
         border-color: #159822;
+
+        @include bigMobile { 
+            border: none;
+        }
 
         .button-status__image.in-stock {
             display: block;
@@ -63,6 +89,10 @@ export default class ButtonStatusComponent extends Vue {
     &.ends {
         border-color: #E25750;
 
+        @include bigMobile { 
+            border: none;
+        }
+
         .button-status__image.ends {
             display: block;
         }
@@ -74,6 +104,10 @@ export default class ButtonStatusComponent extends Vue {
 
     &.not-available {
         border-color: #393D38;
+
+        @include bigMobile { 
+            border: none;
+        }
 
         cursor: auto;
 
@@ -89,6 +123,10 @@ export default class ButtonStatusComponent extends Vue {
     &.pre-order {
         border-color: #4490BB;
 
+        @include bigMobile { 
+            border: none;
+        }
+
         .button-status__image.pre-order {
             display: block;
         }
@@ -98,7 +136,52 @@ export default class ButtonStatusComponent extends Vue {
         }
     }
 
+    &.inactive {
+        border-color: #393D38;
+
+        @include bigMobile { 
+            border: none;
+        }
+
+        cursor: auto;
+
+        .button-status__image.not-available {
+            display: block;
+        }
+
+        .button-status__image.in-stock {
+            display: none;
+        }
+
+        .button-status__image.ends {
+            display: none;
+        }
+
+        .button-status__image.pre-order {
+            display: none;
+        }
+
+        .button-status__title.not-available {
+            display: block;
+        }
+
+        .button-status__title.in-stock {
+            display: none;
+        }
+
+        .button-status__title.ends {
+            display: none;
+        }
+
+        .button-status__title.pre-order {
+            display: none;
+        }
+    }
+
     &__images {
+        @include bigMobile { 
+            display: none;
+        }
     }
 
     &__image {
@@ -121,16 +204,14 @@ export default class ButtonStatusComponent extends Vue {
         }
     }
 
-    &__titles {
-    }
-
     &__title {
         display: none;
 
-        &.in-stock, &.ends,
-        &.not-available, &.pre-order  {
-            @include fontUnify(12, 16, 400);
-            letter-spacing: 0.02em;
+        @include fontUnify(12, 16, 400);
+        letter-spacing: 0.02em;
+
+        @include bigMobile {  
+            @include fontUnify(10, 13, 400);  
         }
 
         &.in-stock {

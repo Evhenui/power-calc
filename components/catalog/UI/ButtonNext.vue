@@ -23,6 +23,8 @@ export default class ButtonNextComponent extends Vue {}
 
     @include flex-container(column, center, center);
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 50px;
 

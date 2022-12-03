@@ -32,6 +32,8 @@ export default class ShowAllComponent extends Vue {
 
     @include flex-container(row, center, center);
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     gap: 16px;
     padding: 8px;
 

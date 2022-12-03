@@ -1,9 +1,13 @@
 <template>
     <nav class="availability">
-        <ButtonStatus :status="status.buttonStatus.inStock" />
+        <ButtonStatus 
+            :status="status.buttonStatus.inStock" 
+            :filterActive="filterActive"
+            :inactive="inactive"
+        />
         <div class="availability__suggestions">
-            <Delivery :status="status.services.delivery" />
-            <Credit :status="status.services.credit" />
+            <Delivery :inactive="inactive" />
+            <Credit :inactive="inactive" />
         </div>
     </nav>
 </template>
@@ -24,6 +28,9 @@ components: {
 })
 export default class NavAvailabilityComponent extends Vue {
     @Prop({ required: true }) status: any;
+    @Prop({ required: false }) filterActive: boolean;
+    @Prop({ required: true }) inactive: boolean;
+    
 }
 </script>
 
@@ -33,10 +40,20 @@ export default class NavAvailabilityComponent extends Vue {
 
     gap: 28px;
 
+    @include bigMobile { 
+        @include flex-container(row, space-between, center);
+
+        gap: 0;
+    }
+
     &__suggestions {
         @include flex-container(row, center, center);
 
         gap: 16px;
+
+        @include bigMobile { 
+            gap: 8px;
+        }
     }
 }
 </style>

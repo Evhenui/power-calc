@@ -17,6 +17,8 @@ export default class ButtonOkComponent extends Vue {}
 .button-orange {
     @include flex-container(row, center, center);
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     border-radius: 6px;
     background-color: $color-main;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

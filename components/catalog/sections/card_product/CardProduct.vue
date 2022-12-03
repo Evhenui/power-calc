@@ -1,22 +1,42 @@
 <template>
-  <section class="card-product">
+  <section 
+    class="card-product"
+    :class="[
+      {'filter': filterActive},
+      {'inactive': inactiveCard}
+    ]"
+  >
     <div class="card-product__wrapper">
-        <HeaderNav class="card-product__header-nav" />
+        <HeaderNav 
+          class="card-product__header-nav" 
+          :inactive="inactiveCard"
+        />
         <div class="card-product__section header">
           <div class="card-product__image-wrapper">
-            <img src="../../../../assets/img/product-card-catalog.png" alt="product name">
+            <img class="card-product__image" src="../../../../assets/img/product-card-catalog.png" alt="product name">
           </div>
-          <Rating class="card-product__rating" />
+          <Rating 
+            class="card-product__rating" 
+            :inactive="inactiveCard"
+          />
         </div>
         <div class="card-product__section footer">
           <div class="card-product__main-info">
-            <NavAvailability :status="availabilityState" />
+            <NavAvailability 
+              :status="availabilityState" 
+              :filterActive="filterActive"
+              :inactive="inactiveCard"
+            />
             <div class="card-product__identification">
               <p class="card-product__name-product">Акумулятор гелевий LPN-GL 12V - 200 Ah (JAPAN) GL 12V - 200 Ah (JAPAN)</p>
               <p class="card-product__code">Код: 56983</p>
             </div>
           </div>
-          <CardFooter :status="footerValues" />
+          <CardFooter 
+            :status="footerValues" 
+            :price="footerValues.price"
+            :inactive="inactiveCard"
+          />
         </div>
     </div>
   </section> 
@@ -44,10 +64,6 @@ export default class CardProductComponent extends Vue {
         notAvailable: 'not-available',
         ends: 'ends',
         preOrder: 'pre-order'
-    },
-    services: {
-      delivery: false,
-      credit: false
     }
   }
 
@@ -57,8 +73,14 @@ export default class CardProductComponent extends Vue {
         report: 'report',
         preOrder: 'pre-order'
     },
-    price: '972 ₴'
+    price: {
+      discount: '',
+      total: '500 ₴'
+    }
   }
+
+  filterActive: boolean = false;
+  inactiveCard: boolean = false;
   
 }
 </script>
@@ -75,6 +97,84 @@ export default class CardProductComponent extends Vue {
 
   transition: all .1s ease-in-out;
 
+  &.inactive {
+    .card-product__image {
+      filter:grayscale(1);
+    }
+  }
+  &.filter {
+    @include bigMobile { 
+      max-width: 343px;
+
+      .card-product__header-nav {
+        left: 0;
+      }
+
+      .card-product__wrapper {
+        @include flex-container(row, flex-start);
+
+        padding: 8px;
+        gap: 8px;
+      }
+
+      .card-product__image {
+        width: 125px;
+        height: 125px;
+      }
+
+      .card-product__section.header {
+        @include flex-container(column, flex-start);
+        flex: 0 0 auto;
+
+        border: none;
+
+        margin: 0;
+        padding-top: 24px;
+      }
+
+      .card-product__section.footer {
+        width: 100%;
+
+        @include flex-container(column, space-between);
+
+        padding: 0;
+      }
+
+      .card-product__rating {
+        @include flex-container(column, flex-start, flex-start);
+
+        gap: 8px;
+        padding: 0;
+      }
+
+      .card-product__main-info {
+        @include flex-container(column-reverse, flex-start, );
+      }
+
+      .card-product__identification {
+        max-width: 140px;
+      }
+
+      .card-product__name-product {
+        display: -webkit-box;
+
+        @include fontUnify(14, 18, 400);
+
+        text-overflow: ellipsis;
+        overflow: hidden;
+        
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
+  @include bigMobile { 
+    max-width: 164px;
+
+    overflow: hidden;
+  }
+
   &:hover {
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
   }
@@ -83,6 +183,10 @@ export default class CardProductComponent extends Vue {
     position: relative;
 
     padding: 16px 0;
+
+    @include bigMobile {  
+      padding: 0 0 8px 0;
+    }
   }
 
   &__header-nav {
@@ -90,6 +194,12 @@ export default class CardProductComponent extends Vue {
 
     position: absolute;
     top: 16px;
+
+    z-index: 500;
+
+    @include bigMobile { 
+      top: 8px;
+    }
   }
 
   &__section {
@@ -97,6 +207,10 @@ export default class CardProductComponent extends Vue {
       border-bottom: 1px solid #F3F3F3;
 
       margin-bottom: 16px; 
+
+      @include bigMobile { 
+        margin-bottom: 8px;
+      }
     }
 
     &.footer {
@@ -104,6 +218,11 @@ export default class CardProductComponent extends Vue {
 
       padding: 0 16px;
       gap: 34px;
+
+      @include bigMobile { 
+        padding: 0 8px;
+        gap: 28px;
+      }
     }
   }
 
@@ -111,9 +230,20 @@ export default class CardProductComponent extends Vue {
     @include flex-container(row, center, center);
   }
 
+  &__image {
+    @include bigMobile { 
+      width: 164px;
+      height: 164px;
+    }
+  }
+
   &__rating {
     margin: 0;
     padding-bottom: 16px;
+
+    @include bigMobile { 
+      padding: 0 4px 8px 4px;
+    }
   }
 
   &__main-info {
@@ -132,6 +262,10 @@ export default class CardProductComponent extends Vue {
     @include fontUnify(16, 22, 400);
     letter-spacing: 0.02em;
     color: #2B2B2B;
+
+    @include bigMobile { 
+      @include fontUnify(12, 16, 400);
+    }
   }
 
   &__code {

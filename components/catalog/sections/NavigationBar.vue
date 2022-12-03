@@ -212,6 +212,8 @@ mounted() {
     &__filter-header {
         @include flex-container(row, space-between, center);
 
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
         cursor: pointer;
 
         transition: margin-bottom .2s ease-in-out;
@@ -220,7 +222,7 @@ mounted() {
             margin-bottom: 8px;
         }
         &.active .navigation__arrow{
-            transform: rotateZ(180deg);
+            transform: rotateZ(0);
         }
         &.price-control.active {
             margin-bottom: 16px;
@@ -236,7 +238,9 @@ mounted() {
     &__arrow {
         font-size: 0;
 
-        transform: rotateZ(0);
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+        transform: rotateZ(180deg);
 
         transition: transform .2s ease-in-out;
     }

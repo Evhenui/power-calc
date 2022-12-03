@@ -1,7 +1,7 @@
 <template>
     <button 
         class="button-buy"
-        :class="state"
+        :class="[state, {disabled: inactive}]"
     >
         <div class="button-buy__images">
             <SvgIcon class="button-buy__image buy" :icon="icons['card-buy']" />
@@ -28,6 +28,7 @@ import SvgIcon from "@shared/components/svg/SvgIcon.vue";
 })
 export default class ButtonBuyComponent extends Vue {
     @Prop({ required: true }) state: string;
+    @Prop({ required: true }) inactive: boolean;
 }
 </script>
 
@@ -36,6 +37,8 @@ export default class ButtonBuyComponent extends Vue {
     width: 100%;
 
     @include flex-container(row, center, center);
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     border-radius: 6px;
 
@@ -78,6 +81,28 @@ export default class ButtonBuyComponent extends Vue {
         }
     }
 
+    &.disabled {
+        background-color: #8A8A8A;
+
+        .button-buy__image.report {
+            display: block;
+        }
+
+        .button-buy__title.report {
+            display: block;
+        }
+
+        .button-buy__image.buy, 
+        .button-buy__image.pre-order {
+            display: none;
+        }
+
+        .button-buy__title.buy, 
+        .button-buy__title.pre-order {
+            display: none;
+        }
+    }
+
     &__image {
         width: 24px;
         height: 24px;
@@ -85,6 +110,11 @@ export default class ButtonBuyComponent extends Vue {
         display: none;
 
         color: white;
+
+        @include bigMobile { 
+            width: 16px;
+            height: 16px;
+        }
     }
 
     &__title {
@@ -93,6 +123,10 @@ export default class ButtonBuyComponent extends Vue {
         @include fontUnify(18, 24, 400);
         letter-spacing: 0.02em;
         color: white;
+
+        @include bigMobile { 
+            @include fontUnify(12, 16, 400);
+        }
     }
 }
 </style>

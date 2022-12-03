@@ -23,6 +23,8 @@ export default class ButtonShowMoreComponent extends Vue {}
 
     @include flex-container(row, center, center);
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 36px;
 
