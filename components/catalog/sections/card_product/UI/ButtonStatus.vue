@@ -3,7 +3,7 @@
         class="button-status"
         :class="[
             status,
-            {filter: filterActive},
+            {filter: changeView},
             {inactive: inactive}
         ]"
         :disabled="inactive"
@@ -35,7 +35,7 @@ components: {
 })
 export default class ButtonStatusComponent extends Vue {
     @Prop({ required: true }) status: string;
-    @Prop({ required: false }) filterActive: boolean;
+    @Prop({ required: false }) changeView: boolean;
     @Prop({ required: true }) inactive: boolean;
 }
 </script>

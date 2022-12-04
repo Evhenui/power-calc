@@ -2,7 +2,7 @@
     <nav class="availability">
         <ButtonStatus 
             :status="status.buttonStatus.inStock" 
-            :filterActive="filterActive"
+            :changeView="changeView"
             :inactive="inactive"
         />
         <div class="availability__suggestions">
@@ -28,7 +28,7 @@ components: {
 })
 export default class NavAvailabilityComponent extends Vue {
     @Prop({ required: true }) status: any;
-    @Prop({ required: false }) filterActive: boolean;
+    @Prop({ required: false }) changeView: boolean;
     @Prop({ required: true }) inactive: boolean;
     
 }

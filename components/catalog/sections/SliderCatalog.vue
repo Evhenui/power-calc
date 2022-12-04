@@ -5,6 +5,7 @@
                 <CardProduct 
                     v-for="(item, index) in 16"
                     :key="index"
+                    :changeView="changeView"
                 />
             </div>
             <nav class="slider__navigation">
@@ -26,6 +27,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 import CardProduct from "./card_product/CardProduct.vue"
 import ButtonShowMore from "../UI/ButtonShowMore.vue";
 import ButtonPrev from "../UI/ButtonPrev.vue"
@@ -43,7 +45,9 @@ components: {
     FooterCatalog
 },
 })
-export default class SliderCatalogComponent extends Vue {}
+export default class SliderCatalogComponent extends Vue {
+    @Prop({required: false}) changeView: boolean;
+}
 </script>
 
 <style lang="scss" scoped>

@@ -193,6 +193,10 @@ mounted() {
 
     padding: 16px 0;
 
+    @include bigMobile { 
+        max-width: 100%;
+    }
+
     &__status {
         border-bottom: 1px solid #D1D1D1;
 
@@ -206,6 +210,8 @@ mounted() {
 
         &:last-child {
             border: none;
+
+            padding-bottom: 0;
         }
     }
 

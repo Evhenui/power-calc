@@ -2,7 +2,7 @@
   <section 
     class="card-product"
     :class="[
-      {'filter': filterActive},
+      {'filter': changeView},
       {'inactive': inactiveCard}
     ]"
   >
@@ -24,7 +24,7 @@
           <div class="card-product__main-info">
             <NavAvailability 
               :status="availabilityState" 
-              :filterActive="filterActive"
+              :changeView="changeView"
               :inactive="inactiveCard"
             />
             <div class="card-product__identification">
@@ -44,6 +44,7 @@
     
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
+import { Prop } from "vue-property-decorator";
 import HeaderNav from "./sections/HeaderNav.vue";
 import Rating from "~/components/comparison/UI/product/Rating.vue";
 import NavAvailability from "./sections/NavAvailability.vue";
@@ -58,6 +59,8 @@ import CardFooter from "./sections/CardFooter.vue"
   },
 })
 export default class CardProductComponent extends Vue {
+  @Prop({required: false}) changeView: boolean;
+
   availabilityState: any = {
     buttonStatus: {
         inStock: 'in-stock',
@@ -79,7 +82,6 @@ export default class CardProductComponent extends Vue {
     }
   }
 
-  filterActive: boolean = false;
   inactiveCard: boolean = false;
   
 }
@@ -95,7 +97,7 @@ export default class CardProductComponent extends Vue {
   border: 1px solid #E9E9E9;
   border-radius: 8px;
 
-  transition: all .1s ease-in-out;
+  transition: all .3s ease-in-out;
 
   &.inactive {
     .card-product__image {
