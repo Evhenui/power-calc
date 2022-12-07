@@ -13,13 +13,13 @@
     name: "CheckBoxComponent",
   })
   export default class CheckBoxComponent extends Vue {
-    @VModel()
+ /*    @VModel()
     checked: boolean = false;
   
     @Watch("checked")
     checkedChange() {
       this.$emit("change", this.checked);
-    }
+    } */
   }
   </script>
   

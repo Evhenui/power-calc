@@ -1,7 +1,10 @@
 <template>
-    <section class="main">
-        <NavigationBar/>
-        <SliderCatalog :changeView="changeView"/>
+    <section 
+        class="main"
+        :class="{active: activeFilters}"
+    >
+        <NavigationBar :activeFilters="activeFilters"/>
+        <CatalogList :changeView="changeView"/>
     </section>
 </template>
 
@@ -9,18 +12,19 @@
 import { Component, Vue } from "~/tools/version-types";
 import { Prop } from "vue-property-decorator";
 import NavigationBar from "./NavigationBar.vue";
-import SliderCatalog from "./SliderCatalog.vue";
+import CatalogList from "./CatalogList.vue";
 import SelectedFilter from "./SelectedFilter.vue";
 
 @Component({
     components: {
         NavigationBar,
-        SliderCatalog,
+        CatalogList,
         SelectedFilter
     },
 })
 export default class CatalogMainComponent extends Vue {
     @Prop({required: false}) changeView: boolean;
+    @Prop({required: false}) activeFilters: boolean;
 }
 </script>
 
@@ -32,6 +36,12 @@ export default class CatalogMainComponent extends Vue {
 
     @include bigMobile { 
         @include flex-container(column, flex-start, flex-start);
+
+        gap: 0;
+        
+        &.active {
+            gap: 8px;
+        }
     }
 
     &__selected {

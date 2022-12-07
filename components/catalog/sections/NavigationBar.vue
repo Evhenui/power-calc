@@ -1,277 +1,342 @@
 <template>
-    <nav class="navigation">
-        <section class="navigation__status">
-         <!--    <CheckBox @change="some">retert</CheckBox> -->
-            <div>
-                <input type="checkbox" id="stock" name="stock" value="yes">
-                <label for="stock">Акции</label>
-            </div>
-            <div>
-                <input type="checkbox" id="stock" name="stock" value="yes">
-                <label for="stock">Новинки</label>
-            </div>
-            <div>
-                <input type="checkbox" id="stock" name="stock" value="yes">
-                <label for="stock">Топ продаж</label>
-            </div>
-        </section>
-        <section class="navigation__filter">
-            <div 
-                @click="activeFilter"
-                class="navigation__filter-header price-control"
-            >
-                <h1 class="navigation__filter-name">Цена</h1>
-                <div class="navigation__arrow">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 15L12 9L6 15" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="navigation__filter-body">
-                <FilterPriceControl />
-            </div>
-        </section>
-        <section class="navigation__filter">
-            <div
-                @click="activeFilter"
-                class="navigation__filter-header"
-            >
-                <h1 class="navigation__filter-name">Мощность VA/W</h1>
-                <div class="navigation__arrow">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 15L12 9L6 15" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div 
-                ref="filterPower"
-                class="navigation__filter-body"
-            >
-                <div ref="checkboxPower" class="test">
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">1000/900 (43)</label>
-                </div>
-                <div ref="checkboxPower" class="test">
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">1000/900 (43)</label>
-                </div>
-                <div ref="checkboxPower" class="test">
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">1000/900 (43)</label>
-                </div>
-                <div ref="checkboxPower" class="test">
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">1000/900 (43)</label>
-                </div>
-                <div ref="checkboxPower" class="test">
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">1000/900 (43)</label>
-                </div>
-                <ShowAll @click.native="showAll"/>
-            </div>
-        </section>
-        <section class="navigation__filter">
-            <div 
-                @click="activeFilter"
-                class="navigation__filter-header"
-            >
-                <h1 class="navigation__filter-name">Тип подключения к сети</h1>
-                <div class="navigation__arrow">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 15L12 9L6 15" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="navigation__filter-body">
-                <div>
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">Евровилка (43)</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">Клеммы (43)</label>
-                </div>
-            </div>
-        </section>
-        <section class="navigation__filter">
-            <div 
-                @click="activeFilter"
-                class="navigation__filter-header"
-            >
-                <h1 class="navigation__filter-name">Тип подключения нагрузки к ИБП</h1>
-                <div class="navigation__arrow">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 15L12 9L6 15" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="navigation__filter-body">
-                <div>
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">IEC320 C13 (43)</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="stock" name="stock" value="yes">
-                    <label for="stock">Клеммы (43)</label>
-                </div>
-            </div>
-        </section>
-    </nav>
+  <aside class="navigation" :class="{ active: activeFilters }">
+    <section class="navigation__status">
+      <CheckBox v-model="checkboxesValue.suggestions.stock">
+        <span class="navigation__checkbox-title">Акции</span>
+      </CheckBox>
+
+      <CheckBox v-model="checkboxesValue.suggestions.novelty">
+        <span class="navigation__checkbox-title">Новинки</span>
+      </CheckBox>
+
+      <CheckBox v-model="checkboxesValue.suggestions.topSales">
+        <span class="navigation__checkbox-title">Топ продаж</span>
+      </CheckBox>
+    </section>
+    <section class="navigation__filter">
+      <div
+        @click="activeFilter"
+        class="navigation__filter-header price-control"
+      >
+        <h1 class="navigation__filter-name">Цена</h1>
+        <SvgIcon class="navigation__arrow" :icon="icons['arrow-down']" />
+      </div>
+        <div class="navigation__filter-body price-control">
+            <FilterPriceControl />
+        </div>
+    </section>
+    <section class="navigation__filter">
+      <div @click="activeFilter" class="navigation__filter-header">
+        <h1 class="navigation__filter-name">Мощность VA/W</h1>
+        <SvgIcon class="navigation__arrow" :icon="icons['arrow-down']" />
+      </div>
+      <div ref="filterPower" class="navigation__filter-body">
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.power.item1"
+        >
+          <span class="navigation__checkbox-title">1000/900 (43)</span>
+        </CheckBox>
+
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.power.item2"
+        >
+          <span class="navigation__checkbox-title">1000/900 (43)</span>
+        </CheckBox>
+
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.power.item3"
+        >
+          <span class="navigation__checkbox-title">1000/900 (43)</span>
+        </CheckBox>
+
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.power.item4"
+        >
+          <span class="navigation__checkbox-title">1000/900 (43)</span>
+        </CheckBox>
+
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.power.item5"
+        >
+          <span class="navigation__checkbox-title">1000/900 (43)</span>
+        </CheckBox>
+
+        <ShowAll @click.native="showAll" />
+      </div>
+    </section>
+    <section class="navigation__filter">
+      <div @click="activeFilter" class="navigation__filter-header">
+        <h1 class="navigation__filter-name">Тип подключения к сети</h1>
+        <SvgIcon class="navigation__arrow" :icon="icons['arrow-down']" />
+      </div>
+      <div class="navigation__filter-body">
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.networkConnection.item1"
+        >
+          <span class="navigation__checkbox-title">Евровилка (43)</span>
+        </CheckBox>
+
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.networkConnection.item2"
+        >
+          <span class="navigation__checkbox-title">Клеммы (43)</span>
+        </CheckBox>
+      </div>
+    </section>
+    <section class="navigation__filter">
+      <div @click="activeFilter" class="navigation__filter-header">
+        <h1 class="navigation__filter-name">Тип подключения нагрузки к ИБП</h1>
+        <SvgIcon class="navigation__arrow" :icon="icons['arrow-down']" />
+      </div>
+      <div class="navigation__filter-body">
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.upsConnection.item1"
+        >
+          <span class="navigation__checkbox-title">IEC320 C13 (43)</span>
+        </CheckBox>
+        <CheckBox
+          class="navigation__filter-item"
+          v-model="checkboxesValue.upsConnection.item1"
+        >
+          <span class="navigation__checkbox-title">Клеммы (43)</span>
+        </CheckBox>
+      </div>
+    </section>
+  </aside>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "~/tools/version-types";
-import FilterPriceControl from "../UI/FilterPriceControl.vue"
+import { Prop } from "vue-property-decorator";
+import SvgIcon from "@shared/components/svg/SvgIcon.vue";
+import FilterPriceControl from "../UI/FilterPriceControl.vue";
 import ShowAll from "../UI/ShowAll.vue";
-import CheckBox from "@components/common/buttons/CheckBox.vue"
+import CheckBox from "@components/common/buttons/CheckBox.vue";
 
 @Component({
-    components: {
-        FilterPriceControl,
-        ShowAll,
-        CheckBox
-    },
+  components: {
+    FilterPriceControl,
+    ShowAll,
+    CheckBox,
+    SvgIcon
+  },
 })
 export default class NavigationBarComponent extends Vue {
+  @Prop({ required: false }) activeFilters: boolean;
 
-$refs: {
+  $refs: {
     filterPower: HTMLElement;
-    checkboxPower: HTMLElement[];
-};
+  };
 
-initialHeight: number = 0;
+  checkboxesValue: any = {
+    suggestions: {
+      stock: false,
+      novelty: false,
+      topSales: false,
+    },
+    power: {
+      item1: false,
+      item2: false,
+      item3: false,
+      item4: false,
+      item5: false,
+    },
+    networkConnection: {
+      item1: false,
+      item2: false,
+    },
+    upsConnection: {
+      item1: false,
+      item2: false,
+    }
+  };
 
-getInitialHeight() {
+  initialHeight: number = 0;
+
+  getInitialHeight() {
     this.initialHeight = this.$refs.filterPower.scrollHeight;
-}
+  }
 
-activeFilter(event) {
+  activeFilter(event) {
     const bodySection = event.currentTarget.nextElementSibling;
 
-    event.currentTarget.classList.toggle('active');
+    event.currentTarget.classList.toggle("active");
 
-    if(event.currentTarget.classList.contains('active')) {
-        window.getComputedStyle(bodySection).getPropertyValue('--height');
-        bodySection.style.setProperty('--height', bodySection.scrollHeight + 'px'); 
+    if (event.currentTarget.classList.contains("active")) {
+      window.getComputedStyle(bodySection).getPropertyValue("--height");
+      bodySection.style.setProperty("--height", bodySection.scrollHeight + "px");
     } else {
-        window.getComputedStyle(bodySection).getPropertyValue('--height');
-        bodySection.style.setProperty('--height', 0 + 'px');
+      window.getComputedStyle(bodySection).getPropertyValue("--height");
+      bodySection.style.setProperty("--height", 0 + "px");
     }
-}
+  }
 
-showAll() {
-    const a = this.$refs.filterPower.offsetHeight;
+  showAll() {
+    this.$refs.filterPower.classList.toggle("active");
 
-    console.log(this.$refs.filterPower.scrollHeight)
-
-    this.$refs.filterPower.classList.toggle('active')
-
-    if(this.$refs.filterPower.classList.contains('active')) {
-        window.getComputedStyle(this.$refs.filterPower).getPropertyValue('--height');
-        this.$refs.filterPower.style.setProperty('--height', this.$refs.filterPower.scrollHeight + 'px'); 
+    if (this.$refs.filterPower.classList.contains("active")) {
+      window.getComputedStyle(this.$refs.filterPower).getPropertyValue("--height");
+      this.$refs.filterPower.style.setProperty("--height", this.$refs.filterPower.scrollHeight + "px");
     } else {
-        window.getComputedStyle(this.$refs.filterPower).getPropertyValue('--height');
-        this.$refs.filterPower.style.setProperty('--height', this.initialHeight + 'px'); 
+      window.getComputedStyle(this.$refs.filterPower).getPropertyValue("--height");
+      this.$refs.filterPower.style.setProperty("--height", this.initialHeight + "px");
     }
-    
-}
-mounted() {
+  }
+
+  mounted() {
     this.getInitialHeight();
-}
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .navigation {
-    max-width: 256px;
-    width: 100%;
+  flex: 1 0 256px;
 
-    background-color: white;
+  background-color: white;
 
-    border: 1px solid #E9E9E9;
-    border-radius: 8px;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
 
-    padding: 16px 0;
+  padding: 16px 0;
 
-    @include bigMobile { 
-        max-width: 100%;
-    }
+  @include bigMobile {
+    max-width: 100%;
+    height: 0;
 
-    &__status {
-        border-bottom: 1px solid #D1D1D1;
+    border: none;
 
-        padding: 0 16px 16px 16px;
-    }
+    padding: 0;
 
-    &__filter {
-        border-bottom: 1px solid #D1D1D1;
+    overflow: hidden;
 
-        padding: 16px 8px;
+    transition: height 0.3s ease-in-out;
 
-        &:last-child {
-            border: none;
-
-            padding-bottom: 0;
-        }
-    }
-
-    &__filter-header {
-        @include flex-container(row, space-between, center);
-
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-        cursor: pointer;
-
-        transition: margin-bottom .2s ease-in-out;
-
-        &.active {
-            margin-bottom: 8px;
-        }
-        &.active .navigation__arrow{
-            transform: rotateZ(0);
-        }
-        &.price-control.active {
-            margin-bottom: 16px;
-        }
-    }
-
-    &__filter-name {
-        @include fontUnify(16, 22, 400);
-        color: #2B2B2B;
-        letter-spacing: 0.02em;
-    }
-
-    &__arrow {
-        font-size: 0;
-
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-        transform: rotateZ(180deg);
-
-        transition: transform .2s ease-in-out;
-    }
-
-    &__filter-body {
-        --height: 0;
-        height: var(--height);
-
-        transition: height .2s ease-in-out;
-
-        overflow: hidden;
-    }
-}
-
-.navigation__filter-body {
     &.active {
-        .test:nth-child(n + 3) {
-            display: block;
-        }
+      height: 100%;
+
+      border: 1px solid #e9e9e9;
+
+      padding: 16px 0;
     }
-}
-.test {
-    &:nth-child(n + 3) {
+  }
+
+  .navigation__checkbox-title {
+    @include flex-container(row, flex-start);
+
+    letter-spacing: 0.02em;
+
+    gap: 16px;
+    padding: 8px 0;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__status {
+    border-bottom: 1px solid #d1d1d1;
+
+    padding: 0 16px 16px 16px;
+  }
+
+  &__filter {
+    border-bottom: 1px solid #d1d1d1;
+
+    padding: 16px 8px;
+
+    &:last-child {
+      border: none;
+
+      padding-bottom: 0;
+    }
+  }
+
+  &__filter-header {
+    @include flex-container(row, space-between, center);
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    cursor: pointer;
+
+    transition: margin-bottom 0.2s ease-in-out;
+
+    &.active {
+      margin-bottom: 8px;
+    }
+    &.active .navigation__arrow {
+      transform: rotateZ(180deg);
+    }
+    &.price-control.active {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__filter-name {
+    @include fontUnify(16, 22, 400);
+    color: #2b2b2b;
+    letter-spacing: 0.02em;
+  }
+
+  &__arrow {
+    width: 24px;
+    height: 24px;
+
+    flex: 0 0 auto;
+
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &__filter-body {
+    --height: 0;
+    height: var(--height);
+
+    padding: 0 8px;
+
+    transition: height 0.2s ease-in-out;
+
+    overflow: hidden;
+
+    &.price-control {
+      padding: 0;
+    }
+
+    &.active {
+      .navigation__filter-item:nth-child(n + 3) {
+        display: block;
+      }
+    }
+    .navigation__filter-item {
+      &:nth-child(n + 3) {
         display: none;
+      }
     }
+  }
 }
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+    transition: all .3s ease;
+}
+.slide-fade-enter{
+   height: 100%;
+}
+
+.slide-fade-leave-to{
+    height: 0;
+}
+
+
 </style>
           

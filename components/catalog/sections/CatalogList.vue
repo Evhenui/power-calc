@@ -1,18 +1,18 @@
 <template>
-    <section class="slider">
-        <div class="slider__wrapper">
-            <div class="slider__items">
+    <section class="catalog-list">
+        <div class="catalog-list__wrapper">
+            <div class="catalog-list__items">
                 <CardProduct 
                     v-for="(item, index) in 16"
                     :key="index"
                     :changeView="changeView"
                 />
             </div>
-            <nav class="slider__navigation">
+            <nav class="catalog-list__navigation">
                 <ButtonShowMore />
-                <div class="slider__pagination">
+                <div class="catalog-list__pagination">
                     <ButtonPrev />
-                    <div class="slider__pages">
+                    <div class="catalog-list__pages">
                         <ButtonPage>1</ButtonPage>
                         <ButtonPage>2</ButtonPage>
                         <ButtonPage>3</ButtonPage>
@@ -45,13 +45,13 @@ components: {
     FooterCatalog
 },
 })
-export default class SliderCatalogComponent extends Vue {
+export default class CatalogListComponent extends Vue {
     @Prop({required: false}) changeView: boolean;
 }
 </script>
 
 <style lang="scss" scoped>
-.slider {
+.catalog-list {
 
     &__wrapper {
         @include flex-container(column, flex-start);
@@ -61,7 +61,7 @@ export default class SliderCatalogComponent extends Vue {
     }
 
     &__items {
-        @include flex-container(row, flex-start);
+        @include flex-container(row, space-between);
         flex-wrap: wrap;
 
         gap: 8px;

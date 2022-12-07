@@ -89,7 +89,7 @@ export default class CardProductComponent extends Vue {
     
 <style lang="scss" scoped>
 .card-product {
-  max-width: 288px;
+  --gap: 8px;
   width: 100%;
 
   background-color: white;
@@ -97,7 +97,26 @@ export default class CardProductComponent extends Vue {
   border: 1px solid #E9E9E9;
   border-radius: 8px;
 
+  @include set-item-count-in-row(4);
+
   transition: all .3s ease-in-out;
+
+  @include smallestScreen {
+    @include set-item-count-in-row(3);
+
+  }
+
+  
+  @include bigMobile { 
+    @include set-item-count-in-row(4);
+
+    // overflow: hidden;
+  }
+
+  @include mobile { 
+    @include set-item-count-in-row(2);
+
+  }
 
   &.inactive {
     .card-product__image {
@@ -105,8 +124,13 @@ export default class CardProductComponent extends Vue {
     }
   }
   &.filter {
+    @include mobile { 
+    @include set-item-count-in-row(1);
+
+  }
     @include bigMobile { 
-      max-width: 343px;
+      // max-width: 343px;
+      @include set-item-count-in-row(2);
 
       .card-product__header-nav {
         left: 0;
@@ -171,12 +195,6 @@ export default class CardProductComponent extends Vue {
     }
   }
 
-  @include bigMobile { 
-    max-width: 164px;
-
-    overflow: hidden;
-  }
-
   &:hover {
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
   }
@@ -197,7 +215,7 @@ export default class CardProductComponent extends Vue {
     position: absolute;
     top: 16px;
 
-    z-index: 500;
+    z-index: 100;
 
     @include bigMobile { 
       top: 8px;

@@ -69,7 +69,8 @@ export default class FilterPriceControlComponent extends Vue {}
     }
 
     &__range-control {
-        position: relative;
+      height: 11px;
+      position: relative;
     }
 
     &__scale {

@@ -15,6 +15,9 @@ export default class ButtonOkComponent extends Vue {}
 
 <style lang="scss" scoped>
 .button-orange {
+    max-width: 80px;
+    width: 100%;
+
     @include flex-container(row, center, center);
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -23,7 +26,11 @@ export default class ButtonOkComponent extends Vue {}
     background-color: $color-main;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    padding: 8px 32px;
+    padding: 8px;
+
+    @include mobile { 
+        width: 100%;
+    }
 
     &:hover {
         background-color: #FF5B00;
