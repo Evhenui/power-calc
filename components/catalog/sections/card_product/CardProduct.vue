@@ -197,7 +197,7 @@ export default class CardProductComponent extends Vue {
     padding: 16px 0;
 
     @include bigMobile {  
-      padding: 0 0 8px 0;
+      padding: 8px 0;
     }
   }
 
@@ -238,15 +238,14 @@ export default class CardProductComponent extends Vue {
     }
   }
 
-  &__image-wrapper {
-    @include flex-container(row, center, center);
+  &__image-wrappe {
+    @include bigMobile { 
+      max-width: 164px;
+    }
   }
 
   &__image {
-    @include bigMobile { 
-      width: 164px;
-      height: 164px;
-    }
+    margin: 0 auto;
   }
 
   &__rating {

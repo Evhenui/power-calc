@@ -4,7 +4,7 @@
         :class="{active: activeFilters}"
     >
         <NavigationBar :activeFilters="activeFilters"/>
-        <CatalogList :changeView="changeView"/>
+        <CatalogList class="main__catalog-list" :changeView="changeView"/>
     </section>
 </template>
 
@@ -41,6 +41,10 @@ export default class CatalogMainComponent extends Vue {
         
         &.active {
             gap: 8px;
+
+            .main__catalog-list {
+                display: none;
+            }
         }
     }
 
