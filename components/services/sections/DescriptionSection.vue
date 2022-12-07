@@ -1,8 +1,10 @@
 <template>
     <div class="header">
-      <p class="header__main-description">
-        <slot></slot>
-      </p>
+      <div class="header__wrapper">
+        <p class="header__main-description">
+          <slot></slot>
+        </p>
+      </div>
     </div>
   </template>
   
@@ -15,17 +17,25 @@
     
   <style lang="scss" scoped>
   .header {
-    border-radius: 16px;
+    
   
-    background-color: var(--color-blue-white);
-    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
-  
-    padding: 32px;
     margin-bottom: 64px;
 
     @include bigMobile {
-      padding: 16px;
       margin-bottom: 32px;
+    }
+
+    &__wrapper {
+      border-radius: 16px;
+  
+      background-color: var(--color-blue-white);
+      box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
+
+      padding: 32px;
+
+      @include bigMobile {
+        padding: 16px;
+      }
     }
   
     &__main-description {

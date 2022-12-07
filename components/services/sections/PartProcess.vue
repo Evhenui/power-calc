@@ -50,12 +50,15 @@ export default class PartProcessComponent extends Vue {
 .part-process {
     background-color: #F5F5F5;
 
-    padding: 48px 0;
-
     &__wrapper {
         @extend %width-main;
 
+        padding: 48px 16px;
         margin: 0 auto;
+
+        @include bigMobile {
+            padding: 24px 16px;
+        }
     }
 
     &__title {

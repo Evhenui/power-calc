@@ -77,6 +77,7 @@ export default class ServicesOffersComponent extends Vue {
 
         @include bigMobile {
             @include fontUnify(16, 19, 700);
+            text-align: left;
         }
     }
 

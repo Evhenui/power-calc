@@ -10,7 +10,7 @@
      <!-- <Comparison/> -->
      <!--  <OrderDone/> -->
      <!-- <Catalog/> -->
-     <Services />
+     <HomeServices />
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -32,6 +32,7 @@ import Comparison from "@components/comparison/Comparison.vue"
 import OrderDone from "~/components/order_done/OrderDone.vue";
 import Catalog from "~/components/catalog/Catalog.vue";
 import Services from "~/components/services/Services.vue"
+import HomeServices from "~/components/services/HomeServices.vue";
 
 @Component({
   components: {
@@ -46,7 +47,8 @@ import Services from "~/components/services/Services.vue"
     Comparison,
     OrderDone,
     Catalog,
-    Services
+    Services,
+    HomeServices
   },
 })
 export default class IndexPageComponent extends Vue {

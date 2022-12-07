@@ -71,8 +71,8 @@ export default class CardOffersComponent extends Vue {
             transform: translateY(25%);
         }
 
-        @include mobile {
-            transform: translateY(15%);
+         @include bigMobile {
+            transform: translateY(25%);
         }
     }
 

@@ -98,8 +98,6 @@ export default class ServicesComponent extends Vue {
 
 <style lang="scss" scoped>
 .services {
-    @extend %padding-wrp;
-
     background-color: white;
 
     &__wrapper {
@@ -108,8 +106,9 @@ export default class ServicesComponent extends Vue {
 
     &__header {
         @extend %width-main;
-
+    
         margin: 0 auto 125px auto;
+        @extend %padding-wrp;
 
         @include bigMobile {
             margin: 0 auto 84px auto;
@@ -120,9 +119,18 @@ export default class ServicesComponent extends Vue {
         @extend %width-main;
 
         margin: 0 auto;
+        @extend %padding-wrp;
     }
 
-    &__offers, &__process {
+    &__offers {
+        margin-bottom: 64px;
+
+        @include bigMobile {
+            margin-bottom: 32px;
+        }
+    }
+
+    &__process {
         margin-bottom: 64px;
 
         @include bigMobile {
@@ -134,14 +142,15 @@ export default class ServicesComponent extends Vue {
         @extend %width-main;
 
         margin: 0 auto 64px auto;
+        @extend %padding-wrp;
     }
 
     &__pricess {
         @extend %width-main;
 
         margin: 0 auto;
+        @extend %padding-wrp;
     }
-
 }
 </style>
   

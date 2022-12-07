@@ -4,6 +4,7 @@ export enum projectIcons {
 	'arrow-right' = 1,
 	'arrow-stick-left' = 1,
 	'arrow-stick-right' = 1,
+	'button-transparent' = 1,
 	'calculator' = 1,
 	'cancel' = 1,
 	'card-buy' = 1,
