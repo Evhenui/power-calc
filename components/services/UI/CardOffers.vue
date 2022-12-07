@@ -30,10 +30,9 @@ export default class CardOffersComponent extends Vue {
 
 <style lang="scss" scoped>
 .card-offer {
-    max-width: 468px;
-    width: 100%;
+    --gap: 16px;
 
-    /* @include set-item-count-in-row(4); */
+    @include set-item-count-in-row(3);
 
     position: relative;
 
@@ -42,7 +41,17 @@ export default class CardOffersComponent extends Vue {
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
 
+    @include bigMobile {
+        @include set-item-count-in-row(2);
+    }
+
+    @include mobile {
+        @include set-item-count-in-row(1);
+    }
+
     &__wrapper {
+        min-height: 100%;
+
         @include flex-container(column, flex-start, center);
 
         padding: 139px 32px 32px 32px;
@@ -55,9 +64,16 @@ export default class CardOffersComponent extends Vue {
     &__image-wrapper {
         position: absolute;
         top: -50%;
+
         transform: translateY(50%);
 
-        margin-bottom: 32px;
+        @include bigMobile {
+            transform: translateY(25%);
+        }
+
+        @include mobile {
+            transform: translateY(15%);
+        }
     }
 
     &__title {
@@ -75,6 +91,8 @@ export default class CardOffersComponent extends Vue {
     }
 
     &__subtitle {
+        flex: 1 1 auto;
+
         @include fontUnify(16, 22, 400);
         letter-spacing: 0.02em;
         text-align: center;

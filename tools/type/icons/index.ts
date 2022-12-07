@@ -30,6 +30,7 @@ export enum projectIcons {
 	'catalog' = 1,
 	'chat-bubble' = 1,
 	'check-icon' = 1,
+	'check-price' = 1,
 	'close' = 1,
 	'compare' = 1,
 	'contactsManagerTelegram' = 1,

@@ -3,7 +3,6 @@
         <div class="services__wrapper">
             <div class="services__header">
                 <DescriptionSection>Современные системы видеонаблюдения повсеместно используются, не только в качестве элемента системы охраны жилых и производственных объектов, но и как эффективный инструмент контроля персонала и ведения бизнеса. GreenVision – это украинский бренд. За более 6-ти лет работы на рынке наша компания заслужила репутацию надежного поставщика оборудования и комплектующих для систем видеонаблюдения. </DescriptionSection>
-                <p class="services__offers-title">Мы готовы взять на себя все заботы, связанные с внедрением систем видеонаблюдения, чтобы вы могли получить эффективный инструмент контроля и обеспечения безопасности вашего имущества. </p>
             </div>
             <ServicesOffers class="services__offers" />
             <PartProcess class="services__process" />
@@ -114,22 +113,6 @@ export default class ServicesComponent extends Vue {
 
         @include bigMobile {
             margin: 0 auto 84px auto;
-        }
-    }
-
-    &__offers-title {
-        max-width: 954px;
-        width: 100%;
-
-        @include fontUnify(20, 30, 600);
-        text-align: center;
-        text-transform: uppercase;
-        color: #009B3E;
-
-        margin: 0 auto;
-
-        @include bigMobile {
-            @include fontUnify(16, 19, 700);
         }
     }
 

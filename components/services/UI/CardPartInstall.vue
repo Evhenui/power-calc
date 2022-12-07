@@ -26,13 +26,18 @@ export default class CardPartInstallComponent extends Vue {
 
 <style lang="scss" scoped>
 .part-install {
-    max-width: 265px;
-    width: 100%;
+    --gap: 24px;
+
+    @include set-item-count-in-row(5);
 
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+
+    @include bigMobile {
+        @include set-item-count-in-row(2);
+    }
 
     &__wrapper {
         @include flex-container(column, center, center);

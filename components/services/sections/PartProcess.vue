@@ -81,11 +81,6 @@ export default class PartProcessComponent extends Vue {
 
         gap: 24px;
     }
-
-    &__card {
-/*         @include set-item-count-in-row(5);
- */
-    }
 }
 </style>
   

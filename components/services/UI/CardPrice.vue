@@ -46,13 +46,18 @@ export default class CardPriceComponent extends Vue {
 
 <style lang="scss" scoped>
 .card-price {
-    max-width: 468px;
-    width: 100%;
+    --gap: 16px;
+
+    @include set-item-count-in-row(3);
 
     background: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+
+    @include bigMobile {
+        @include set-item-count-in-row(1);
+    }
 
     &__wrapper {
         min-height: 100%;

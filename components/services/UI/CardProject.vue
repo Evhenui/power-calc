@@ -26,13 +26,18 @@ export default class CardProjectComponent extends Vue {
 
 <style lang="scss" scoped>
 .card-project {
-    max-width: 711px;
-    width: 100%;
+    --gap: 16px;
+
+    @include set-item-count-in-row(2);
 
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+
+    @include bigMobile {
+        @include set-item-count-in-row(1);
+    }
 
     &__wrapper {
         @include flex-container(row, space-between, center);

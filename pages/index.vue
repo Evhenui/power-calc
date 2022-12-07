@@ -9,7 +9,8 @@
      <!--  <PowerCalculator/> -->
      <!-- <Comparison/> -->
      <!--  <OrderDone/> -->
-     <Catalog/>
+     <!-- <Catalog/> -->
+     <Services />
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -30,6 +31,7 @@ import PowerCalculator from "@components/calculator/PowerCalculator.vue"
 import Comparison from "@components/comparison/Comparison.vue"
 import OrderDone from "~/components/order_done/OrderDone.vue";
 import Catalog from "~/components/catalog/Catalog.vue";
+import Services from "~/components/services/Services.vue"
 
 @Component({
   components: {
@@ -43,7 +45,8 @@ import Catalog from "~/components/catalog/Catalog.vue";
     PowerCalculator,
     Comparison,
     OrderDone,
-    Catalog
+    Catalog,
+    Services
   },
 })
 export default class IndexPageComponent extends Vue {
