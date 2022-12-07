@@ -99,23 +99,16 @@ export default class CardProductComponent extends Vue {
 
   @include set-item-count-in-row(4);
 
-  transition: all .3s ease-in-out;
-
   @include smallestScreen {
     @include set-item-count-in-row(3);
-
   }
-
   
   @include bigMobile { 
     @include set-item-count-in-row(4);
-
-    // overflow: hidden;
   }
 
   @include mobile { 
     @include set-item-count-in-row(2);
-
   }
 
   &.inactive {
@@ -124,10 +117,6 @@ export default class CardProductComponent extends Vue {
     }
   }
   &.filter {
-    @include mobile { 
-    @include set-item-count-in-row(1);
-
-  }
     @include bigMobile { 
       // max-width: 343px;
       @include set-item-count-in-row(2);
@@ -192,6 +181,9 @@ export default class CardProductComponent extends Vue {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
+    }
+    @include mobile { 
+      @include set-item-count-in-row(1);
     }
   }
 
