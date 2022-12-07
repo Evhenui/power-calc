@@ -29,7 +29,7 @@ export default class ButtonOkComponent extends Vue {}
     padding: 8px;
 
     @include mobile { 
-        width: 100%;
+        max-width: 100%;
     }
 
     &:hover {

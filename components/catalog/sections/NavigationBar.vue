@@ -211,7 +211,7 @@ export default class NavigationBarComponent extends Vue {
   @include bigMobile {
     width: 100%;
 
-    display: none;
+    height: 0;
 
     flex: auto;
 
@@ -220,13 +220,16 @@ export default class NavigationBarComponent extends Vue {
     padding: 0;
 
     overflow: hidden;
+    visibility: hidden;
 
     &.active {
-      display: block;
+      height: auto;
 
       border: 1px solid #e9e9e9;
 
       padding: 16px 0;
+
+      visibility: visible;
     }
   }
 
@@ -241,6 +244,11 @@ export default class NavigationBarComponent extends Vue {
     &::before {
       width: 16px;
       height: 16px;
+
+      @include bigMobile { 
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 
