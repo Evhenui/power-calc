@@ -22,6 +22,9 @@ export default class CardLocationComponent extends Vue {}
 
 <style lang="scss" scoped>
 .card-location {
+  --gap: 96px;
+
+  @include set-item-count-in-row(3);
   &__wrapper {
     min-height: 100%;
     

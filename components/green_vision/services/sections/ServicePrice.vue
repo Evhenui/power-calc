@@ -1,19 +1,103 @@
 <template>
+  <section class="service-price">
+    <div class="service-price__wrapper">
+      <h1 class="service-price__title">
+        Что входит в услугу установки типового комплекта видеонаблюдения для
+        квартиры?
+      </h1>
+      <p class="service-price__price">
+        <slot name="price"></slot>
+      </p>
+      <div class="service-price__body">
+        <div class="service-price__info">
+            <div class="service-price__list">
+                <slot name="item"></slot>
+            </div>
 
+          <ButtonTransparent />
+        </div>
+        <div class="service-price__image">
+          <slot name="image"></slot>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "~/tools/version-types";
+import { Component, Vue } from "~/tools/version-types";
+import SvgIcon from "@shared/components/svg/SvgIcon.vue";
+import ButtonTransparent from "../UI/ButtonTransparent.vue";
 
 @Component({
-    components: {
-       
-    },
+  components: {
+    SvgIcon,
+    ButtonTransparent,
+  },
 })
-export default class ServicePriceComponent extends Vue {
-}
+export default class ServicePriceComponent extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+.service-price {
+  box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+
+  background-color: white;
+
+  &__wrapper {
+    @include flex-container(column, center, center);
+
+    padding: 32px;
+  }
+
+  &__title {
+    max-width: 733px;
+    width: 100%;
+
+    @include fontUnify(20, 30, 600);
+    text-align: center;
+    text-transform: uppercase;
+    color: #1f1f1f;
+
+    margin-bottom: 24px;
+  }
+
+  &__price {
+    @include fontUnify(20, 30, 600);
+    text-align: center;
+    text-transform: uppercase;
+    color: #009b3e;
+
+    margin-bottom: 64px;
+  }
+
+  &__body {
+    max-width: 917px;
+    width: 100%;
+
+    @include flex-container(row, space-between);
+  }
+
+  &__info {
+    @include flex-container(column, space-between);
+
+    gap: 48px;
+  }
+
+  &__list {
+    @include flex-container(column, space-between);
+
+    gap: 24px;
+  }
+
+  &__image {
+    max-width: 347px;
+    width: 100%;
+    img {
+        width: 100%;
+    }
+  }
+}
 </style>
   

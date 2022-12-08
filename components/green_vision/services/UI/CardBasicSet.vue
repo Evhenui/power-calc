@@ -41,7 +41,7 @@ export default class CardBasicSetComponent extends Vue {}
 
         @include flex-container(column, center, center);
 
-        padding: 16px;
+        padding: 16px 16px 32px 16px;
     }
 
     &__amount {

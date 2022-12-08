@@ -26,35 +26,38 @@ export default class LocationComponent extends Vue {}
 
 <style lang="scss" scoped>
 .location {
+  &__title {
+    @include fontUnify(25, 35, 700);
+    color: #1f1f1f;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 
-    &__wrapper {
-        @include flex-container(column, center, center);
-    }
+    margin-bottom: 24px;
+  }
 
-    &__title {
-        @include fontUnify(25, 35, 700);
-        color: #1F1F1F;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
+  &__cards {
+    max-width: 954px;
+    width: 100%;
 
-        margin-bottom: 24px;
-    }
+    @include flex-container(row, flex-start);
+    flex-wrap: wrap;
 
-    &__cards {
-        @include flex-container(row, flex-start);
-        flex-wrap: wrap;
+    gap: 96px;
 
-        gap: 96px;
+    margin: 0 auto 32px auto;
+  }
 
-        margin-bottom: 32px;
-    }
+  &__subtitle {
+    max-width: 1197px;
+    width: 100%;
 
-    &__subtitle {
-        @include fontUnify(20, 28, 400);
-        color: black;
-        letter-spacing: 0.02em;
-    }
+    @include fontUnify(20, 28, 400);
+    color: black;
+    letter-spacing: 0.02em;
+
+    margin: 0 auto;
+  }
 }
-
 </style>
   
