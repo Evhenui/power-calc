@@ -31,8 +31,8 @@ import PowerCalculator from "@components/calculator/PowerCalculator.vue"
 import Comparison from "@components/comparison/Comparison.vue"
 import OrderDone from "~/components/order_done/OrderDone.vue";
 import Catalog from "~/components/catalog/Catalog.vue";
-import Services from "~/components/services/Services.vue"
-import HomeServices from "~/components/services/HomeServices.vue";
+import Services from "~/components/green_vision/services/Services.vue"
+import HomeServices from "~/components/green_vision/services/HomeServices.vue";
 
 @Component({
   components: {

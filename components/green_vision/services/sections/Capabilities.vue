@@ -20,7 +20,6 @@ export default class CapabilitiesComponent extends Vue {}
 
 <style lang="scss" scoped>
 .capabilities {
-
     &__wrapper {
         @include flex-container(column, center, center);
 

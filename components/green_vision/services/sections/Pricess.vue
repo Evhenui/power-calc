@@ -4,7 +4,7 @@
         <div class="pricess__cards">
             <CardPrice :values="priceValues.flat">
                 <template v-slot:image>
-                    <img src="../../../assets/img/flat-price.png" alt="flat" >
+                    <img src="../../../../assets/img/flat-price.png" alt="flat" >
                 </template>
                 <template v-slot:title>Квартира</template>
                 <template v-slot:price>6 900 грн</template>
@@ -12,7 +12,7 @@
 
             <CardPrice :values="priceValues.home">
                 <template v-slot:image>
-                    <img src="../../../assets/img/home-price.png" alt="home" >
+                    <img src="../../../../assets/img/home-price.png" alt="home" >
                 </template>
                 <template v-slot:title>дом</template>
                 <template v-slot:price>23 000грн</template>
@@ -20,7 +20,7 @@
 
             <CardPrice :values="priceValues.office">
                 <template v-slot:image>
-                    <img src="../../../assets/img/office-price.png" alt="office" >
+                    <img src="../../../../assets/img/office-price.png" alt="office" >
                 </template>
                 <template v-slot:title>Офис</template>
                 <template v-slot:price>29 500грн</template>
@@ -28,7 +28,7 @@
 
             <CardPrice :values="priceValues.score">
                 <template v-slot:image>
-                    <img src="../../../assets/img/score-price.png" alt="score" >
+                    <img src="../../../../assets/img/score-price.png" alt="score" >
                 </template>
                 <template v-slot:title>Магазин</template>
                 <template v-slot:price>53 200грн</template>
@@ -36,7 +36,7 @@
 
             <CardPrice :values="priceValues.production">
                 <template v-slot:image>
-                    <img src="../../../assets/img/production-price.png" alt="production" >
+                    <img src="../../../../assets/img/production-price.png" alt="production" >
                 </template>
                 <template v-slot:title>Производство</template>
                 <template v-slot:price>71 000грн</template>
@@ -44,7 +44,7 @@
 
             <CardPrice :values="priceValues.stock">
                 <template v-slot:image>
-                    <img src="../../../assets/img/stock-price.png" alt="stock" >
+                    <img src="../../../../assets/img/stock-price.png" alt="stock" >
                 </template>
                 <template v-slot:title>Склад</template>
                 <template v-slot:price>124 000грн</template>
