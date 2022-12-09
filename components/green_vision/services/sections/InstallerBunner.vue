@@ -35,8 +35,14 @@ export default class InstallerBunnerComponent extends Vue {
     &__wrapper {
         @extend %width-main;
     
-        margin: 0 auto 64px auto;
+        margin: 0 auto;
         padding: 72px 16px 82px 16px;
+
+        @include bigMobile {
+            background: linear-gradient(180deg, rgba(138, 138, 138, 0) 0%, rgba(65, 65, 65, 0.323285) 0.01%, rgba(54, 54, 54, 0) 0.02%, rgba(54, 54, 54, 0.65) 34.9%);
+        
+            padding: 268px 16px 65px 16px;
+        }
     }
 
     &__title {
@@ -45,6 +51,11 @@ export default class InstallerBunnerComponent extends Vue {
         color: #1F1F1F;
 
         margin-bottom: 16px;
+
+        @include bigMobile {
+            @include fontUnify(16, 19, 700);
+            color: white;
+        }
     }
 
     &__subtitle {
@@ -56,12 +67,20 @@ export default class InstallerBunnerComponent extends Vue {
         color: #1F1F1F;
 
         margin-bottom: 48px;
+
+        @include bigMobile {
+            color: white;
+        }
     }
 
     &__buttons {
         @include flex-container(column, flex-start);
 
         gap: 16px;
+
+        @include bigMobile {
+            gap: 32px;
+        }
     }
 }
 </style>

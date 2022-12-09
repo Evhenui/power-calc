@@ -22,30 +22,39 @@ export default class OffersComponent extends Vue {}
 
 <style lang="scss" scoped>
 .offers {
+  &__wrapper {
+    @include flex-container(column, center, center);
+
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
 
-    &__wrapper {
-        @include flex-container(column, center, center);
+    padding: 32px;
+    gap: 64px;
 
-        padding: 32px;
-        gap: 64px;
+    @include bigMobile {
+      gap: 24px;
     }
+  }
 
-    &__title {
-        @include fontUnify(20, 30, 600);
-        text-transform: uppercase;
-        color: #1F1F1F;
+  &__title {
+    @include fontUnify(20, 30, 600);
+    text-transform: uppercase;
+    text-align: center;
+    color: #1f1f1f;
+
+    @include bigMobile {
+      @include fontUnify(16, 19, 700);
     }
+  }
 
-    &__items {
-        @include flex-container(row, center);
-        flex-wrap: wrap;
+  &__items {
+    @include flex-container(row, center);
+    flex-wrap: wrap;
 
-        gap: 24px;
-    }
+    gap: 24px;
+  }
 }
 </style>
     

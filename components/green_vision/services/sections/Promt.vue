@@ -24,30 +24,47 @@ export default class PromtComponent extends Vue {}
 
 <style lang="scss" scoped>
 .promt {
+  &__wrapper {
+    @include flex-container(row, center, center);
+
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
 
-    &__wrapper {
-        @include flex-container(row, center, center);
+    padding: 32px;
+    gap: 68px;
 
-        padding: 32px;
-        gap: 68px;
+    @include bigMobile {
+      @include flex-container(column, center, center);
+
+      padding: 32px 16px;
+      gap: 32px;
     }
+  }
 
-    &__image {
-        width: 70px;
-        height: 70px;
+  &__image {
+    width: 70px;
+    height: 70px;
 
-        color: #009B3E;
+    color: #009b3e;
+
+    @include bigMobile {
+      width: 64px;
+      height: 64px;
     }
+  }
 
-    &__title {
-        @include fontUnify(18, 25, 500);
-        letter-spacing: 0.02em;
-        color: #1F1F1F;
+  &__title {
+    @include fontUnify(18, 25, 500);
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #1f1f1f;
+
+    @include bigMobile {
+      @include fontUnify(16, 22, 400);
     }
+  }
 }
 </style>
       

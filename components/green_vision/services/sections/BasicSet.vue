@@ -36,6 +36,10 @@ export default class BasicSetComponent extends Vue {
         text-transform: uppercase;
         text-align: center;
         color: #1F1F1F;
+
+        @include bigMobile {
+            @include fontUnify(18, 22, 600);
+        }
     }
 
     &__cards {
@@ -43,10 +47,16 @@ export default class BasicSetComponent extends Vue {
         flex-wrap: wrap;
 
         gap: 32px 16px;
+
+        @include bigMobile {
+            gap: 16px;
+        }
     }
 
     &__description {
         width: 100%;
+
+        margin: 0;
     }
 }
 </style>

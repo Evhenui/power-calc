@@ -25,9 +25,6 @@ export default class CardCapabilitiesComponent extends Vue {
 
 <style lang="scss" scoped>
 .card-capabilities {
-    max-width: 711px;
-    width: 100%;
-
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
 
@@ -38,6 +35,13 @@ export default class CardCapabilitiesComponent extends Vue {
 
         padding: 32px;
         gap: 32px;
+
+        @include bigMobile {
+            @include flex-container(column, center, center);
+
+            padding: 16px 8px 24px 8px;
+            gap: 16px;
+        }
     }
 
     &__subtitle {
@@ -49,6 +53,9 @@ export default class CardCapabilitiesComponent extends Vue {
         letter-spacing: 0.02em;
         color: #1F1F1F;
         
+        @include bigMobile {
+            @include fontUnify(12, 16, 400);
+        }
     }
 }
 </style>

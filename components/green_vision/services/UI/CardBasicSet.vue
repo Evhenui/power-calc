@@ -50,6 +50,10 @@ export default class CardBasicSetComponent extends Vue {}
       @include flex-container(row, end);
 
       margin-bottom: 32px;
+
+      @include bigMobile {
+        margin: 0;
+      }
     }
 
     &__amount-text {
@@ -69,6 +73,10 @@ export default class CardBasicSetComponent extends Vue {}
         letter-spacing: 0.02em;
         text-align: center;
         color: black;
+
+        @include bigMobile {
+          @include fontUnify(16, 22, 400);
+        }
     }
 }
 </style>

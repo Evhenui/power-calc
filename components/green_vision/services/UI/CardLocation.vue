@@ -25,16 +25,33 @@ export default class CardLocationComponent extends Vue {}
   --gap: 96px;
 
   @include set-item-count-in-row(3);
+
+  @include bigMobile { 
+    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+
   &__wrapper {
     min-height: 100%;
     
     @include flex-container(column, center, center);
 
     gap: 24px;
+
+    @include bigMobile { 
+      @include flex-container(row, flex-start, center);
+
+      padding: 16px 8px;
+      gap: 32px;
+    }
   }
 
   &__image {
     flex: 1 1 auto;
+
+    @include bigMobile { 
+      flex: none;
+    }
   }
 
   &__subtitle {

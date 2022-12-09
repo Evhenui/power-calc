@@ -35,6 +35,10 @@ export default class ButtonTransparentComponent extends Vue {
     transition: background-color .1s ease-in-out;
     transition: border-color .1s ease-in-out;
 
+    @include bigMobile {
+        width: 100%;
+    }
+
     &:hover {
         border-color: #00BC4B;
         background-color: #00BC4B;

@@ -22,11 +22,20 @@ export default class SchemeLocationComponent extends Vue {}
 
     gap: 64px;
 
+    @include bigMobile {
+      gap: 16px;
+    }
+
     &__title {
         @include fontUnify(25, 35, 700);
         letter-spacing: 0.02em;
+        text-align: center;
         text-transform: uppercase;
         color: #1F1F1F;
+
+        @include bigMobile {
+          @include fontUnify(16, 19, 700);
+        }
     }
 }
 </style>

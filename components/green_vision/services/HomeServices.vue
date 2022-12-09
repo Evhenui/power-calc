@@ -12,7 +12,7 @@
       <Capabilities class="home-services__capabilities">
         <template v-slot:title>Система безопасности позволяет:</template>
         <template v-slot:card>
-          <CardCapabilities>
+          <CardCapabilities class="home-services__capabilities-card">
             <template v-slot:image>
               <img
                 src="../../../assets/img/home-capabilities.svg"
@@ -24,7 +24,7 @@
             >
           </CardCapabilities>
 
-          <CardCapabilities>
+          <CardCapabilities class="home-services__capabilities-card">
             <template v-slot:image>
               <img
                 src="../../../assets/img/lock-capabilities.svg"
@@ -48,7 +48,7 @@
 
       <BasicSet class="home-services__set">
         <template v-slot:cards>
-          <CardBasicSet>
+          <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х8</template>
             <template v-slot:image>
               <img src="@/assets/img/camera-set.png" alt="camera" />
@@ -56,7 +56,7 @@
             <template v-slot:name>Наружная IP камера</template>
           </CardBasicSet>
 
-          <CardBasicSet>
+          <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/switch-set.png" alt="switch" />
@@ -64,7 +64,7 @@
             <template v-slot:name>Коммуникатор сетевой POE</template>
           </CardBasicSet>
 
-          <CardBasicSet>
+          <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/dvr-set.png" alt="dvr" />
@@ -72,7 +72,7 @@
             <template v-slot:name>Видеорегистратор</template>
           </CardBasicSet>
 
-          <CardBasicSet>
+          <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/hdmi-set.png" alt="hdmi" />
@@ -80,7 +80,7 @@
             <template v-slot:name>Кабель HDMI 1.5 м</template>
           </CardBasicSet>
 
-          <CardBasicSet>
+          <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х2</template>
             <template v-slot:image>
               <img src="@/assets/img/patch-cord-set.png" alt="patch cord" />
@@ -88,7 +88,7 @@
             <template v-slot:name>Патч-корд</template>
           </CardBasicSet>
 
-          <CardBasicSet>
+          <CardBasicSet class="home-services__set-card">
             <template v-slot:image>
               <img src="@/assets/img/materials-set.png" alt="materials" />
             </template>
@@ -99,7 +99,7 @@
 
       <Location class="home-services__location">
         <template v-slot:cards>
-          <CardLocation>
+          <CardLocation class="home-services__location-card">
             <template v-slot:image>
               <img
                 src="@/assets/icons/home-teritory-location.svg"
@@ -109,14 +109,14 @@
             <template v-slot:subtitle>Придомовая территория</template>
           </CardLocation>
 
-          <CardLocation>
+          <CardLocation class="home-services__location-card">
             <template v-slot:image>
               <img src="@/assets/icons/garage-location.svg" alt="garage" />
             </template>
             <template v-slot:subtitle>Гараж</template>
           </CardLocation>
 
-          <CardLocation>
+          <CardLocation class="home-services__location-card">
             <template v-slot:image>
               <img src="@/assets/icons/road-location.svg" alt="road" />
             </template>
@@ -237,13 +237,77 @@ export default class HomeServicesComponent extends Vue {
     @extend %padding-wrp;
   }
 
+  &__description {
+    @include bigMobile {
+      margin: 0 auto 32px auto;
+    }
+  }
+
+  &__capabilities {
+    @include bigMobile {
+      margin: 0 auto 56px auto;
+    }
+  }
+
+  &__capabilities-card {
+    --gap: 16px;
+
+    @include set-item-count-in-row(2);
+  }
+
   &__bunner {
     margin-bottom: 64px;
+
+    @include bigMobile {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__set {
+    @include bigMobile {
+      margin-bottom: 54px;
+    }
+  }
+
+  &__location {
+    @include bigMobile {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__location-card {
+    @include bigMobile {
+      @include set-item-count-in-row(1);
+    }
   }
 
   &__price-item {
     max-width: 434px;
     width: 100%;
+  }
+
+  &__set-card {
+    @include bigMobile {
+      @include set-item-count-in-row(1);
+    }
+  }
+
+  &__service-price {
+    @include bigMobile {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__promt {
+    @include bigMobile {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__scheme {
+    @include bigMobile {
+      margin-bottom: 32px;
+    }
   }
 
   &__offer-item {

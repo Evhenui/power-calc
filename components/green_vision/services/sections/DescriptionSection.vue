@@ -48,6 +48,10 @@
       color: #1F1F1F;
   
       margin: 0 auto;
+
+      @include bigMobile {
+        text-align: left;
+      }
     }
   }
   </style>

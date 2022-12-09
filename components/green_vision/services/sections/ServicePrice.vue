@@ -40,13 +40,13 @@ export default class ServicePriceComponent extends Vue {}
 
 <style lang="scss" scoped>
 .service-price {
-  box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
-
-  background-color: white;
-
   &__wrapper {
     @include flex-container(column, center, center);
+
+    background-color: white;
+
+    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
 
     padding: 32px;
   }
@@ -61,6 +61,10 @@ export default class ServicePriceComponent extends Vue {}
     color: #1f1f1f;
 
     margin-bottom: 24px;
+
+    @include bigMobile {
+      @include fontUnify(16, 19, 700);
+    }
   }
 
   &__price {
@@ -70,6 +74,12 @@ export default class ServicePriceComponent extends Vue {}
     color: #009b3e;
 
     margin-bottom: 64px;
+
+    @include bigMobile {
+      @include fontUnify(16, 22, 400);
+
+      margin-bottom: 16px;
+    }
   }
 
   &__body {
@@ -77,6 +87,12 @@ export default class ServicePriceComponent extends Vue {}
     width: 100%;
 
     @include flex-container(row, space-between);
+
+    @include bigMobile {
+      @include flex-container(column-reverse, center, center);
+
+      gap: 16px;
+    }
   }
 
   &__info {

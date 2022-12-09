@@ -31,10 +31,15 @@ export default class CapabilitiesComponent extends Vue {}
         text-align: center;
         letter-spacing: 0.02em;
         color: #1F1F1F;
+
+        @include bigMobile {
+            @include fontUnify(18, 22, 600);
+        }
     }
 
     &__cards {
         @include flex-container(row, flex-start);
+        flex-wrap: wrap;
 
         gap: 16px;
     }

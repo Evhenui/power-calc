@@ -34,6 +34,10 @@ export default class LocationComponent extends Vue {}
     letter-spacing: 0.02em;
 
     margin-bottom: 24px;
+
+    @include bigMobile { 
+      @include fontUnify(18, 22, 600);
+    }
   }
 
   &__cards {
@@ -46,6 +50,11 @@ export default class LocationComponent extends Vue {}
     gap: 96px;
 
     margin: 0 auto 32px auto;
+
+    @include bigMobile { 
+      margin: 0 auto 24px auto;
+      gap: 24px;
+    }
   }
 
   &__subtitle {
@@ -57,6 +66,10 @@ export default class LocationComponent extends Vue {}
     letter-spacing: 0.02em;
 
     margin: 0 auto;
+
+    @include bigMobile { 
+      @include fontUnify(16, 22, 400);
+    }
   }
 }
 </style>

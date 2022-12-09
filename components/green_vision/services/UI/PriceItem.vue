@@ -38,6 +38,10 @@ export default class PriceItemComponent extends Vue {}
         @include fontUnify(18, 25, 500);
         letter-spacing: 0.02em;
         color: #1F1F1F;
+
+        @include bigMobile {
+          @include fontUnify(16, 22, 400);
+        }
     }
 }
 </style>

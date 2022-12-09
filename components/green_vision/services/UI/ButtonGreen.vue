@@ -28,6 +28,10 @@ export default class ButtonGreenComponent extends Vue {
 
     transition: background-color .1s ease-in-out;
 
+    @include bigMobile {
+        width: 100%;
+    }
+
     &:hover {
         background-color: #00BC4B;
     }
