@@ -32,8 +32,6 @@ export default class CardLocationComponent extends Vue {}
   }
 
   &__wrapper {
-    min-height: 100%;
-    
     @include flex-container(column, center, center);
 
     gap: 24px;
@@ -57,6 +55,7 @@ export default class CardLocationComponent extends Vue {}
   &__subtitle {
     @include fontUnify(20, 28, 400);
     letter-spacing: 0.02em;
+    text-align: center;
     color: black;
   }
 }

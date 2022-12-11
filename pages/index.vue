@@ -14,7 +14,8 @@
      <!-- <HomeServices /> -->
      <!-- <FlatServices /> -->
      <!-- <OfficeServices /> -->
-     <ScroleServices />
+    <!--  <ScoreServices /> -->
+    <StockServices />
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -39,7 +40,8 @@ import Services from "~/components/green_vision/services/Services.vue"
 import HomeServices from "~/components/green_vision/services/HomeServices.vue";
 import FlatServices from "~/components/green_vision/services/FlatServices.vue";
 import OfficeServices from "~/components/green_vision/services/OfficeServices.vue";
-import ScroleServices from "~/components/green_vision/services/ScoreServices.vue"
+import ScoreServices from "~/components/green_vision/services/ScoreServices.vue"
+import StockServices from "~/components/green_vision/services/StockServices.vue"
 
 @Component({
   components: {
@@ -58,7 +60,8 @@ import ScroleServices from "~/components/green_vision/services/ScoreServices.vue
     HomeServices,
     FlatServices,
     OfficeServices,
-    ScroleServices
+    ScoreServices,
+    StockServices
   },
 })
 export default class IndexPageComponent extends Vue {
