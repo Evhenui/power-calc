@@ -2,10 +2,7 @@
   <section class="promt">
     <div class="promt__wrapper">
       <SvgIcon class="promt__image" :icon="icons['warning']" />
-      <span class="promt__title"
-        >Дополнительные работы и оборудование оговариваются и оплачиваются
-        отдельно!</span
-      >
+      <span class="promt__title">Дополнительные работы и оборудование оговариваются и оплачиваются отдельно!</span>
     </div>
   </section>
 </template>

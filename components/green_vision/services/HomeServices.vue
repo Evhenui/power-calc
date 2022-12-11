@@ -111,6 +111,12 @@
       </BasicSet>
 
       <Location class="home-services__location">
+        <template v-slot:subtitle>
+          Технические специалисты и монтажники оборудования GreenVision составят
+          схему расположения камер исходя из конкретных целей и задач, которые
+          должно решить видеонаблюдение. Мы поставляем качественное оборудование
+          различных ценовых категорий (эконом, стандарт, премиум).
+        </template>
         <template v-slot:cards>
           <CardLocation class="home-services__location-card">
             <template v-slot:image>

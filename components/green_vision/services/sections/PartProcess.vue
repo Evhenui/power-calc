@@ -8,21 +8,25 @@
                 <template v-slot:title>заявка</template>
                 <template v-slot:subtitle>подача заявки на установку видеонаблюдения</template>
             </CardPartInstall>
+
             <CardPartInstall class="part-process__card">
                 <template v-slot:number>2</template>
                 <template v-slot:title>замер</template>
                 <template v-slot:subtitle>выезд нашего специалиста на объект</template>
             </CardPartInstall>
+
             <CardPartInstall class="part-process__card">
                 <template v-slot:number>3</template>
                 <template v-slot:title>Расчет стоимости</template>
                 <template v-slot:subtitle>составление проекта и сметы на установку видеонаблюдения</template>
             </CardPartInstall>
+
             <CardPartInstall class="part-process__card">
                 <template v-slot:number>4</template>
                 <template v-slot:title>Установка</template>
                 <template v-slot:subtitle>доставка, монтаж и настройка оборудования</template>
             </CardPartInstall>
+            
             <CardPartInstall class="part-process__card">
                 <template v-slot:number>5</template>
                 <template v-slot:title>Прием работы</template>
