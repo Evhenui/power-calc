@@ -146,6 +146,7 @@
       </Location>
 
       <ServicePrice class="home-services__service-price">
+        <template v-slot:title>Что входит в услугу установки типового комплекта видеонаблюдения для дома?</template>
         <template v-slot:price>27 000 грн</template>
         <template v-slot:item>
           <CheckItem class="home-services__price-item"

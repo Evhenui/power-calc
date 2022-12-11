@@ -22,11 +22,7 @@
   </script>
   
   <style lang="scss" scoped>
-  .card-location {
-    --gap: 96px;
-  
-    @include set-item-count-in-row(3);
-  
+  .card-location {  
     @include bigMobile { 
       box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
       border-radius: 8px;
@@ -35,7 +31,7 @@
     &__wrapper {
       min-height: 100%;
       
-      @include flex-container(row, center, center);
+      @include flex-container(row, flex-start, center);
   
       gap: 24px;
   
@@ -56,7 +52,7 @@
     }
 
     &__items {
-      @include flex-container(column, center, center);
+      @include flex-container(column, flex-start, flex-start);
   
       gap: 24px;
     }

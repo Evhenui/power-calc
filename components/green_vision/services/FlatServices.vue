@@ -118,7 +118,7 @@
         </template>
       </BasicSet>
 
-      <Location class="home-services__location">
+      <LocationRow class="home-services__location">
         <template v-slot:cards>
           <CardLocationRow class="home-services__location-card">
             <template v-slot:image>
@@ -145,75 +145,45 @@
           оптимальное решение для установки видеонаблюдения, исходя из целей, которые оно должно выполнять. Мы поставляем только 
           проверенное (качественное) оборудование, рассчитанное на любой бюджет (от эконом до премиум класса). 
         </template>
-      </Location>
+      </LocationRow>
 
       <ServicePrice class="home-services__service-price">
-        <template v-slot:price>27 000 грн</template>
+        <template v-slot:title>Что входит в услугу установки типового комплекта видеонаблюдения для квартиры?</template>
+        <template v-slot:price>7 500грн</template>
         <template v-slot:item>
-          <CheckItem class="home-services__price-item"
-            >Комплект видеонаблюдения FullHD разрешения, камеры для наружной и
-            внутренней установки с инфракрасной подсветкой до 20 метров
+          <CheckItem class="home-services__price-item">Комплект видеонаблюдения FullHD разрешения, камеры для 
+            наружной и внутренней установки с инфракрасной подсветкой до 20 метров 
           </CheckItem>
-          <CheckItem class="home-services__price-item"
-            >Видеорегистратор без накопителя</CheckItem
-          >
-          <CheckItem class="home-services__price-item"
-            >Установка цветного видеодомофона и электромеханического
-            замка</CheckItem
-          >
+          <CheckItem class="home-services__price-item">Видеорегистратор без накопителя</CheckItem>
+
         </template>
         <template v-slot:image>
-          <img src="@/assets/img/home-card.png" alt="home" />
+          <img src="@/assets/img/flat-stock-card.png" alt="flat" />
         </template>
       </ServicePrice>
 
       <Offers class="home-services__offers">
-        <template v-slot:title>Работы по установке:</template>
+        <template v-slot:title>Видеорегистратор без накопителя</template>
         <template v-slot:item>
           <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item"
-              >Установка 8 камер на высоте не более 3 метров (с коробками)
+            <CheckItem class="home-services__offer-item">Установка 2 камер на высоте не более 3 метров (без коробок)</CheckItem>
+            <CheckItem class="home-services__offer-item">
+              Сверление не более 2 отверстий до 20 сантиметров для прокладки в них кабеля по необходимости
             </CheckItem>
-            <CheckItem class="home-services__offer-item"
-              >Прокладка кабеля открытым способом не более 18 метров до камеры
-              (крепление стяжки; клипсы;под армрстронгом, без сверления
-              отверстий для фиксации кабельной трассы) на высоте до 3 метров
+            <CheckItem class="home-services__offer-item">
+              Подключение видеорегистратора и камер к сети (2 свободные розетки, или удлинитель заказчика)
             </CheckItem>
-            <CheckItem class="home-services__offer-item"
-              >Сверление не более 4 отверстий до 20 сантиметров для прокладки в
-              них кабеля по необходимости</CheckItem
-            >
           </div>
           <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item"
-              >Подключение видеорегистратора и камер к сети (3 свободные
-              розетки, или удлинитель заказчика)</CheckItem
-            >
-            <CheckItem class="home-services__offer-item"
-              >Подключение видеорегистратора к телевизору заказчика на
-              расстоянии 1.5 метра
+            <CheckItem class="home-services__offer-item">
+              Подключение видеорегистратора к телевизору заказчика на расстоянии 1.5 метра
+              </CheckItem>
+            <CheckItem class="home-services__offer-item">
+              Прокладка кабеля открытым способом не более 18 метров до камеры (крепление стяжки;
+              клипсы; под армрстронгом, без сверления отверстий для фиксации кабельной трассы )
+              на высоте до 3 метров
             </CheckItem>
-            <CheckItem class="home-services__offer-item"
-              >Установка СКУД</CheckItem
-            >
           </div>
-        </template>
-      </Offers>
-
-      <Offers class="home-services__offers">
-        <template v-slot:title
-          >Подключение и настройка удаленного доступа:</template
-        >
-        <template v-slot:item>
-          <CheckItem class="home-services__offer-item"
-            >Настройка удаленного просмотра на 2 устройствах через протокол Р2Р
-            все изменения и дополнительные работы и оборудование оговаривается и
-            оплачивается отдельно!</CheckItem
-          >
-          <CheckItem class="home-services__offer-item"
-            >Подключение видеорегистратора к роутеру заказчика в свободный порт,
-            длинна кабеля не более 5 метров.
-          </CheckItem>
         </template>
       </Offers>
 
@@ -221,7 +191,7 @@
 
       <SchemeLocation class="home-services__scheme">
         <template v-slot:scheme>
-          <img src="@/assets/img/scheme-home.png" alt="scheme home" />
+          <img src="@/assets/img/scheme-flat.png" alt="scheme home" />
         </template>
       </SchemeLocation>
 
@@ -239,8 +209,7 @@ import CardCapabilitiesColumn from "./UI/CardCapabilitiesColumn.vue";
 import InstallerBunner from "./sections/InstallerBunner.vue";
 import BasicSet from "./sections/BasicSet.vue";
 import CardBasicSet from "./UI/CardBasicSet.vue";
-import Location from "./sections/Location.vue";
-import CardLocation from "./UI/CardLocation.vue";
+import LocationRow from "./sections/LocationRow.vue";
 import ServicePrice from "./sections/ServicePrice.vue";
 import CheckItem from "./UI/CheckItem.vue"
 import Offers from "./sections/Offers.vue";
@@ -258,8 +227,7 @@ import CardLocationRow from "./UI/CardLocationRow.vue";
     InstallerBunner,
     BasicSet,
     CardBasicSet,
-    Location,
-    CardLocation,
+    LocationRow,
     ServicePrice,
     CheckItem,
     Offers,
@@ -362,14 +330,13 @@ export default class FlatServicesComponent extends Vue {}
   }
 
   &__location-card {
+    --gap: 96px;
+  
+    @include set-item-count-in-row(2);
+
     @include bigMobile {
       @include set-item-count-in-row(1);
     }
-  }
-
-  &__price-item {
-    max-width: 434px;
-    width: 100%;
   }
 
   &__set-card {
