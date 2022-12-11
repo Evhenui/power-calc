@@ -27,10 +27,6 @@ export default class CardBasicSetComponent extends Vue {}
 
 <style lang="scss" scoped>
 .card-set {
-    --gap: 16px;
-
-    @include set-item-count-in-row(3);
-
     background-color: white;
 
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);

@@ -11,8 +11,8 @@
      <!--  <OrderDone/> -->
      <!-- <Catalog/> -->
      <!-- <Services /> -->
-     <HomeServices />
-     <!-- <FlatServices /> -->
+     <!-- <HomeServices /> -->
+     <FlatServices />
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->

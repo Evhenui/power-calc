@@ -51,6 +51,7 @@
       </DescriptionSection>
 
       <BasicSet class="home-services__set">
+        <template v-slot:title>Пример базового комплекта оборудования для системы видеонаблюдения в частном доме</template>
         <template v-slot:cards>
           <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х8</template>
@@ -358,6 +359,10 @@ export default class HomeServicesComponent extends Vue {}
   }
 
   &__set-card {
+    --gap: 16px;
+
+    @include set-item-count-in-row(3);
+    
     @include bigMobile {
       @include set-item-count-in-row(1);
     }
