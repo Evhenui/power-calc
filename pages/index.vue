@@ -12,7 +12,8 @@
      <!-- <Catalog/> -->
      <!-- <Services /> -->
      <!-- <HomeServices /> -->
-     <FlatServices />
+     <!-- <FlatServices /> -->
+     <OfficeServices />
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -36,6 +37,7 @@ import Catalog from "~/components/catalog/Catalog.vue";
 import Services from "~/components/green_vision/services/Services.vue"
 import HomeServices from "~/components/green_vision/services/HomeServices.vue";
 import FlatServices from "~/components/green_vision/services/FlatServices.vue";
+import OfficeServices from "~/components/green_vision/services/OfficeServices.vue";
 
 @Component({
   components: {
@@ -52,7 +54,8 @@ import FlatServices from "~/components/green_vision/services/FlatServices.vue";
     Catalog,
     Services,
     HomeServices,
-    FlatServices
+    FlatServices,
+    OfficeServices
   },
 })
 export default class IndexPageComponent extends Vue {

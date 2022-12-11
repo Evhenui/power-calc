@@ -54,6 +54,12 @@ export default class LocationComponent extends Vue {}
     }
   }
 
+  &__name {
+    @include fontUnify(20, 28, 400);
+    letter-spacing: 0.02em;
+    color: black;
+  }
+
   &__subtitle {
     max-width: 1197px;
     width: 100%;
