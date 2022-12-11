@@ -128,9 +128,9 @@
         <ServicePrice class="home-services__service-price">
           <template v-slot:price>27 000 грн</template>
           <template v-slot:item>
-            <PriceItem class="home-services__price-item">Комплект видеонаблюдения FullHD разрешения, камеры для наружной и внутренней установки с инфракрасной подсветкой до 20 метров </PriceItem>
-            <PriceItem class="home-services__price-item">Видеорегистратор без накопителя</PriceItem>
-            <PriceItem class="home-services__price-item">Установка цветного видеодомофона и электромеханического замка</PriceItem>
+            <CheckItem class="home-services__price-item">Комплект видеонаблюдения FullHD разрешения, камеры для наружной и внутренней установки с инфракрасной подсветкой до 20 метров </CheckItem>
+            <CheckItem class="home-services__price-item">Видеорегистратор без накопителя</CheckItem>
+            <CheckItem class="home-services__price-item">Установка цветного видеодомофона и электромеханического замка</CheckItem>
           </template>
           <template v-slot:image>
             <img src="@/assets/img/home-card.png" alt="home">
@@ -141,14 +141,14 @@
           <template v-slot:title>Работы по установке:</template>
           <template v-slot:item>
             <div class="home-services__offer-section">
-              <PriceItem class="home-services__offer-item">Установка 8 камер на высоте не более 3 метров (с коробками) </PriceItem>
-              <PriceItem class="home-services__offer-item">Прокладка кабеля открытым способом не более 18 метров до камеры (крепление стяжки; клипсы;под армрстронгом, без сверления отверстий для фиксации кабельной трассы) на высоте до 3 метров </PriceItem>
-              <PriceItem class="home-services__offer-item">Сверление не более 4 отверстий до 20 сантиметров для прокладки в них кабеля по необходимости</PriceItem>
+              <CheckItem class="home-services__offer-item">Установка 8 камер на высоте не более 3 метров (с коробками) </CheckItem>
+              <CheckItem class="home-services__offer-item">Прокладка кабеля открытым способом не более 18 метров до камеры (крепление стяжки; клипсы;под армрстронгом, без сверления отверстий для фиксации кабельной трассы) на высоте до 3 метров </CheckItem>
+              <CheckItem class="home-services__offer-item">Сверление не более 4 отверстий до 20 сантиметров для прокладки в них кабеля по необходимости</CheckItem>
             </div>
             <div class="home-services__offer-section">
-              <PriceItem class="home-services__offer-item">Подключение видеорегистратора и камер к сети (3 свободные розетки, или удлинитель заказчика)</PriceItem>
-              <PriceItem class="home-services__offer-item">Подключение видеорегистратора к телевизору заказчика на расстоянии 1.5 метра </PriceItem>
-              <PriceItem class="home-services__offer-item">Установка СКУД</PriceItem>
+              <CheckItem class="home-services__offer-item">Подключение видеорегистратора и камер к сети (3 свободные розетки, или удлинитель заказчика)</CheckItem>
+              <CheckItem class="home-services__offer-item">Подключение видеорегистратора к телевизору заказчика на расстоянии 1.5 метра </CheckItem>
+              <CheckItem class="home-services__offer-item">Установка СКУД</CheckItem>
             </div>
           </template>
         </Offers>
@@ -156,8 +156,8 @@
         <Offers class="home-services__offers">
           <template v-slot:title>Подключение и настройка удаленного доступа:</template>
           <template v-slot:item>
-            <PriceItem class="home-services__offer-item">Настройка удаленного просмотра на 2 устройствах через протокол Р2Р все изменения и дополнительные работы и оборудование оговаривается и оплачивается отдельно!</PriceItem>
-            <PriceItem class="home-services__offer-item">Подключение видеорегистратора к роутеру заказчика в свободный порт, длинна кабеля не более 5 метров. </PriceItem>
+            <CheckItem class="home-services__offer-item">Настройка удаленного просмотра на 2 устройствах через протокол Р2Р все изменения и дополнительные работы и оборудование оговаривается и оплачивается отдельно!</CheckItem>
+            <CheckItem class="home-services__offer-item">Подключение видеорегистратора к роутеру заказчика в свободный порт, длинна кабеля не более 5 метров. </CheckItem>
           </template>
         </Offers>
   
@@ -186,7 +186,7 @@
   import Location from "./sections/Location.vue";
   import CardLocation from "./UI/CardLocation.vue";
   import ServicePrice from "./sections/ServicePrice.vue"
-  import PriceItem from "./UI/PriceItem.vue";
+  import CheckItem from "./UI/CheckItem.vue";
   import Offers from "./sections/Offers.vue"
   import Promt from "./sections/Promt.vue"
   import SchemeLocation from "./sections/SchemeLocation.vue"
@@ -204,7 +204,7 @@
       Location,
       CardLocation,
       ServicePrice,
-      PriceItem,
+      CheckItem,
       Offers,
       Promt,
       SchemeLocation,

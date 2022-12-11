@@ -45,8 +45,8 @@
       <DescriptionSection class="home-services__description">
         <p class="home-services__description-text">
           По статистике, установка камер видеонаблюдения в частных домах снижает
-          риск совершение краж на 70%, а в случае, если это произошло, возможность
-          опознать и найти грабителей увеличивается на 60%.
+          риск совершение краж на 70%, а в случае, если это произошло,
+          возможность опознать и найти грабителей увеличивается на 60%.
         </p>
       </DescriptionSection>
 
@@ -101,10 +101,11 @@
         </template>
         <template v-slot:description>
           <p class="home-services__description-text slim">
-            Базовый перечень оборудования решает основные проблемы видеоконтроля в частном доме. 
-            Наши специалисты готовы предложить схему подключения системы видеонаблюдения исходя 
-            из особенностей Вашего объекта. Соответственно, список необходимого Вам оборудования 
-            и его стоимость может измениться. 
+            Базовый перечень оборудования решает основные проблемы видеоконтроля
+            в частном доме. Наши специалисты готовы предложить схему подключения
+            системы видеонаблюдения исходя из особенностей Вашего объекта.
+            Соответственно, список необходимого Вам оборудования и его стоимость
+            может измениться.
           </p>
         </template>
       </BasicSet>
@@ -140,16 +141,16 @@
       <ServicePrice class="home-services__service-price">
         <template v-slot:price>27 000 грн</template>
         <template v-slot:item>
-          <PriceItem class="home-services__price-item"
+          <CheckItem class="home-services__price-item"
             >Комплект видеонаблюдения FullHD разрешения, камеры для наружной и
             внутренней установки с инфракрасной подсветкой до 20 метров
-          </PriceItem>
-          <PriceItem class="home-services__price-item"
-            >Видеорегистратор без накопителя</PriceItem
+          </CheckItem>
+          <CheckItem class="home-services__price-item"
+            >Видеорегистратор без накопителя</CheckItem
           >
-          <PriceItem class="home-services__price-item"
+          <CheckItem class="home-services__price-item"
             >Установка цветного видеодомофона и электромеханического
-            замка</PriceItem
+            замка</CheckItem
           >
         </template>
         <template v-slot:image>
@@ -161,30 +162,30 @@
         <template v-slot:title>Работы по установке:</template>
         <template v-slot:item>
           <div class="home-services__offer-section">
-            <PriceItem class="home-services__offer-item"
+            <CheckItem class="home-services__offer-item"
               >Установка 8 камер на высоте не более 3 метров (с коробками)
-            </PriceItem>
-            <PriceItem class="home-services__offer-item"
+            </CheckItem>
+            <CheckItem class="home-services__offer-item"
               >Прокладка кабеля открытым способом не более 18 метров до камеры
               (крепление стяжки; клипсы;под армрстронгом, без сверления
               отверстий для фиксации кабельной трассы) на высоте до 3 метров
-            </PriceItem>
-            <PriceItem class="home-services__offer-item"
+            </CheckItem>
+            <CheckItem class="home-services__offer-item"
               >Сверление не более 4 отверстий до 20 сантиметров для прокладки в
-              них кабеля по необходимости</PriceItem
+              них кабеля по необходимости</CheckItem
             >
           </div>
           <div class="home-services__offer-section">
-            <PriceItem class="home-services__offer-item"
+            <CheckItem class="home-services__offer-item"
               >Подключение видеорегистратора и камер к сети (3 свободные
-              розетки, или удлинитель заказчика)</PriceItem
+              розетки, или удлинитель заказчика)</CheckItem
             >
-            <PriceItem class="home-services__offer-item"
+            <CheckItem class="home-services__offer-item"
               >Подключение видеорегистратора к телевизору заказчика на
               расстоянии 1.5 метра
-            </PriceItem>
-            <PriceItem class="home-services__offer-item"
-              >Установка СКУД</PriceItem
+            </CheckItem>
+            <CheckItem class="home-services__offer-item"
+              >Установка СКУД</CheckItem
             >
           </div>
         </template>
@@ -195,15 +196,15 @@
           >Подключение и настройка удаленного доступа:</template
         >
         <template v-slot:item>
-          <PriceItem class="home-services__offer-item"
+          <CheckItem class="home-services__offer-item"
             >Настройка удаленного просмотра на 2 устройствах через протокол Р2Р
             все изменения и дополнительные работы и оборудование оговаривается и
-            оплачивается отдельно!</PriceItem
+            оплачивается отдельно!</CheckItem
           >
-          <PriceItem class="home-services__offer-item"
+          <CheckItem class="home-services__offer-item"
             >Подключение видеорегистратора к роутеру заказчика в свободный порт,
             длинна кабеля не более 5 метров.
-          </PriceItem>
+          </CheckItem>
         </template>
       </Offers>
 
@@ -232,11 +233,12 @@ import CardBasicSet from "./UI/CardBasicSet.vue";
 import Location from "./sections/Location.vue";
 import CardLocation from "./UI/CardLocation.vue";
 import ServicePrice from "./sections/ServicePrice.vue";
-import PriceItem from "./UI/PriceItem.vue";
+import CheckItem from "./UI/CheckItem.vue"
 import Offers from "./sections/Offers.vue";
 import Promt from "./sections/Promt.vue";
 import SchemeLocation from "./sections/SchemeLocation.vue";
 import ContactUs from "./sections/ContactUs.vue";
+import CardLocationRow from "./UI/CardLocationRow.vue";
 
 @Component({
   components: {
@@ -250,11 +252,12 @@ import ContactUs from "./sections/ContactUs.vue";
     Location,
     CardLocation,
     ServicePrice,
-    PriceItem,
+    CheckItem,
     Offers,
     Promt,
     SchemeLocation,
     ContactUs,
+    CardLocationRow,
   },
 })
 export default class HomeServicesComponent extends Vue {}
