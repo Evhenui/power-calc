@@ -15,7 +15,8 @@
      <!-- <FlatServices /> -->
      <!-- <OfficeServices /> -->
     <!--  <ScoreServices /> -->
-    <StockServices />
+    <!-- <StockServices /> -->
+    <ShopsServices />
     </main>
     <!-- <Footer /> -->
     <!-- <PopUpCart/> -->
@@ -42,6 +43,7 @@ import FlatServices from "~/components/green_vision/services/FlatServices.vue";
 import OfficeServices from "~/components/green_vision/services/OfficeServices.vue";
 import ScoreServices from "~/components/green_vision/services/ScoreServices.vue"
 import StockServices from "~/components/green_vision/services/StockServices.vue"
+import ShopsServices from "~/components/green_vision/services/ShopsServices.vue"
 
 @Component({
   components: {
@@ -61,7 +63,8 @@ import StockServices from "~/components/green_vision/services/StockServices.vue"
     FlatServices,
     OfficeServices,
     ScoreServices,
-    StockServices
+    StockServices,
+    ShopsServices
   },
 })
 export default class IndexPageComponent extends Vue {
