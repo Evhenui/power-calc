@@ -1,13 +1,13 @@
 <template>
   <section class="home-services">
     <div class="home-services__wrapper">
-      <DescriptionSection class="home-services__description"
-        >Системы видеонаблюдения решают множество задач, связанных с
+      <DescriptionSection class="home-services__description">
+        Системы видеонаблюдения решают множество задач, связанных с
         обеспечением безопасности в частном доме. Не важно, большой или
         маленький у Вас дом и участок земли, расположен он в городе или за
         городом, живете Вы там постоянно или бываете наездами, позаботьтесь о
-        безопасности своего имущества.</DescriptionSection
-      >
+        безопасности своего имущества.
+        </DescriptionSection>
 
       <Capabilities class="home-services__capabilities">
         <template v-slot:title>Система безопасности позволяет:</template>
@@ -211,17 +211,12 @@ import ContactUs from "./sections/ContactUs.vue"
     ContactUs
   },
 })
-export default class HomeServicesComponent extends Vue {
-
-}
+export default class HomeServicesComponent extends Vue {}
 </script>
 
 <style lang="scss" scoped>
 .home-services {
   background-color: white;
-
-  &__wrapper {
-  }
 
   &__description,
   &__capabilities,

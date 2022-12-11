@@ -2,8 +2,7 @@
   <section class="service-price">
     <div class="service-price__wrapper">
       <h1 class="service-price__title">
-        Что входит в услугу установки типового комплекта видеонаблюдения для
-        квартиры?
+        <slot name="title"></slot>
       </h1>
       <p class="service-price__price">
         <slot name="price"></slot>

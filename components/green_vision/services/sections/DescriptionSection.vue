@@ -17,8 +17,6 @@
     
   <style lang="scss" scoped>
   .header {
-    
-  
     margin-bottom: 64px;
 
     @include bigMobile {
