@@ -1,9 +1,7 @@
 <template>
     <div class="header">
       <div class="header__wrapper">
-        <p class="header__main-description">
           <slot></slot>
-        </p>
       </div>
     </div>
   </template>
@@ -33,22 +31,6 @@
 
       @include bigMobile {
         padding: 16px;
-      }
-    }
-  
-    &__main-description {
-      max-width: 1200px;
-      width: 100%;
-  
-      @include fontUnify(16, 22, 400);
-      text-align: center;
-      letter-spacing: 0.02em;
-      color: #1F1F1F;
-  
-      margin: 0 auto;
-
-      @include bigMobile {
-        text-align: left;
       }
     }
   }
