@@ -16,9 +16,9 @@
         <template v-slot:card>
           <CardCapabilities class="home-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="../../../assets/img/home-capabilities.svg"
-                alt="view teritory"
+              <SvgIcon
+                class="home-services__image-capabilities"
+                :icon="icons['home-capabilities']"
               />
             </template>
             <template v-slot:subtitle
@@ -28,9 +28,9 @@
 
           <CardCapabilities class="home-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="../../../assets/img/lock-capabilities.svg"
-                alt="view teritory"
+              <SvgIcon
+                class="home-services__image-capabilities"
+                :icon="icons['lock-capabilities']"
               />
             </template>
             <template v-slot:subtitle
@@ -51,7 +51,10 @@
       </DescriptionSection>
 
       <BasicSet class="home-services__set">
-        <template v-slot:title>Пример базового комплекта оборудования для системы видеонаблюдения в частном доме</template>
+        <template v-slot:title
+          >Пример базового комплекта оборудования для системы видеонаблюдения в
+          частном доме</template
+        >
         <template v-slot:cards>
           <CardBasicSet class="home-services__set-card">
             <template v-slot:amount>х8</template>
@@ -121,9 +124,9 @@
         <template v-slot:cards>
           <CardLocation class="home-services__location-card">
             <template v-slot:image>
-              <img
-                src="@/assets/icons/home-teritory-location.svg"
-                alt="home teritory"
+              <SvgIcon
+                class="home-services__image-location"
+                :icon="icons['home-teritory-location']"
               />
             </template>
             <template v-slot:subtitle>Придомовая территория</template>
@@ -131,14 +134,20 @@
 
           <CardLocation class="home-services__location-card">
             <template v-slot:image>
-              <img src="@/assets/icons/garage-location.svg" alt="garage" />
+              <SvgIcon
+                class="home-services__image-location"
+                :icon="icons['garage-location']"
+              />
             </template>
             <template v-slot:subtitle>Гараж</template>
           </CardLocation>
 
           <CardLocation class="home-services__location-card">
             <template v-slot:image>
-              <img src="@/assets/icons/road-location.svg" alt="road" />
+              <SvgIcon
+                class="home-services__image-location"
+                :icon="icons['road-location']"
+              />
             </template>
             <template v-slot:subtitle>Обзор на улицу</template>
           </CardLocation>
@@ -146,7 +155,10 @@
       </Location>
 
       <ServicePrice class="home-services__service-price">
-        <template v-slot:title>Что входит в услугу установки типового комплекта видеонаблюдения для дома?</template>
+        <template v-slot:title
+          >Что входит в услугу установки типового комплекта видеонаблюдения для
+          дома?</template
+        >
         <template v-slot:price>27 000 грн</template>
         <template v-slot:item>
           <CheckItem class="home-services__price-item"
@@ -241,7 +253,7 @@ import CardBasicSet from "./UI/CardBasicSet.vue";
 import Location from "./sections/Location.vue";
 import CardLocation from "./UI/CardLocation.vue";
 import ServicePrice from "./sections/ServicePrice.vue";
-import CheckItem from "./UI/CheckItem.vue"
+import CheckItem from "./UI/CheckItem.vue";
 import Offers from "./sections/Offers.vue";
 import Promt from "./sections/Promt.vue";
 import SchemeLocation from "./sections/SchemeLocation.vue";
@@ -322,6 +334,17 @@ export default class HomeServicesComponent extends Vue {}
     }
   }
 
+  &__image-capabilities {
+    width: 115px;
+    height: 115px;
+    color: #159822;
+
+    @include bigMobile {
+      width: 95px;
+      height: 95px;
+    }
+  }
+
   &__capabilities-card {
     --gap: 16px;
 
@@ -348,6 +371,18 @@ export default class HomeServicesComponent extends Vue {}
     }
   }
 
+  &__image-location {
+    width: 135px;
+    height: 135px;
+
+    color: #159822;
+
+    @include bigMobile {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
   &__location-card {
     @include bigMobile {
       @include set-item-count-in-row(1);
@@ -363,7 +398,7 @@ export default class HomeServicesComponent extends Vue {}
     --gap: 16px;
 
     @include set-item-count-in-row(3);
-    
+
     @include bigMobile {
       @include set-item-count-in-row(1);
     }

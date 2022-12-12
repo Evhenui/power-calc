@@ -18,25 +18,25 @@ export default class SchemeLocationComponent extends Vue {}
 
 <style lang="scss" scoped>
 .scheme {
-    @include flex-container(column, center, center);
+  @include flex-container(column, center, center);
 
-    gap: 64px;
+  gap: 64px;
+
+  @include bigMobile {
+    gap: 16px;
+  }
+
+  &__title {
+    @include fontUnify(25, 35, 700);
+    letter-spacing: 0.02em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #1f1f1f;
 
     @include bigMobile {
-      gap: 16px;
+      @include fontUnify(16, 19, 700);
     }
-
-    &__title {
-        @include fontUnify(25, 35, 700);
-        letter-spacing: 0.02em;
-        text-align: center;
-        text-transform: uppercase;
-        color: #1F1F1F;
-
-        @include bigMobile {
-          @include fontUnify(16, 19, 700);
-        }
-    }
+  }
 }
 </style>
         

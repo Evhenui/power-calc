@@ -1,9 +1,9 @@
 <template>
   <div class="card-location">
     <div class="card-location__wrapper">
-        <div class="card-location__image">
-            <slot name="image"></slot>
-        </div>
+      <div class="card-location__image">
+        <slot name="image"></slot>
+      </div>
       <p class="card-location__subtitle">
         <slot name="subtitle"></slot>
       </p>
@@ -26,7 +26,7 @@ export default class CardLocationComponent extends Vue {}
 
   @include set-item-count-in-row(3);
 
-  @include bigMobile { 
+  @include bigMobile {
     box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
   }
@@ -36,7 +36,7 @@ export default class CardLocationComponent extends Vue {}
 
     gap: 24px;
 
-    @include bigMobile { 
+    @include bigMobile {
       @include flex-container(row, flex-start, center);
 
       padding: 16px 8px;
@@ -47,7 +47,7 @@ export default class CardLocationComponent extends Vue {}
   &__image {
     flex: 1 1 auto;
 
-    @include bigMobile { 
+    @include bigMobile {
       flex: none;
     }
   }

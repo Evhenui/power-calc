@@ -109,7 +109,7 @@ export default class ContactUsComponent extends Vue {}
     width: 100%;
 
     @include bigMobile {
-      max-width: 100%
+      max-width: 100%;
     }
   }
 

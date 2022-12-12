@@ -1,67 +1,66 @@
 <template>
-    <section class="basic-set">
-        <h1 class="basic-set__title">
-            <slot name="title"></slot>
-        </h1>
-        <div class="basic-set__cards">
-            <slot name="cards"></slot>
-        </div>
-        <DescriptionSection class="basic-set__description">
-            <slot name="description"></slot>
-        </DescriptionSection>
-    </section>
+  <section class="basic-set">
+    <h1 class="basic-set__title">
+      <slot name="title"></slot>
+    </h1>
+    <div class="basic-set__cards">
+      <slot name="cards"></slot>
+    </div>
+    <DescriptionSection class="basic-set__description">
+      <slot name="description"></slot>
+    </DescriptionSection>
+  </section>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "~/tools/version-types";
-import DescriptionSection from "./DescriptionSection.vue"
+import { Component, Vue } from "~/tools/version-types";
+import DescriptionSection from "./DescriptionSection.vue";
 
 @Component({
-    components: {
-        DescriptionSection
-    },
+  components: {
+    DescriptionSection,
+  },
 })
-export default class BasicSetComponent extends Vue {
-}
+export default class BasicSetComponent extends Vue {}
 </script>
 
 <style lang="scss" scoped>
 .basic-set {
-    @include flex-container(column, center, center);
+  @include flex-container(column, center, center);
 
-    gap: 24px;
+  gap: 24px;
 
-    &__title {
-        max-width: 994px;
-        width: 100%;
+  &__title {
+    max-width: 994px;
+    width: 100%;
 
-        @include fontUnify(25, 35, 700);
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-        text-align: center;
-        color: #1F1F1F;
+    @include fontUnify(25, 35, 700);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #1f1f1f;
 
-        @include bigMobile {
-            @include fontUnify(18, 22, 600);
-        }
+    @include bigMobile {
+      @include fontUnify(18, 22, 600);
     }
+  }
 
-    &__cards {
-        @include flex-container(row, flex-start);
-        flex-wrap: wrap;
+  &__cards {
+    @include flex-container(row, flex-start);
+    flex-wrap: wrap;
 
-        gap: 32px 16px;
+    gap: 32px 16px;
 
-        @include bigMobile {
-            gap: 16px;
-        }
+    @include bigMobile {
+      gap: 16px;
     }
+  }
 
-    &__description {
-        width: 100%;
+  &__description {
+    width: 100%;
 
-        margin: 0;
-    }
+    margin: 0;
+  }
 }
 </style>
   

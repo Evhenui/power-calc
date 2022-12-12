@@ -1,8 +1,8 @@
 <template>
   <div class="input">
     <div class="input__wrapper">
-      <input class="input__data-input"/>
-   <!--    <span class="input__units">
+      <input class="input__data-input" />
+      <!--    <span class="input__units">
         <slot></slot>
       </span>
       <div class="input__input-error">
@@ -22,21 +22,20 @@ export default class InputServicesComponent extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-    .input {
-        &__wrapper {
+.input {
+  &__wrapper {
+  }
 
-        }
+  &__data-input {
+    width: 100%;
 
-        &__data-input {
-            width: 100%;
-            
-            background-color: white;
+    background-color: white;
 
-            border: 1px solid #E3E5E6;
-            border-radius: 8px;
+    border: 1px solid #e3e5e6;
+    border-radius: 8px;
 
-            padding: 16px;
-        }
-    }
+    padding: 16px;
+  }
+}
 </style>
   

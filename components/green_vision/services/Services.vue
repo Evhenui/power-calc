@@ -1,18 +1,16 @@
 <template>
   <section class="services">
     <div class="services__wrapper">
-      <div class="services__header">
-        <DescriptionSection>
-          <p class="services__description">
-            Современные системы видеонаблюдения повсеместно используются, не
-            только в качестве элемента системы охраны жилых и производственных
-            объектов, но и как эффективный инструмент контроля персонала и
-            ведения бизнеса. GreenVision – это украинский бренд. За более 6-ти
-            лет работы на рынке наша компания заслужила репутацию надежного
-            поставщика оборудования и комплектующих для систем видеонаблюдения.
-          </p>
-        </DescriptionSection>
-      </div>
+      <DescriptionSection class="services__description">
+        <p class="services__subtitle">
+          Современные системы видеонаблюдения повсеместно используются, не
+          только в качестве элемента системы охраны жилых и производственных
+          объектов, но и как эффективный инструмент контроля персонала и ведения
+          бизнеса. GreenVision – это украинский бренд. За более 6-ти лет работы
+          на рынке наша компания заслужила репутацию надежного поставщика
+          оборудования и комплектующих для систем видеонаблюдения.
+        </p>
+      </DescriptionSection>
       <ServicesOffers class="services__offers" />
       <PartProcess class="services__process" />
       <OurProject class="services__our-project" />
@@ -113,45 +111,32 @@ export default class ServicesComponent extends Vue {
     padding-bottom: 136px;
   }
 
-  &__header {
+  &__description,
+  &__offers,
+  &__our-project {
     @extend %width-main;
 
-    margin: 0 auto 125px auto;
+    margin: 0 auto 64px auto;
     @extend %padding-wrp;
 
     @include bigMobile {
-      margin: 0 auto 84px auto;
+      margin: 0 auto 32px auto;
     }
   }
 
-  &__description {
+  &__subtitle {
     max-width: 1200px;
     width: 100%;
 
     @include fontUnify(16, 22, 400);
     text-align: center;
     letter-spacing: 0.02em;
-    color: #1F1F1F;
+    color: #1f1f1f;
 
     margin: 0 auto;
 
     @include bigMobile {
-        text-align: left;
-    }
-  }
-
-  &__offers {
-    @extend %width-main;
-
-    margin: 0 auto;
-    @extend %padding-wrp;
-  }
-
-  &__offers {
-    margin-bottom: 64px;
-
-    @include bigMobile {
-      margin-bottom: 32px;
+      text-align: left;
     }
   }
 
@@ -161,13 +146,6 @@ export default class ServicesComponent extends Vue {
     @include bigMobile {
       margin-bottom: 32px;
     }
-  }
-
-  &__our-project {
-    @extend %width-main;
-
-    margin: 0 auto 64px auto;
-    @extend %padding-wrp;
   }
 
   &__pricess {

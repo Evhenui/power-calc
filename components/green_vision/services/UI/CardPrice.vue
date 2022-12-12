@@ -1,139 +1,138 @@
 <template>
-    <div class="card-price">
-        <div class="card-price__wrapper">
-            <div class="card-price__type">
-                <div class="card-price__image-wrapper">
-                    <slot name="image"></slot>
-                </div>
-                <h3 class="card-price__title">
-                    <slot name="title"></slot>
-                </h3>
-            </div>
-            <h1 class="card-price__price">
-                <slot name="price"></slot>
-            </h1>
-            <div class="card-price__serveces">
-                <div 
-                    v-for="(item, index) in values"
-                    :key="index"
-                    class="card-price__serveces-item"
-                >
-                    <SvgIcon class="card-price__checkbox" :icon="icons['check-price']" />
-                    <p class="card-price__check-description">{{item.itemName}}</p>
-                </div>
-            </div>
-            <ButtonDetails />
+  <div class="card-price">
+    <div class="card-price__wrapper">
+      <div class="card-price__type">
+        <div class="card-price__image-wrapper">
+          <slot name="image"></slot>
         </div>
+        <h3 class="card-price__title">
+          <slot name="title"></slot>
+        </h3>
+      </div>
+      <h1 class="card-price__price">
+        <slot name="price"></slot>
+      </h1>
+      <div class="card-price__serveces">
+        <div
+          v-for="(item, index) in values"
+          :key="index"
+          class="card-price__serveces-item"
+        >
+          <SvgIcon class="card-price__checkbox" :icon="icons['check-price']" />
+          <p class="card-price__check-description">{{ item.itemName }}</p>
+        </div>
+      </div>
+      <ButtonDetails />
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "~/tools/version-types";
+import { Component, Vue } from "~/tools/version-types";
 import ButtonDetails from "./ButtonDetails.vue";
 import SvgIcon from "@shared/components/svg/SvgIcon.vue";
 import { Prop } from "vue-property-decorator";
 
 @Component({
-    components: {
-        ButtonDetails,
-        SvgIcon
-    }
+  components: {
+    ButtonDetails,
+    SvgIcon,
+  },
 })
 export default class CardPriceComponent extends Vue {
-    @Prop({required: false}) values: any;
+  @Prop({ required: false }) values: any;
 }
 </script>
 
 <style lang="scss" scoped>
 .card-price {
-    --gap: 16px;
+  --gap: 16px;
 
-    @include set-item-count-in-row(3);
+  @include set-item-count-in-row(3);
 
-    background: white;
+  background: white;
 
-    box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+  box-shadow: 0px 3px 11px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  @include bigMobile {
+    @include set-item-count-in-row(1);
+  }
+
+  &__wrapper {
+    min-height: 100%;
+
+    @include flex-container(column, center, center);
+
+    padding: 32px;
+    gap: 16px;
+  }
+
+  &__type {
+    @include flex-container(row, center, center);
+
+    gap: 16px;
 
     @include bigMobile {
-        @include set-item-count-in-row(1);
+      @include flex-container(column, center, center);
     }
+  }
 
-    &__wrapper {
-        min-height: 100%;
+  &__image-wrapper {
+  }
 
-        @include flex-container(column, center, center);
+  &__title {
+    @include fontUnify(20, 30, 600);
+    text-transform: uppercase;
+    color: black;
 
-        padding: 32px;
-        gap: 16px;
+    @include bigMobile {
+      @include fontUnify(16, 19, 700);
     }
+  }
 
-    &__type {
-        @include flex-container(row, center, center);
+  &__price {
+    @include fontUnify(20, 30, 600);
+    text-transform: uppercase;
+    color: #009b3e;
 
-        gap: 16px;
-
-        @include bigMobile {
-            @include flex-container(column, center, center);
-        }
+    @include bigMobile {
+      @include fontUnify(16, 22, 400);
     }
+  }
 
-    &__image-wrapper {
+  &__serveces {
+    @include flex-container(column, flex-start);
+    flex: 1 1 auto;
+
+    gap: 24px;
+    margin-bottom: 48px;
+
+    @include bigMobile {
+      margin-bottom: 32px;
     }
+  }
 
-    &__title {
-        @include fontUnify(20, 30, 600);
-        text-transform: uppercase;
-        color: black;
+  &__serveces-item {
+    @include flex-container(row, flex-start, center);
 
-        @include bigMobile {
-            @include fontUnify(16, 19, 700);
-        }
-    }
+    gap: 16px;
+  }
 
-    &__price {
-        @include fontUnify(20, 30, 600);
-        text-transform: uppercase;
-        color: #009B3E;
+  &__checkbox {
+    width: 24px;
+    height: 24px;
 
-        @include bigMobile {
-            @include fontUnify(16, 22, 400);
-        }
-    }
+    flex: 0 0 auto;
 
-    &__serveces {
-        @include flex-container(column, flex-start);
-        flex: 1 1 auto;
+    color: #009b3e;
+  }
 
-        gap: 24px;
-        margin-bottom: 48px;
-
-        @include bigMobile {
-            margin-bottom: 32px;
-        }
-    }
-
-    &__serveces-item {
-        @include flex-container(row, flex-start, center);
-
-        gap: 16px;
-    }
-
-    &__checkbox {
-        width: 24px;
-        height: 24px;
-
-        flex: 0 0 auto;
-
-        color: #009B3E;
-    }
-
-    &__check-description {
-        @include fontUnify(16, 22, 400);
-        letter-spacing: 0.02em;
-        color: #1F1F1F;
-    }
+  &__check-description {
+    @include fontUnify(16, 22, 400);
+    letter-spacing: 0.02em;
+    color: #1f1f1f;
+  }
 }
-
 </style>
   

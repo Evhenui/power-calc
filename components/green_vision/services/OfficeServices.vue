@@ -1,55 +1,43 @@
 <template>
-  <section class="home-services">
-    <div class="home-services__wrapper">
-      <DescriptionSection class="home-services__description">
-        <p class="home-services__description-text">
+  <section class="office-services">
+    <div class="office-services__wrapper">
+      <DescriptionSection class="office-services__description">
+        <p class="office-services__description-text">
           Основные задачи видеонаблюдения в офисе - контроль сотрудников
           компании и предотвращение несанкционированного доступа в офисные
           помещения.
         </p>
       </DescriptionSection>
 
-      <Capabilities class="home-services__capabilities">
+      <Capabilities class="office-services__capabilities">
         <template v-slot:title>Система безопасности позволяет:</template>
         <template v-slot:card>
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="office-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="@/assets/img/clock-capabilities.svg"
-                alt="view teritory"
-              />
+              <SvgIcon class="office-services__image-capabilities" :icon="icons['clock-capabilities']" />
             </template>
             <template v-slot:subtitle>Учет рабочего времени персонала</template>
           </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="office-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="@/assets/img/thief-capabilities.svg"
-                alt="view teritory"
-              />
+              <SvgIcon class="office-services__image-capabilities" :icon="icons['thief-capabilities']" />
             </template>
             <template v-slot:subtitle
               >Предотвращение злоупотреблений и краж</template
             >
           </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="office-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="@/assets/img/control-capabilities.svg"
-                alt="view teritory"
-              />
+              <SvgIcon class="office-services__image-capabilities" :icon="icons['control-capabilities']" />
             </template>
             <template v-slot:subtitle>Контроль передвижений по офису</template>
           </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="office-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="@/assets/img/resolving-issues-capabilities.svg"
-                alt="view teritory"
-              />
+              <SvgIcon class="office-services__image-capabilities" :icon="icons['resolving-issues-capabilities']" />
             </template>
             <template v-slot:subtitle
               >Доказательства при решении спорных вопросов</template
@@ -58,10 +46,10 @@
         </template>
       </Capabilities>
 
-      <InstallerBunner class="home-services__bunner" />
+      <InstallerBunner class="office-services__bunner" />
 
-      <DescriptionSection class="home-services__description">
-        <p class="home-services__description-text">
+      <DescriptionSection class="office-services__description">
+        <p class="office-services__description-text">
           Широкий ассортимент профессионального оборудования для систем
           видеонаблюдения и СКУД; составление схемы расстановки и подключения
           оборудования, исходя из индивидуальных особенностей объекта; 100%
@@ -69,14 +57,14 @@
         </p>
       </DescriptionSection>
 
-      <BasicSet class="home-services__set">
+      <BasicSet class="office-services__set">
         <template v-slot:title
           >Пример базового комплекта оборудования для системы видеонаблюдения в
           офисе</template
         >
 
         <template v-slot:cards>
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х4</template>
             <template v-slot:image>
               <img src="@/assets/img/camera-big-set.png" alt="camera" />
@@ -84,7 +72,7 @@
             <template v-slot:name>Купольная IP камера</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х4</template>
             <template v-slot:image>
               <img src="@/assets/img/camera-set.png" alt="camera" />
@@ -92,7 +80,7 @@
             <template v-slot:name>Наружная IP камера</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/dvr-set.png" alt="dvr" />
@@ -100,7 +88,7 @@
             <template v-slot:name>Видеорегистратор</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/switch-set.png" alt="switch" />
@@ -108,7 +96,7 @@
             <template v-slot:name>Коммуникатор сетевой POE</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х8</template>
             <template v-slot:image>
               <img src="@/assets/img/splitter-office-set.png" alt="splitter" />
@@ -116,7 +104,7 @@
             <template v-slot:name>Сплиттер POE 48-12V</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/hdd-set.png" alt="hdd" />
@@ -124,7 +112,7 @@
             <template v-slot:name>Жесткий диск 2ТВ</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/hdmi-set.png" alt="hdmi" />
@@ -132,7 +120,7 @@
             <template v-slot:name>Кабель HDMI 1.5 м</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:amount>х2</template>
             <template v-slot:image>
               <img src="@/assets/img/patch-cord-set.png" alt="patch cord" />
@@ -140,7 +128,7 @@
             <template v-slot:name>Патч-корд</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="office-services__set-card">
             <template v-slot:image>
               <img src="@/assets/img/materials-set.png" alt="materials" />
             </template>
@@ -148,7 +136,7 @@
           </CardBasicSet>
         </template>
         <template v-slot:description>
-          <p class="home-services__description-text slim">
+          <p class="office-services__description-text slim">
             Базовый перечень оборудования решает основные проблемы видеоконтроля
             в офисе. Наши специалисты готовы предложить схему подключения
             системы видеонаблюдения исходя из особенностей Вашего бизнеса.
@@ -158,28 +146,25 @@
         </template>
       </BasicSet>
 
-      <Location class="home-services__location">
+      <Location class="office-services__location">
         <template v-slot:cards>
-          <CardLocation class="home-services__location-card">
+          <CardLocation class="office-services__location-card">
             <template v-slot:image>
-              <img
-                src="@/assets/icons/doors-location.svg"
-                alt="home teritory"
-              />
+              <SvgIcon class="office-services__image-location" :icon="icons['doors-location']" />
             </template>
             <template v-slot:subtitle>Входы в офис</template>
           </CardLocation>
 
-          <CardLocation class="home-services__location-card">
+          <CardLocation class="office-services__location-card">
             <template v-slot:image>
-              <img src="@/assets/icons/corridor-location.svg" alt="garage" />
+              <SvgIcon class="office-services__image-location" :icon="icons['corridor-location']" />
             </template>
             <template v-slot:subtitle>Коридор</template>
           </CardLocation>
 
-          <CardLocation class="home-services__location-card">
+          <CardLocation class="office-services__location-card">
             <template v-slot:image>
-              <img src="@/assets/icons/corners-location.svg" alt="garage" />
+              <SvgIcon class="office-services__image-location" :icon="icons['corners-location']" />
             </template>
             <template v-slot:subtitle>corners-icon</template>
           </CardLocation>
@@ -191,18 +176,18 @@
         </template>
       </Location>
 
-      <ServicePrice class="home-services__service-price">
+      <ServicePrice class="office-services__service-price">
         <template v-slot:title
           >Что входит в услугу установки типового комплекта видеонаблюдения в
           офисе?</template
         >
         <template v-slot:price>63 200 ГРН</template>
         <template v-slot:item>
-          <CheckItem class="home-services__price-item">
+          <CheckItem class="office-services__price-item">
             Комплект видеонаблюдения FullHD разрешения, камеры для наружной и
             внутренней установки с инфракрасной подсветкой до 20 метров
           </CheckItem>
-          <CheckItem class="home-services__price-item"
+          <CheckItem class="office-services__price-item"
             >Видеорегистратор с накопителем объемом 1ТВ</CheckItem
           >
         </template>
@@ -211,69 +196,69 @@
         </template>
       </ServicePrice>
 
-      <Offers class="home-services__offers">
+      <Offers class="office-services__offers">
         <template v-slot:title>Работы по установке:</template>
         <template v-slot:item>
-          <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item"
+          <div class="office-services__offer-section">
+            <CheckItem class="office-services__offer-item"
               >Установка 8 камер на высоте не более 3 метров (с коробками)
             </CheckItem>
-            <CheckItem class="home-services__offer-item">
+            <CheckItem class="office-services__offer-item">
               Прокладка кабеля открытым способом не более 20 метров до камеры
               (крепление стяжки; клипсы; под армрстронгом, без сверления
               отверстий для фиксации кабельной трассы) на высоте до 3 метров
             </CheckItem>
-            <CheckItem class="home-services__offer-item">
+            <CheckItem class="office-services__offer-item">
               Сверление не более 4 отверстий до 20 сантиметров для прокладки в
               них кабеля по необходимости
             </CheckItem>
           </div>
-          <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item">
+          <div class="office-services__offer-section">
+            <CheckItem class="office-services__offer-item">
               Подключение видеорегистратора и камер к сети (3 свободные розетки,
               или удлинитель заказчика)
             </CheckItem>
-            <CheckItem class="home-services__offer-item">
+            <CheckItem class="office-services__offer-item">
               Подключение видеорегистратора к телевизору заказчика на расстоянии
               1.5 метра
             </CheckItem>
-            <CheckItem class="home-services__offer-item">
+            <CheckItem class="office-services__offer-item">
               Подключение и установка Жесткого диска в видеорегистратор
             </CheckItem>
-            <CheckItem class="home-services__offer-item">
+            <CheckItem class="office-services__offer-item">
               Настройка записи камер: постоянно; по движению; по времени
             </CheckItem>
           </div>
         </template>
       </Offers>
 
-      <Offers class="home-services__offers">
+      <Offers class="office-services__offers">
         <template v-slot:title
           >Подключение и настройка удаленного доступа:</template
         >
         <template v-slot:item>
-          <CheckItem class="home-services__offer-item">
+          <CheckItem class="office-services__offer-item">
             Настройка удаленного просмотра на 2 устройствах через протокол Р2Р
             (обучение пользователя, просмотр записей, сохранение записи на usp
             или в память телефона)
           </CheckItem>
 
-          <CheckItem class="home-services__offer-item">
+          <CheckItem class="office-services__offer-item">
             Подключение видеорегистратора к роутеру заказчика в свободный порт,
             длинна кабеля не более 5 метров
           </CheckItem>
         </template>
       </Offers>
 
-      <Promt class="home-services__promt" />
+      <Promt class="office-services__promt" />
 
-      <SchemeLocation class="home-services__scheme">
+      <SchemeLocation class="office-services__scheme">
         <template v-slot:scheme>
           <img src="@/assets/img/scheme-office.png" alt="scheme office" />
         </template>
       </SchemeLocation>
 
-      <ContactUs class="home-services__contacts" />
+      <ContactUs class="office-services__contacts" />
     </div>
   </section>
 </template>
@@ -319,7 +304,7 @@ export default class OfficeServicesComponent extends Vue {}
 </script>
   
   <style lang="scss" scoped>
-.home-services {
+.office-services {
   background-color: white;
 
   &__description,
@@ -382,6 +367,17 @@ export default class OfficeServicesComponent extends Vue {}
     }
   }
 
+  &__image-capabilities {
+    width: 115px;
+    height: 115px;
+    color: #159822;
+
+    @include bigMobile {
+      width: 95px;
+      height: 95px;
+    }
+  }
+
   &__capabilities-card {
     --gap: 16px;
 
@@ -409,6 +405,18 @@ export default class OfficeServicesComponent extends Vue {}
   &__location {
     @include bigMobile {
       margin-bottom: 32px;
+    }
+  }
+
+  &__image-location {
+    width: 135px;
+    height: 135px;
+
+    color: #159822;
+
+    @include bigMobile {
+      width: 70px;
+      height: 70px;
     }
   }
 

@@ -32,7 +32,7 @@ export default class LocationComponent extends Vue {}
 
     margin-bottom: 24px;
 
-    @include bigMobile { 
+    @include bigMobile {
       @include fontUnify(18, 22, 600);
     }
   }
@@ -48,7 +48,7 @@ export default class LocationComponent extends Vue {}
 
     margin: 0 auto 32px auto;
 
-    @include bigMobile { 
+    @include bigMobile {
       margin: 0 auto 24px auto;
       gap: 24px;
     }
@@ -70,7 +70,7 @@ export default class LocationComponent extends Vue {}
 
     margin: 0 auto;
 
-    @include bigMobile { 
+    @include bigMobile {
       @include fontUnify(16, 22, 400);
     }
   }

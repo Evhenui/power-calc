@@ -1,76 +1,84 @@
 <template>
-  <section class="home-services">
-    <div class="home-services__wrapper">
-
-      <DescriptionSection class="home-services__description">
-        <p class="home-services__description-text">
-          Система видеонаблюдения, установленная в квартире, в первую очередь выполняет охранные
-          функции: запись несанкционированного проникновения злоумышленников (хулиганские действия,
-          взлом, ограбление и т.д.), отправка тревожных сигналов по датчику движения и прочее.
+  <section class="flat-services">
+    <div class="flat-services__wrapper">
+      <DescriptionSection class="flat-services__description">
+        <p class="flat-services__description-text">
+          Система видеонаблюдения, установленная в квартире, в первую очередь
+          выполняет охранные функции: запись несанкционированного проникновения
+          злоумышленников (хулиганские действия, взлом, ограбление и т.д.),
+          отправка тревожных сигналов по датчику движения и прочее.
         </p>
       </DescriptionSection>
 
-      <Capabilities class="home-services__capabilities">
+      <Capabilities class="flat-services__capabilities">
         <template v-slot:title>Система безопасности позволяет:</template>
         <template v-slot:card>
-
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="flat-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="../../../assets/img/baby-capabilities.svg"
-                alt="view teritory"
+              <SvgIcon
+                class="flat-services__image-capabilities"
+                :icon="icons['baby-capabilities']"
               />
             </template>
-            <template v-slot:subtitle>Cмотреть за детьми в режиме реального времени</template>
+            <template v-slot:subtitle
+              >Cмотреть за детьми в режиме реального времени</template
+            >
           </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="flat-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="../../../assets/img/kat-capabilities.svg"
-                alt="view teritory"
+              <SvgIcon
+                class="flat-services__image-capabilities"
+                :icon="icons['kat-capabilities']"
               />
             </template>
             <template v-slot:subtitle>Cледить за животными</template>
           </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="flat-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="../../../assets/img/woomen-capabilities.svg"
-                alt="view teritory"
+              <SvgIcon
+                class="flat-services__image-capabilities"
+                :icon="icons['woomen-capabilities']"
               />
             </template>
-            <template v-slot:subtitle>Осуществлять контроль работы домашнего персонала</template>
+            <template v-slot:subtitle
+              >Осуществлять контроль работы домашнего персонала</template
+            >
           </CardCapabilitiesColumn>
 
-          <CardCapabilitiesColumn class="home-services__capabilities-card">
+          <CardCapabilitiesColumn class="flat-services__capabilities-card">
             <template v-slot:image>
-              <img
-                src="../../../assets/img/stairs-capabilities.svg"
-                alt="view teritory"
+              <SvgIcon
+                class="flat-services__image-capabilities"
+                :icon="icons['stairs-capabilities']"
               />
             </template>
-            <template v-slot:subtitle>Bидеть, что происходит на лестничной площадке</template>
+            <template v-slot:subtitle
+              >Bидеть, что происходит на лестничной площадке</template
+            >
           </CardCapabilitiesColumn>
-
         </template>
       </Capabilities>
 
-      <InstallerBunner class="home-services__bunner" />
+      <InstallerBunner class="flat-services__bunner" />
 
-      <DescriptionSection class="home-services__description">
-        <p class="home-services__description-text narrow-width">
-          Оборудование для систем видеонаблюдения и систем контроля доступа для квартир;
-          монтаж камер с учетом особенностей каждого объекта; гарантии и техническое обслуживание. 
+      <DescriptionSection class="flat-services__description">
+        <p class="flat-services__description-text narrow-width">
+          Оборудование для систем видеонаблюдения и систем контроля доступа для
+          квартир; монтаж камер с учетом особенностей каждого объекта; гарантии
+          и техническое обслуживание.
         </p>
       </DescriptionSection>
 
-      <BasicSet class="home-services__set">
-        <template v-slot:title>Пример базового комплекта оборудования для системы видеонаблюдения в квартире</template>
+      <BasicSet class="flat-services__set">
+        <template v-slot:title
+          >Пример базового комплекта оборудования для системы видеонаблюдения в
+          квартире</template
+        >
 
         <template v-slot:cards>
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="flat-services__set-card">
             <template v-slot:amount>х4</template>
             <template v-slot:image>
               <img src="@/assets/img/camera-big-set.png" alt="camera" />
@@ -78,7 +86,7 @@
             <template v-slot:name>Купольная IP камера</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="flat-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/dvr-set.png" alt="dvr" />
@@ -86,7 +94,7 @@
             <template v-slot:name>Видеорегистратор</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="flat-services__set-card">
             <template v-slot:amount>х1</template>
             <template v-slot:image>
               <img src="@/assets/img/hdmi-set.png" alt="hdmi" />
@@ -94,7 +102,7 @@
             <template v-slot:name>Кабель HDMI 1.5 м</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="flat-services__set-card">
             <template v-slot:amount>х2</template>
             <template v-slot:image>
               <img src="@/assets/img/patch-cord-set.png" alt="patch cord" />
@@ -102,7 +110,7 @@
             <template v-slot:name>Патч-корд</template>
           </CardBasicSet>
 
-          <CardBasicSet class="home-services__set-card">
+          <CardBasicSet class="flat-services__set-card">
             <template v-slot:image>
               <img src="@/assets/img/materials-set.png" alt="materials" />
             </template>
@@ -110,92 +118,122 @@
           </CardBasicSet>
         </template>
         <template v-slot:description>
-          <p class="home-services__description-text slim">
-            Базовый перечень оборудования решает основные проблемы видеоконтроля в квартире. Наши специалисты готовы предложить схему подключения 
-            системы видеонаблюдения исходя из особенностей Вашего объекта. Соответственно, список необходимого Вам оборудования и его стоимость может 
-            измениться. 
+          <p class="flat-services__description-text slim">
+            Базовый перечень оборудования решает основные проблемы видеоконтроля
+            в квартире. Наши специалисты готовы предложить схему подключения
+            системы видеонаблюдения исходя из особенностей Вашего объекта.
+            Соответственно, список необходимого Вам оборудования и его стоимость
+            может измениться.
           </p>
         </template>
       </BasicSet>
 
-      <LocationRow class="home-services__location">
+      <LocationRow class="flat-services__location">
         <template v-slot:cards>
-          <CardLocationRow class="home-services__location-card">
+          <CardLocationRow class="flat-services__location-card">
             <template v-slot:image>
-              <img src="@/assets/icons/door-location.svg" alt="home teritory"/>
+              <SvgIcon
+                class="flat-services__image-location"
+                :icon="icons['door-location']"
+              />
             </template>
             <template v-slot:item>
-              <CheckItem class="home-services__price-item">Входная дверь</CheckItem>
-              <CheckItem class="home-services__price-item">Обзор на лестницу</CheckItem>
+              <CheckItem class="flat-services__price-item"
+                >Входная дверь</CheckItem
+              >
+              <CheckItem class="flat-services__price-item"
+                >Обзор на лестницу</CheckItem
+              >
             </template>
           </CardLocationRow>
 
-          <CardLocationRow class="home-services__location-card">
+          <CardLocationRow class="flat-services__location-card">
             <template v-slot:image>
-              <img src="@/assets/icons/elevator-location.svg" alt="garage" />
+              <SvgIcon
+                class="flat-services__image-location"
+                :icon="icons['elevator-location']"
+              />
             </template>
             <template v-slot:item>
-              <CheckItem class="home-services__price-item">Зона лифта</CheckItem>
-              <CheckItem class="home-services__price-item">Обзор парадной</CheckItem>
+              <CheckItem class="flat-services__price-item"
+                >Зона лифта</CheckItem
+              >
+              <CheckItem class="flat-services__price-item"
+                >Обзор парадной</CheckItem
+              >
             </template>
           </CardLocationRow>
         </template>
         <template v-slot:subtitle>
-          Специалисты-монтажники из команды GreenVision практикуют индивидуальный подход к каждому клиенту. Они обязательно подберут 
-          оптимальное решение для установки видеонаблюдения, исходя из целей, которые оно должно выполнять. Мы поставляем только 
-          проверенное (качественное) оборудование, рассчитанное на любой бюджет (от эконом до премиум класса). 
+          Специалисты-монтажники из команды GreenVision практикуют
+          индивидуальный подход к каждому клиенту. Они обязательно подберут
+          оптимальное решение для установки видеонаблюдения, исходя из целей,
+          которые оно должно выполнять. Мы поставляем только проверенное
+          (качественное) оборудование, рассчитанное на любой бюджет (от эконом
+          до премиум класса).
         </template>
       </LocationRow>
 
-      <ServicePrice class="home-services__service-price">
-        <template v-slot:title>Что входит в услугу установки типового комплекта видеонаблюдения для квартиры?</template>
+      <ServicePrice class="flat-services__service-price">
+        <template v-slot:title
+          >Что входит в услугу установки типового комплекта видеонаблюдения для
+          квартиры?</template
+        >
         <template v-slot:price>7 500грн</template>
         <template v-slot:item>
-          <CheckItem class="home-services__price-item">Комплект видеонаблюдения FullHD разрешения, камеры для 
-            наружной и внутренней установки с инфракрасной подсветкой до 20 метров 
+          <CheckItem class="flat-services__price-item"
+            >Комплект видеонаблюдения FullHD разрешения, камеры для наружной и
+            внутренней установки с инфракрасной подсветкой до 20 метров
           </CheckItem>
-          <CheckItem class="home-services__price-item">Видеорегистратор без накопителя</CheckItem>
-
+          <CheckItem class="flat-services__price-item"
+            >Видеорегистратор без накопителя</CheckItem
+          >
         </template>
         <template v-slot:image>
           <img src="@/assets/img/flat-stock-card.png" alt="flat" />
         </template>
       </ServicePrice>
 
-      <Offers class="home-services__offers">
+      <Offers class="flat-services__offers">
         <template v-slot:title>Видеорегистратор без накопителя</template>
         <template v-slot:item>
-          <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item">Установка 2 камер на высоте не более 3 метров (без коробок)</CheckItem>
-            <CheckItem class="home-services__offer-item">
-              Сверление не более 2 отверстий до 20 сантиметров для прокладки в них кабеля по необходимости
+          <div class="flat-services__offer-section">
+            <CheckItem class="flat-services__offer-item"
+              >Установка 2 камер на высоте не более 3 метров (без
+              коробок)</CheckItem
+            >
+            <CheckItem class="flat-services__offer-item">
+              Сверление не более 2 отверстий до 20 сантиметров для прокладки в
+              них кабеля по необходимости
             </CheckItem>
-            <CheckItem class="home-services__offer-item">
-              Подключение видеорегистратора и камер к сети (2 свободные розетки, или удлинитель заказчика)
+            <CheckItem class="flat-services__offer-item">
+              Подключение видеорегистратора и камер к сети (2 свободные розетки,
+              или удлинитель заказчика)
             </CheckItem>
           </div>
-          <div class="home-services__offer-section">
-            <CheckItem class="home-services__offer-item">
-              Подключение видеорегистратора к телевизору заказчика на расстоянии 1.5 метра
-              </CheckItem>
-            <CheckItem class="home-services__offer-item">
-              Прокладка кабеля открытым способом не более 18 метров до камеры (крепление стяжки;
-              клипсы; под армрстронгом, без сверления отверстий для фиксации кабельной трассы )
-              на высоте до 3 метров
+          <div class="flat-services__offer-section">
+            <CheckItem class="flat-services__offer-item">
+              Подключение видеорегистратора к телевизору заказчика на расстоянии
+              1.5 метра
+            </CheckItem>
+            <CheckItem class="flat-services__offer-item">
+              Прокладка кабеля открытым способом не более 18 метров до камеры
+              (крепление стяжки; клипсы; под армрстронгом, без сверления
+              отверстий для фиксации кабельной трассы ) на высоте до 3 метров
             </CheckItem>
           </div>
         </template>
       </Offers>
 
-      <Promt class="home-services__promt" />
+      <Promt class="flat-services__promt" />
 
-      <SchemeLocation class="home-services__scheme">
+      <SchemeLocation class="flat-services__scheme">
         <template v-slot:scheme>
           <img src="@/assets/img/scheme-flat.png" alt="scheme home" />
         </template>
       </SchemeLocation>
 
-      <ContactUs class="home-services__contacts" />
+      <ContactUs class="flat-services__contacts" />
     </div>
   </section>
 </template>
@@ -211,7 +249,7 @@ import BasicSet from "./sections/BasicSet.vue";
 import CardBasicSet from "./UI/CardBasicSet.vue";
 import LocationRow from "./sections/LocationRow.vue";
 import ServicePrice from "./sections/ServicePrice.vue";
-import CheckItem from "./UI/CheckItem.vue"
+import CheckItem from "./UI/CheckItem.vue";
 import Offers from "./sections/Offers.vue";
 import Promt from "./sections/Promt.vue";
 import SchemeLocation from "./sections/SchemeLocation.vue";
@@ -241,7 +279,7 @@ export default class FlatServicesComponent extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-.home-services {
+.flat-services {
   background-color: white;
 
   &__description,
@@ -299,6 +337,17 @@ export default class FlatServicesComponent extends Vue {}
     }
   }
 
+  &__image-capabilities {
+    width: 115px;
+    height: 115px;
+    color: #159822;
+
+    @include bigMobile {
+      width: 95px;
+      height: 95px;
+    }
+  }
+
   &__capabilities-card {
     --gap: 16px;
 
@@ -329,9 +378,21 @@ export default class FlatServicesComponent extends Vue {}
     }
   }
 
+  &__image-location {
+    width: 135px;
+    height: 135px;
+
+    color: #159822;
+
+    @include bigMobile {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
   &__location-card {
     --gap: 96px;
-  
+
     @include set-item-count-in-row(2);
 
     @include bigMobile {

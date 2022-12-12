@@ -9,9 +9,9 @@
       </p>
       <div class="service-price__body">
         <div class="service-price__info">
-            <div class="service-price__list">
-                <slot name="item"></slot>
-            </div>
+          <div class="service-price__list">
+            <slot name="item"></slot>
+          </div>
 
           <ButtonTransparent />
         </div>
@@ -110,7 +110,7 @@ export default class ServicePriceComponent extends Vue {}
     max-width: 347px;
     width: 100%;
     img {
-        width: 100%;
+      width: 100%;
     }
   }
 }
